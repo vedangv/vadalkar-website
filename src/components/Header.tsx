@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -19,18 +20,15 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">V</span>
-            </div>
-            <div>
-              <span className="text-lg font-bold text-slate-900 block leading-tight">
-                Vadalkar & Associates
-              </span>
-              <span className="text-xs text-slate-500 hidden sm:block">
-                Structural & Civil Engineering Consultants
-              </span>
-            </div>
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/banner.gif"
+              alt="Vadalkar And Associates - Structural & Civil Engineering Consultant"
+              width={280}
+              height={43}
+              className="h-10 w-auto sm:h-12"
+              priority
+            />
           </Link>
 
           {/* Desktop Nav */}

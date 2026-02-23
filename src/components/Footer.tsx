@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const services = [
@@ -23,13 +24,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">V</span>
-              </div>
-              <span className="text-lg font-bold text-white">
-                Vadalkar & Associates
-              </span>
+            <div className="mb-4">
+              <Image
+                src="/banner.gif"
+                alt="Vadalkar And Associates"
+                width={220}
+                height={34}
+                className="h-9 w-auto brightness-0 invert"
+              />
             </div>
             <p className="text-sm text-slate-400 leading-relaxed">
               Consulting Civil and Structural Engineers since 1994. Delivering
