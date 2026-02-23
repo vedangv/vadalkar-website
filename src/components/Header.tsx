@@ -40,7 +40,7 @@ export default function Header() {
               width={280}
               height={43}
               className={`h-10 w-auto sm:h-12 transition-all duration-300 ${
-                scrolled ? "" : "brightness-0 invert"
+                scrolled ? "" : "invert mix-blend-screen"
               }`}
               unoptimized
               priority

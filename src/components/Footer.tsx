@@ -30,7 +30,7 @@ export default function Footer() {
                 alt="Vadalkar And Associates"
                 width={220}
                 height={34}
-                className="h-9 w-auto brightness-0 invert"
+                className="h-9 w-auto invert mix-blend-screen"
                 unoptimized
               />
             </div>
