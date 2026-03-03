@@ -48,3 +48,14 @@ export const postsByCategoryQuery = groq`
     "author": author->{ name, image }
   }
 `
+
+export const relatedPostsQuery = groq`
+  *[_type == "post" && _id != $postId && count(categories[@._ref in $categoryIds]) > 0] | order(publishedAt desc) [0...3] {
+    _id,
+    title,
+    slug,
+    mainImage,
+    excerpt,
+    publishedAt
+  }
+`
