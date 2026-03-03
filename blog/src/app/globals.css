@@ -1,1 +1,115 @@
 @import "tailwindcss";
+
+/* ============================================
+   Design Tokens
+   ============================================ */
+
+:root {
+  --color-primary: #1a1a2e;
+  --color-accent: #c9a96e;
+  --color-accent-hover: #b8943d;
+  --color-background: #faf9f6;
+  --color-muted: #6b7280;
+  --color-border: #e5e2db;
+  --color-surface: #f5f3ee;
+
+  --font-playfair: var(--font-playfair-display);
+  --font-body: var(--font-source-sans-3);
+}
+
+/* ============================================
+   Tailwind v4 Theme Extensions
+   ============================================ */
+
+@theme {
+  --color-primary: #1a1a2e;
+  --color-accent: #c9a96e;
+  --color-accent-hover: #b8943d;
+  --color-background: #faf9f6;
+  --color-muted: #6b7280;
+  --color-border: #e5e2db;
+  --color-surface: #f5f3ee;
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body), 'Georgia', serif;
+  color: var(--color-primary);
+  background-color: var(--color-background);
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+}
+
+/* Selection color */
+::selection {
+  background-color: #c9a96e33;
+  color: var(--color-primary);
+}
+
+::-moz-selection {
+  background-color: #c9a96e33;
+  color: var(--color-primary);
+}
+
+/* ============================================
+   Typography
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-playfair-display), 'Georgia', serif;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-primary);
+}
+
+/* ============================================
+   Focus Styles (Accessibility)
+   ============================================ */
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   Scrollbar (subtle, elegant)
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
+}
+
+/* ============================================
+   Utility classes
+   ============================================ */
+
+.font-serif {
+  font-family: var(--font-playfair-display), 'Georgia', serif;
+}
+
+.font-sans {
+  font-family: var(--font-source-sans-3), system-ui, sans-serif;
+}

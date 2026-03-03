@@ -1,34 +1,37 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next'
+import { Playfair_Display, Source_Sans_3 } from 'next/font/google'
+import './globals.css'
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-playfair-display',
+  display: 'swap',
+})
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const sourceSans = Source_Sans_3({
+  subsets: ['latin'],
+  variable: '--font-source-sans-3',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
-  title: "Mom's Blog",
-  description: "A personal lifestyle blog",
-};
+  title: {
+    default: 'Reflections',
+    template: '%s | Reflections',
+  },
+  description: 'A personal lifestyle blog — stories, thoughts, and reflections.',
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" className={`${playfair.variable} ${sourceSans.variable}`}>
+      <body className="antialiased">
         {children}
       </body>
     </html>
-  );
+  )
 }
