@@ -19,7 +19,15 @@ export const metadata: Metadata = {
     default: 'Reflections',
     template: '%s | Reflections',
   },
-  description: 'A personal lifestyle blog — stories, thoughts, and reflections.',
+  description: 'A personal lifestyle blog — stories, reflections, and little moments of beauty.',
+  metadataBase: new URL('https://reflections.blog'),
+  openGraph: {
+    title: 'Reflections',
+    description: 'A personal lifestyle blog — stories, reflections, and little moments of beauty.',
+    siteName: 'Reflections',
+    locale: 'en_US',
+    type: 'website',
+  },
 }
 
 export default function RootLayout({
