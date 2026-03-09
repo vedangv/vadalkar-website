@@ -143,10 +143,10 @@ export default function TeamPage() {
                   Professional Memberships
                 </h3>
               </FadeIn>
-              <div className="grid grid-cols-1 sm:grid-cols-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 [&>*]:h-full">
                 {memberships.map((membership, i) => (
                   <FadeIn key={i} delay={i * 0.08}>
-                    <div className="bg-white p-6 flex gap-4 items-start border border-slate-100 -mt-px -ml-px">
+                    <div className="bg-white p-6 flex gap-4 items-start border border-slate-100 -mt-px -ml-px h-full">
                       <div className="w-8 h-8 bg-primary-50 flex items-center justify-center shrink-0">
                         <svg className="w-4 h-4 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -203,10 +203,10 @@ export default function TeamPage() {
               whose guidance and mentorship have shaped our practice and philosophy.
             </p>
           </FadeIn>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 [&>*]:h-full">
             {acknowledgements.map((person, i) => (
               <FadeIn key={i} delay={i * 0.08}>
-                <div className="bg-white p-8 border border-slate-200 -mt-px -ml-px">
+                <div className="bg-white p-8 border border-slate-200 -mt-px -ml-px h-full">
                   <h3 className="text-lg font-bold text-slate-900 mb-2">{person.name}</h3>
                   <p className="text-sm text-slate-400 leading-relaxed">{person.description}</p>
                 </div>

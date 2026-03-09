@@ -100,10 +100,10 @@ export default function AboutPage() {
               Activities of the Firm
             </h2>
           </FadeIn>
-          <div className="grid grid-cols-1 md:grid-cols-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 [&>*]:h-full">
             {activities.map((activity, i) => (
               <FadeIn key={i} delay={i * 0.08}>
-                <div className="bg-white p-8 lg:p-10 flex gap-6 items-start group hover:bg-slate-50 transition-colors border border-slate-200 -mt-px -ml-px">
+                <div className="bg-white p-8 lg:p-10 flex gap-6 items-start group hover:bg-slate-50 transition-colors border border-slate-200 -mt-px -ml-px h-full">
                   <span className="text-4xl font-bold text-slate-100 group-hover:text-accent-200 transition-colors shrink-0">
                     {String(i + 1).padStart(2, "0")}
                   </span>
