@@ -53,7 +53,7 @@ export default function ContactPage() {
       </section>
 
       {/* Content */}
-      <section className="py-32 bg-white">
+      <section className="py-32 bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-20">
             {/* Form */}
@@ -61,9 +61,9 @@ export default function ContactPage() {
               <FadeIn>
                 <div className="flex items-center gap-3 mb-6">
                   <div className="h-px w-12 bg-accent-400" />
-                  <span className="text-accent-500 font-medium text-sm uppercase tracking-[0.2em]">Enquiry</span>
+                  <span className="text-accent-400 font-medium text-sm uppercase tracking-[0.2em]">Enquiry</span>
                 </div>
-                <h2 className="text-3xl font-bold text-slate-900 mb-10">
+                <h2 className="text-3xl font-bold text-white mb-10">
                   Send Us a Message
                 </h2>
               </FadeIn>
@@ -77,9 +77,9 @@ export default function ContactPage() {
               <FadeIn delay={0.2}>
                 <div className="flex items-center gap-3 mb-6">
                   <div className="h-px w-12 bg-accent-400" />
-                  <span className="text-accent-500 font-medium text-sm uppercase tracking-[0.2em]">Offices</span>
+                  <span className="text-accent-400 font-medium text-sm uppercase tracking-[0.2em]">Offices</span>
                 </div>
-                <h2 className="text-3xl font-bold text-slate-900 mb-10">
+                <h2 className="text-3xl font-bold text-white mb-10">
                   Visit Us
                 </h2>
               </FadeIn>
@@ -87,16 +87,16 @@ export default function ContactPage() {
               <div className="space-y-8">
                 {offices.map((office, i) => (
                   <FadeIn key={office.name} delay={0.3 + i * 0.1}>
-                    <div className="border-l-2 border-slate-200 pl-8 py-2 hover:border-primary-500 transition-colors">
-                      <h3 className="text-lg font-semibold text-slate-900 mb-3">{office.name}</h3>
-                      <p className="text-slate-500 text-sm leading-relaxed mb-3">{office.address}</p>
+                    <div className="border-l-2 border-slate-700 pl-8 py-2 hover:border-accent-400 transition-colors">
+                      <h3 className="text-lg font-semibold text-white mb-3">{office.name}</h3>
+                      <p className="text-slate-400 text-sm leading-relaxed mb-3">{office.address}</p>
                       {office.phone && (
-                        <a href={`tel:${office.phone.replace(/\s/g, "")}`} className="block text-sm text-slate-600 hover:text-primary-500 transition-colors mb-1">
+                        <a href={`tel:${office.phone.replace(/\s/g, "")}`} className="block text-sm text-slate-300 hover:text-accent-400 transition-colors mb-1">
                           Tel: {office.phone}
                         </a>
                       )}
                       {office.cell && (
-                        <a href={`tel:${office.cell.replace(/\s/g, "")}`} className="block text-sm text-slate-600 hover:text-primary-500 transition-colors">
+                        <a href={`tel:${office.cell.replace(/\s/g, "")}`} className="block text-sm text-slate-300 hover:text-accent-400 transition-colors">
                           Cell: {office.cell}
                         </a>
                       )}
@@ -105,7 +105,7 @@ export default function ContactPage() {
                 ))}
 
                 <FadeIn delay={0.5}>
-                  <div className="bg-slate-900 p-8 mt-8">
+                  <div className="bg-slate-800 p-8 mt-8 border border-slate-700">
                     <h3 className="text-lg font-semibold text-white mb-2">Email Us</h3>
                     <p className="text-slate-400 text-sm mb-4">For enquiries and project discussions</p>
                     <a href="mailto:vadalkar@gmail.com" className="text-accent-400 font-semibold hover:text-accent-300 transition-colors text-lg">
@@ -123,14 +123,14 @@ export default function ContactPage() {
       </section>
 
       {/* Map */}
-      <section className="bg-slate-50">
+      <section className="bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
           <FadeIn>
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-12 bg-accent-400" />
-              <span className="text-accent-500 font-medium text-sm uppercase tracking-[0.2em]">Location</span>
+              <span className="text-accent-400 font-medium text-sm uppercase tracking-[0.2em]">Location</span>
             </div>
-            <h2 className="text-3xl font-bold text-slate-900 mb-10">
+            <h2 className="text-3xl font-bold text-white mb-10">
               Find Us
             </h2>
           </FadeIn>
