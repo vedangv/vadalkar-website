@@ -121,6 +121,35 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {/* Map */}
+      <section className="bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-4">
+          <FadeIn>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="h-px w-12 bg-accent-400" />
+              <span className="text-accent-500 font-medium text-sm uppercase tracking-[0.2em]">Location</span>
+            </div>
+            <h2 className="text-3xl font-bold text-slate-900 mb-10">
+              Find Us
+            </h2>
+          </FadeIn>
+        </div>
+        <div className="max-w-7xl mx-auto">
+          <FadeIn delay={0.1}>
+            <iframe
+              src="https://maps.google.com/maps?q=New+Samadhan+CHS+Senapati+Bapat+Road+Dadar+Mumbai&output=embed"
+              width="100%"
+              className="h-[300px] sm:h-[400px] border-0"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Vadalkar And Associates Head Office — Dadar, Mumbai"
+            />
+          </FadeIn>
+        </div>
+      </section>
     </>
   );
 }
