@@ -16,6 +16,9 @@ export const metadata: Metadata = {
     "Leading structural and civil engineering consultancy in Mumbai since 1994. Specializing in residential, commercial, industrial projects, structural audits, and STAADPro consulting.",
   keywords:
     "structural engineering, civil engineering, Mumbai, consultant, structural audit, STAADPro, Vadalkar",
+  icons: {
+    icon: "/favicon.svg",
+  },
   openGraph: {
     title: "Vadalkar And Associates",
     description:
