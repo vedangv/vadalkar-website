@@ -28,6 +28,36 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "Vadalkar And Associates",
+  description:
+    "Structural & Civil Engineering Consultants in Mumbai since 1994",
+  url: "https://vadalkar-website.vercel.app",
+  telephone: "+912224308872",
+  email: "vadalkar@gmail.com",
+  foundingDate: "1994",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress:
+      "B-703, New Samadhan CHS Ltd, Senapati Bapat Road, Opp. Dadar Stn. (W)",
+    addressLocality: "Mumbai",
+    addressRegion: "Maharashtra",
+    postalCode: "400028",
+    addressCountry: "IN",
+  },
+  areaServed: "Mumbai, Maharashtra, India",
+  serviceType: [
+    "Structural Design",
+    "Structural Analysis",
+    "Structural Audit",
+    "Repair Consulting",
+    "Proof Checking",
+    "STAADPro Consulting",
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -36,6 +66,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <Header />
         <main>{children}</main>
         <Footer />
