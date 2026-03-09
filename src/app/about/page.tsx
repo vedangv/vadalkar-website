@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import FadeIn from "@/components/FadeIn";
+import ProjectStats from "@/components/ProjectStats";
 
 export const metadata: Metadata = {
   title: "About Us | Vadalkar And Associates",
@@ -225,6 +226,22 @@ export default function AboutPage() {
               </FadeIn>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Project Statistics */}
+      <section className="py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn>
+            <div className="flex items-center gap-3 mb-8">
+              <div className="h-px w-12 bg-accent-400" />
+              <span className="text-accent-600 font-medium text-sm uppercase tracking-[0.2em]">By the Numbers</span>
+            </div>
+            <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 leading-tight mb-16">
+              Project Statistics
+            </h2>
+          </FadeIn>
+          <ProjectStats />
         </div>
       </section>
     </>
