@@ -62,9 +62,9 @@ export default function ProjectsGrid() {
             {filtered.map((project, i) => (
               <div
                 key={i}
-                className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:shadow-lg transition-shadow duration-300"
+                className="bg-white rounded-none overflow-hidden border border-slate-200 hover:shadow-lg hover:border-l-2 hover:border-l-accent-400 transition-shadow duration-300"
               >
-                <div className="h-32 bg-gradient-to-br from-primary-500/90 to-slate-700 relative flex items-center justify-center overflow-hidden">
+                <div className="h-40 bg-gradient-to-br from-primary-500/90 to-slate-700 relative flex items-center justify-center overflow-hidden">
                   {project.image ? (
                     <Image
                       src={project.image}
@@ -89,12 +89,12 @@ export default function ProjectsGrid() {
                     </svg>
                   )}
                   <div className="absolute top-3 left-3 z-10">
-                    <span className="bg-accent-400 text-slate-900 text-xs font-semibold px-3 py-1 rounded-full">
+                    <span className="bg-accent-400 text-slate-900 text-xs font-semibold px-3 py-1 rounded-none">
                       {project.category}
                     </span>
                   </div>
                   <div className="absolute top-3 right-3 z-10">
-                    <span className="bg-white/20 text-white text-xs font-medium px-3 py-1 rounded-full backdrop-blur-sm">
+                    <span className="bg-white/20 text-white text-xs font-medium px-3 py-1 rounded-none backdrop-blur-sm">
                       {project.year}
                     </span>
                   </div>

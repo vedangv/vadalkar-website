@@ -56,3 +56,18 @@ html {
   outline: 2px solid var(--color-primary-500);
   outline-offset: 2px;
 }
+
+/* Hide scrollbar for category filters */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Selection color */
+::selection {
+  background-color: var(--color-accent-400);
+  color: var(--color-primary-900);
+}
