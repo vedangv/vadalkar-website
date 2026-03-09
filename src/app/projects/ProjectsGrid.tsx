@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { projects, categories } from "@/data/projects";
 
 export default function ProjectsGrid() {
@@ -63,26 +64,36 @@ export default function ProjectsGrid() {
                 key={i}
                 className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:shadow-lg transition-shadow duration-300"
               >
-                <div className="h-32 bg-gradient-to-br from-primary-500/90 to-slate-700 relative flex items-center justify-center">
-                  <svg
-                    className="w-10 h-10 text-white/20"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1}
-                      d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 0h.008v.008h-.008V7.5z"
+                <div className="h-32 bg-gradient-to-br from-primary-500/90 to-slate-700 relative flex items-center justify-center overflow-hidden">
+                  {project.image ? (
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover"
+                      unoptimized
                     />
-                  </svg>
-                  <div className="absolute top-3 left-3">
+                  ) : (
+                    <svg
+                      className="w-10 h-10 text-white/20"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1}
+                        d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 0h.008v.008h-.008V7.5z"
+                      />
+                    </svg>
+                  )}
+                  <div className="absolute top-3 left-3 z-10">
                     <span className="bg-accent-400 text-slate-900 text-xs font-semibold px-3 py-1 rounded-full">
                       {project.category}
                     </span>
                   </div>
-                  <div className="absolute top-3 right-3">
+                  <div className="absolute top-3 right-3 z-10">
                     <span className="bg-white/20 text-white text-xs font-medium px-3 py-1 rounded-full backdrop-blur-sm">
                       {project.year}
                     </span>
