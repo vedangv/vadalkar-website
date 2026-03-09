@@ -63,7 +63,7 @@ const featuredProjects = [
 
 const stats = [
   { value: "30+", label: "Years of Experience" },
-  { value: "100+", label: "Projects Delivered" },
+  { value: "200+", label: "Projects Delivered" },
   { value: "14", label: "Sectors Served" },
   { value: "2", label: "Office Locations" },
 ];
@@ -237,7 +237,7 @@ export default function Home() {
                 href="/projects"
                 className="group text-primary-500 font-semibold text-sm flex items-center gap-2 hover:gap-3 transition-all"
               >
-                View all 100+ projects
+                View all 200+ projects
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
