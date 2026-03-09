@@ -71,3 +71,9 @@ html {
   background-color: var(--color-accent-400);
   color: var(--color-primary-900);
 }
+
+/* Architectural dot grid pattern */
+.dot-grid-pattern {
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.04) 1px, transparent 0);
+  background-size: 32px 32px;
+}

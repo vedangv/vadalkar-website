@@ -118,9 +118,9 @@ export default function Home() {
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 pt-40 w-full">
           <div className="max-w-4xl">
             <FadeIn delay={0.1}>
-              <div className="flex items-center gap-3 mb-8">
-                <div className="h-px w-12 bg-accent-400" />
-                <span className="text-accent-400 font-medium text-sm uppercase tracking-[0.2em]">
+              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 border border-accent-400/20 bg-accent-400/5 mb-8">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent-400 animate-pulse" />
+                <span className="text-accent-400 font-semibold text-xs uppercase tracking-[0.2em]">
                   Established 1994
                 </span>
               </div>
@@ -132,7 +132,7 @@ export default function Home() {
                 <br />
                 Stronger
                 <br />
-                <span className="text-accent-400">Foundations</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-300 via-accent-400 to-accent-600">Foundations</span>
               </h1>
             </FadeIn>
 
@@ -165,9 +165,11 @@ export default function Home() {
             </FadeIn>
           </div>
 
+          <div className="mt-16 h-px w-full bg-gradient-to-r from-transparent via-accent-400/20 to-transparent" />
+
           {/* Stats strip at bottom of hero */}
           <FadeIn delay={0.7}>
-            <div className="mt-20 pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="mt-4 pt-8 grid grid-cols-2 md:grid-cols-4 gap-8">
               {stats.map((stat) => (
                 <div key={stat.label}>
                   <p className="text-4xl lg:text-5xl font-bold text-white">{stat.value}</p>
