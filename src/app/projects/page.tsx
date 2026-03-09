@@ -5,7 +5,7 @@ import ProjectsGrid from "./ProjectsGrid";
 export const metadata: Metadata = {
   title: "Our Projects | Vadalkar And Associates",
   description:
-    "Explore our portfolio of 100+ structural engineering projects across residential, commercial, industrial, and infrastructure sectors.",
+    "Explore our portfolio of 200+ structural engineering projects across residential, commercial, industrial, and infrastructure sectors.",
 };
 
 export default function ProjectsPage() {
@@ -30,7 +30,7 @@ export default function ProjectsPage() {
           </FadeIn>
           <FadeIn delay={0.2}>
             <p className="text-xl text-slate-300 max-w-2xl leading-relaxed">
-              Over 100 projects across 14 sectors — from high-rise residential
+              Over 200 projects across 14 sectors — from high-rise residential
               towers to industrial complexes, infrastructure, and structural audits.
             </p>
           </FadeIn>
