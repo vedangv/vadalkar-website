@@ -17,14 +17,15 @@ const credentials = [
 
 const memberships = [
   "Member of the Institution of Engineers (India)",
-  "Indian Society of Structural Engineers - Advisory Trustee",
+  "Indian Society of Structural Engineers — President",
   "Member of American Concrete Institute - India Chapter",
   "Associate (Life) Member of the Institution of Valuers",
   "Life Member of the Practicing Engineers, Architects and Town Planners Association",
+  "Member of Indian Geotechnical Society, India (IGS)",
 ];
 
 const career = [
-  { period: "2006 - Present", role: "Principal Consultant", company: "Vadalkar & Associates", description: "Leading the firm independently, managing all structural engineering projects and expanding into new sectors." },
+  { period: "2006 - Present", role: "Principal Consultant", company: "Vadalkar & Associates", description: "Leading the firm independently, designing high-rise and complex structures including industrial plants, residential and commercial towers, mass housing, treatment plants, jetties, and marine works. Computer analysis consultants for many projects." },
   { period: "1994 - 2006", role: "Partner", company: "Vartak - Vadalkar & Associates", description: "Co-founded the consulting firm. Designed many civil engineering projects including industrial, commercial, housing, and utility projects." },
   { period: "1989 - 1994", role: "Senior Design Engineer", company: "Shirish Patel & Associates Consultants Pvt. Ltd., Mumbai", description: "Handled STAAD analysis, design, detailing, estimating, and occasional site supervision for various industrial and commercial projects." },
   { period: "1986 - 1987", role: "Site Engineer", company: "Dharamsi Morarji Chemicals Co. Ltd., Ambernath", description: "Supervised construction of 36m high Silo. Design and estimation for factory building extensions. Site engineer for new plant construction at Dhari, Gujarat." },
@@ -34,7 +35,9 @@ const publications = [
   { title: "Innovative Designs for Platform Covers at New Mumbai Railway Stations", journal: "Indian Concrete Journal", date: "May 1992" },
   { title: "Designing with Spread Sheets on Your Own", journal: "National Seminar, Nagpur", date: "February 1993" },
   { title: "Off the Beaten Track — New Mumbai Railway Stations", journal: "Indian Architect and Builder", date: "December 1995" },
+  { title: "Structural Damage during Gujarat Earthquake — A Case Study for Ahmedabad City", journal: "Lecture at Max Muller Bhavan", date: "March 2001" },
   { title: "Various Technical Articles", journal: "Journal of Indian Society of Structural Engineers", date: "Various" },
+  { title: "Articles on Civil and Structural Engineering", journal: "Loksatta (Marathi newspaper)", date: "Various" },
 ];
 
 const acknowledgements = [
@@ -79,9 +82,9 @@ export default function TeamPage() {
             <div className="lg:col-span-4">
               <FadeIn>
                 <div className="lg:sticky lg:top-28">
-                  <div className="w-full aspect-square max-w-xs relative overflow-hidden mb-8">
+                  <div className="w-full aspect-[3/4] max-w-xs relative overflow-hidden mb-8">
                     <Image
-                      src="/team/hemant-vadalkar.jpg"
+                      src="/team/hemant-vadalkar-new.jpg"
                       alt="Hemant S. Vadalkar"
                       fill
                       sizes="(max-width: 768px) 100vw, 320px"

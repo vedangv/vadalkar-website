@@ -12,7 +12,7 @@ const milestones = [
   { year: "1996", title: "Major High-Rise Projects", description: "Took on landmark projects including Videocon Towers (S+25, two towers) in Kandivali." },
   { year: "2000s", title: "Expanded Portfolio", description: "Grew into industrial, commercial, infrastructure, and institutional projects across Maharashtra." },
   { year: "2006", title: "Rebranded as Vadalkar & Associates", description: "Continued independently under the leadership of Hemant Vadalkar, expanding the firm's capabilities." },
-  { year: "Today", title: "30+ Years of Excellence", description: "Over 200 projects completed spanning 14+ sectors, with offices in Dadar and Vashi." },
+  { year: "Today", title: "35+ Years of Excellence", description: "Over 200 projects completed spanning 14+ sectors, with offices in Dadar and Vashi." },
 ];
 
 const activities = [

@@ -37,7 +37,7 @@ export const projects: Project[] = [
   { title: "Residential Building G+7 at Pali Hill — Staff Quarters", category: "Residential", client: "Western Railway", architect: "S.N. Bhobe & Associates", year: "1996", cost: "280" },
   { title: "Sterling Diamond Apartments S+7 at Mount Mary, Bandra", category: "Residential", client: "Shapoorji Pallonji & Co. Ltd.", year: "1997", cost: "150" },
   { title: "Mass Housing Project for Delhi Development Authority — LIG-MIG Units", category: "Residential", client: "Delhi Development Authority", architect: "Developments Consultants, New Delhi", year: "2001" },
-  { title: "Mass Housing Project for CIDCO at Sector-7, Ghansoli, Navi Mumbai", category: "Residential", client: "Simplex Concrete Piles (I) Ltd.", architect: "Hafeez Contractor", year: "2002", cost: "4200", image: "/projects/residential/resi-ghansoli1.gif" },
+  { title: "Mass Housing Project for CIDCO at Sector-7, Ghansoli, Navi Mumbai — 2400 Tenements", category: "Residential", client: "Simplex Infrastructure Ltd.", architect: "Hafeez Contractor", year: "2002", cost: "4200", image: "/projects/residential/ghansoli-cidco-housing.jpg" },
   { title: "Farm House at Tarapur", category: "Residential", client: "Brijendra Nath, Mumbai", architect: "Yatin Mhatre", year: "2004", cost: "20" },
   { title: "Structural Inspection and Audit Report for White Lilly CHS, Dadar (W)", category: "Residential", client: "White Lilly CHS, Dadar (W), Mumbai", year: "2004" },
   { title: "Bungalow at Palghar", category: "Residential", client: "Dr. Shah", architect: "Yatin Mhatre", year: "2005", cost: "30" },
@@ -53,7 +53,7 @@ export const projects: Project[] = [
   { title: "RCC Design of G+7 Shivkrupa Building at Dadar", category: "Residential", client: "R K Engineers", architect: "Sumedha Gore", year: "2011", cost: "600" },
   { title: "Avighna Residential Building — Tower Crane Supporting Arrangement", category: "Residential", client: "Simplex Infrastructures Ltd.", year: "2011" },
   { title: "Raft Design for G+6 Building at Goa", category: "Residential", client: "Shree Siddhivinayak Construction Co., Goa", year: "2012", cost: "20" },
-  { title: "G+16 Towers at Aagasan, Thane", category: "Residential", client: "Ananthnath Developers, Mumbai", architect: "Sameer Lotke", year: "2013", cost: "2000" },
+  { title: "G+16 Towers at Agasan, Thane", category: "Residential", client: "Anantnath Developers, Mumbai", architect: "Sameer Lotke", year: "2013", cost: "2000", image: "/projects/residential/agasan-towers.jpg" },
   { title: "Supporting Staff Quarter Building S+10 for ICT Mumbai", category: "Residential", client: "Institute of Chemical Technology, Mumbai", architect: "Patel Batliwala and Manohar", year: "2013", cost: "500" },
   { title: "Swimming Pool and Water Training Facility at ICGAS, MES, Daman", category: "Residential", client: "Nayan Dholakia, Kalyan", year: "2013", cost: "100" },
   { title: "Staff Quarter Housing H1 Type Building for IIT Bombay", category: "Residential", client: "Indian Institute of Technology (IIT) Bombay", architect: "Ratan Batliboi", year: "2013", cost: "1000" },
@@ -61,6 +61,8 @@ export const projects: Project[] = [
   { title: "Stilt+15 Storey A-Type Building for Staff at IIT Bombay", category: "Residential", client: "Indian Institute of Technology (IIT) Bombay", architect: "Ratan Batliboi", year: "2014", cost: "1800" },
   { title: "G+3 Residential Building for Sarang Buwa at Nandurbar", category: "Residential", client: "Sarang Buwa", architect: "Niraj Deshpande, Nandurbar", year: "2014", cost: "75" },
   { title: "Aasangaon Residential Project", category: "Residential", client: "Private", year: "2014", image: "/projects/residential/aasangaon.jpg" },
+  { title: "Hostel 18 Building for IIT Bombay — 1100 Students", category: "Residential", client: "Indian Institute of Technology (IIT) Bombay", architect: "Ratan Batliboi", year: "2015", cost: "3000", image: "/projects/residential/iit-bombay-hostel-18.jpg" },
+  { title: "Hostel 19 Building for IIT Bombay", category: "Residential", client: "Indian Institute of Technology (IIT) Bombay", architect: "Ratan Batliboi", year: "2016", cost: "2500" },
 
   // === INDUSTRIAL ===
   { title: "Factory Building at Vashi, New Bombay", category: "Industrial", client: "M/s Rishabh Oil Industries", year: "1994", cost: "25" },
@@ -167,6 +169,7 @@ export const projects: Project[] = [
 
   // === SPORTS COMPLEX ===
   { title: "Kridasankul at CIDCO for Nashik Municipal Corporation", category: "Sports Complex", client: "Nashik Municipal Corporation", architect: "Sanjay Dhumne & Associates", year: "2001", cost: "500", image: "/projects/sports-complex/sc-nashik1.gif" },
+  { title: "Indoor Stadium at Nashik for Nashik Municipal Corporation", category: "Sports Complex", client: "Nashik Municipal Corporation", year: "2008", cost: "800", image: "/projects/sports-complex/nashik-indoor-stadium.jpg" },
 
   // === COMMUNICATION TOWERS ===
   { title: "Communication Tower 30m at Vashi Railway Station", category: "Communication Towers", client: "Standard Constructions, Pune", year: "1998", cost: "8", image: "/projects/communication/communication-25antennae.gif" },
@@ -244,16 +247,22 @@ export const projects: Project[] = [
   { title: "Shuttering and Temporary Staging for High-Rise at Prabhadevi", category: "Shuttering Design", client: "M/s Simplex Concrete Piles (I) Ltd.", year: "2006" },
 
   // === SPECIAL PROJECTS ===
-  { title: "Theme Pavilion for Plast India Exhibition at New Delhi", category: "Special Projects", client: "Tata Interactive Systems", architect: "Ideamatrix - Gauri Roy", year: "1996", cost: "6" },
+  { title: "Theme Pavilion for Plast India Exhibition at New Delhi", category: "Special Projects", client: "Tata Interactive Systems", architect: "Ideamatrix - Gauri Roy", year: "1996", cost: "6", image: "/projects/special/plastindia-exhibition.jpg" },
   { title: "Prefabricated Cabin Design", category: "Special Projects", client: "M/s Viral Prefab Industries Pvt. Ltd.", year: "2002" },
   { title: "D2O Upgrading Tower 60m High in TAPP-3 & TAPP-4 at Tarapur", category: "Special Projects", client: "M/s Nicco Corporation Ltd., Kolkata", year: "2002", cost: "200" },
-  { title: "Transmission Tower Full Scale Testing (100m Tall) Facility at Nagpur", category: "Special Projects", client: "KEC International Limited, Mumbai", year: "2008", cost: "1500", image: "/projects/special/nagpur-001.jpg" },
+  { title: "Transmission Line Tower Testing Station at Nagpur", category: "Special Projects", client: "KEC International Limited, Mumbai", year: "2008", cost: "1500", image: "/projects/special/nagpur-transmission-tower.jpg" },
   { title: "Design of Pre-fabricated Inverted Room", category: "Special Projects", client: "Satec Envir Engineering (I) Pvt. Ltd.", year: "2011" },
   { title: "Design Calculations and Load Tables for Wall Panels", category: "Special Projects", client: "Lloyd Insulations (I) Ltd.", year: "2011" },
   { title: "Platform for Walkway at Canopy of International Airport Mumbai", category: "Special Projects", client: "Lloyd Insulations (I) Ltd.", year: "2012", cost: "50" },
   { title: "ONGC Oil Platform Extension near Mumbai", category: "Special Projects", client: "Carlton Offshore", year: "2012", cost: "50" },
   { title: "Finite Element Analysis for Crane Base (Steel Plates)", category: "Special Projects", client: "M/s Raina Engineers", year: "2013" },
   { title: "Analysis of RRP Wharf Shed for Govt. of Dubai", category: "Special Projects", client: "Advance FRP - Hemant Bhide", year: "2014" },
+  { title: "Piling Gantry for Jetty at Katupally", category: "Special Projects", client: "M/s Keller Ground Engineering", year: "2015", image: "/projects/special/katupally-piling-gantry.jpg" },
+  { title: "Piling Gantry at Tuticorin for Marine Jetty Works", category: "Special Projects", client: "ITD Cementation India Ltd.", year: "2016", image: "/projects/special/tuticorin-piling-gantry.jpg" },
+  { title: "Pile Load Testing Setup and Structural Arrangement", category: "Special Projects", client: "Various Clients", year: "2020" },
+
+  // === INDUSTRIAL (RECENT) ===
+  { title: "Industrial Shed at Plot J37, Taloja MIDC", category: "Industrial", client: "Private", year: "2019", image: "/projects/industrial/taloja-midc-shed.jpg" },
 
   // === PROOF CHECKING ===
   { title: "Analysis of Yard Crane for L&T Hazira (Proof Checking)", category: "Proof Checking", client: "WMI Cranes Ltd.", year: "2009" },

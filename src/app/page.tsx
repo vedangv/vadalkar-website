@@ -76,7 +76,7 @@ const featuredProjects: {
 ];
 
 const stats = [
-  { value: "30+", label: "Years of Experience" },
+  { value: "35+", label: "Years of Experience" },
   { value: "200+", label: "Projects Delivered" },
   { value: "14", label: "Sectors Served" },
   { value: "2", label: "Office Locations" },

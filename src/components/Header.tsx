@@ -24,10 +24,8 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-sm"
-          : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white ${
+        scrolled ? "shadow-sm" : ""
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -37,11 +35,9 @@ export default function Header() {
             <Image
               src="/banner.gif"
               alt="Vadalkar And Associates - Structural & Civil Engineering Consultant"
-              width={280}
-              height={43}
-              className={`h-10 w-auto sm:h-12 transition-all duration-300 ${
-                scrolled ? "" : "invert mix-blend-screen"
-              }`}
+              width={420}
+              height={65}
+              className="h-14 w-auto sm:h-[4.5rem]"
               unoptimized
               priority
             />
@@ -53,22 +49,14 @@ export default function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`text-sm font-medium transition-colors ${
-                  scrolled
-                    ? "text-slate-600 hover:text-primary-500"
-                    : "text-white/80 hover:text-white"
-                }`}
+                className="text-sm font-medium text-slate-600 hover:text-primary-500 transition-colors"
               >
                 {item.name}
               </Link>
             ))}
             <Link
               href="/contact"
-              className={`px-5 py-2.5 text-sm font-semibold transition-all ${
-                scrolled
-                  ? "bg-primary-500 text-white hover:bg-primary-600"
-                  : "bg-white/10 text-white border border-white/30 hover:bg-white/20 backdrop-blur-sm"
-              }`}
+              className="px-5 py-2.5 text-sm font-semibold bg-primary-500 text-white hover:bg-primary-600 transition-all"
             >
               Get in Touch
             </Link>
@@ -76,7 +64,7 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className={`md:hidden p-2 ${scrolled ? "text-slate-600" : "text-white"}`}
+            className="md:hidden p-2 text-slate-600"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
