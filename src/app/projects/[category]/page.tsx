@@ -1,0 +1,123 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import FadeIn from "@/components/FadeIn";
+import { projects, categories, categorySlug, getCategoryDescription, type Project } from "@/data/projects";
+
+const categoryList = categories.filter((c) => c !== "All");
+
+export function generateStaticParams() {
+  return categoryList.map((cat) => ({ category: categorySlug(cat) }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {
+  const { category: slug } = await params;
+  const category = categoryList.find((c) => categorySlug(c) === slug);
+  if (!category) return {};
+  return {
+    title: `${category} Projects | Vadalkar And Associates`,
+    description: getCategoryDescription(category),
+  };
+}
+
+function ProjectCard({ project }: { project: Project }) {
+  return (
+    <div className="bg-slate-900 overflow-hidden border border-slate-800 hover:border-accent-400/50 transition-all duration-300 h-full">
+      <div className="aspect-[4/3] relative bg-gradient-to-br from-primary-500/90 to-slate-700 flex items-center justify-center overflow-hidden">
+        {project.image ? (
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+        ) : (
+          <svg className="w-10 h-10 text-white/10" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 0h.008v.008h-.008V7.5z" />
+          </svg>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80 z-[1]" />
+        <div className="absolute top-3 right-3 z-10">
+          <span className="bg-slate-900 text-white text-[10px] font-black px-3 py-1 uppercase tracking-tight">{project.year}</span>
+        </div>
+        {project.featured && (
+          <div className="absolute top-3 left-3 z-10">
+            <span className="bg-accent-400 text-slate-900 text-[10px] font-black px-3 py-1 uppercase tracking-tight">Featured</span>
+          </div>
+        )}
+      </div>
+      <div className="p-5">
+        <h2 className="text-base font-semibold text-white uppercase tracking-tight mb-2 leading-snug">{project.title}</h2>
+        <p className="text-sm text-slate-400 mb-1">Client: {project.client}</p>
+        {project.architect && <p className="text-sm text-slate-400">Architect: {project.architect}</p>}
+        {project.cost && (
+          <div className="pt-3 mt-3 border-t border-slate-800 flex justify-between items-center">
+            <span className="text-accent-400 font-black text-sm">Rs. {project.cost} Lakhs</span>
+            {project.featured && project.slug && (
+              <svg className="w-4 h-4 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
+  const { category: slug } = await params;
+  const category = categoryList.find((c) => categorySlug(c) === slug);
+  if (!category) notFound();
+
+  const categoryProjects = projects.filter((p) => p.category === category);
+
+  return (
+    <>
+      {/* Hero */}
+      <section className="relative bg-slate-900 pt-40 pb-24">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-900 via-slate-800 to-primary-800" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="hero-animate" style={{ animationDelay: "0.1s" }}>
+            <Link href="/projects" className="inline-flex items-center gap-2 text-accent-400 text-sm font-medium mb-8 hover:text-accent-300 transition-colors">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              All Projects
+            </Link>
+          </div>
+          <h1 className="hero-animate text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[0.95] tracking-tight mb-8" style={{ animationDelay: "0.2s" }}>
+            {category}
+          </h1>
+          <p className="hero-animate text-xl text-slate-300 max-w-2xl leading-relaxed" style={{ animationDelay: "0.3s" }}>
+            {getCategoryDescription(category)}
+          </p>
+          <p className="hero-animate text-accent-400 font-semibold mt-4" style={{ animationDelay: "0.4s" }}>
+            {categoryProjects.length} project{categoryProjects.length !== 1 ? "s" : ""}
+          </p>
+        </div>
+      </section>
+
+      {/* Projects grid */}
+      <section className="py-16 bg-slate-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {categoryProjects.map((project, i) => (
+              <FadeIn key={i} delay={Math.min(i * 0.05, 0.3)}>
+                {project.slug && project.featured ? (
+                  <Link href={`/projects/${slug}/${project.slug}`} className="block group">
+                    <ProjectCard project={project} />
+                  </Link>
+                ) : (
+                  <ProjectCard project={project} />
+                )}
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

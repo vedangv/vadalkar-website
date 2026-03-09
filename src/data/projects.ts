@@ -6,6 +6,9 @@ export type Project = {
   year: string;
   cost?: string;
   image?: string;
+  slug?: string;
+  featured?: boolean;
+  description?: string;
 };
 
 export const categories = [
@@ -33,11 +36,11 @@ export const projects: Project[] = [
   { title: "G+5 Residential Building at Kondivita, Andheri (E)", category: "Residential", client: "M/s Mistry Builders", year: "1994", cost: "115" },
   { title: "Proposed Residential Building at Pali Hill, Bandra (G+7)", category: "Residential", client: "Western Railway", year: "1995", cost: "150" },
   { title: "Residential Buildings G+4 at Mahad, Chiplun and Dadar", category: "Residential", client: "Various Builders", year: "1996", cost: "350" },
-  { title: "Videocon Towers S+25 at Kandivli (E), Mumbai — Two Towers", category: "Residential", client: "M/s Videocon Properties Ltd.", architect: "Hafeez Contractor", year: "1996", cost: "3000", image: "/projects/residential/resi-videocon-tower.gif" },
+  { title: "Videocon Towers S+25 at Kandivli (E), Mumbai — Two Towers", category: "Residential", client: "M/s Videocon Properties Ltd.", architect: "Hafeez Contractor", year: "1996", cost: "3000", image: "/projects/residential/resi-videocon-tower.gif", slug: "videocon-towers", featured: true },
   { title: "Residential Building G+7 at Pali Hill — Staff Quarters", category: "Residential", client: "Western Railway", architect: "S.N. Bhobe & Associates", year: "1996", cost: "280" },
   { title: "Sterling Diamond Apartments S+7 at Mount Mary, Bandra", category: "Residential", client: "Shapoorji Pallonji & Co. Ltd.", year: "1997", cost: "150" },
   { title: "Mass Housing Project for Delhi Development Authority — LIG-MIG Units", category: "Residential", client: "Delhi Development Authority", architect: "Developments Consultants, New Delhi", year: "2001" },
-  { title: "Mass Housing Project for CIDCO at Sector-7, Ghansoli, Navi Mumbai — 2400 Tenements", category: "Residential", client: "Simplex Infrastructure Ltd.", architect: "Hafeez Contractor", year: "2002", cost: "4200", image: "/projects/residential/ghansoli-cidco-housing.jpg" },
+  { title: "Mass Housing Project for CIDCO at Sector-7, Ghansoli, Navi Mumbai — 2400 Tenements", category: "Residential", client: "Simplex Infrastructure Ltd.", architect: "Hafeez Contractor", year: "2002", cost: "4200", image: "/projects/residential/ghansoli-cidco-housing.jpg", slug: "ghansoli-cidco-housing", featured: true },
   { title: "Farm House at Tarapur", category: "Residential", client: "Brijendra Nath, Mumbai", architect: "Yatin Mhatre", year: "2004", cost: "20" },
   { title: "Structural Inspection and Audit Report for White Lilly CHS, Dadar (W)", category: "Residential", client: "White Lilly CHS, Dadar (W), Mumbai", year: "2004" },
   { title: "Bungalow at Palghar", category: "Residential", client: "Dr. Shah", architect: "Yatin Mhatre", year: "2005", cost: "30" },
@@ -53,15 +56,15 @@ export const projects: Project[] = [
   { title: "RCC Design of G+7 Shivkrupa Building at Dadar", category: "Residential", client: "R K Engineers", architect: "Sumedha Gore", year: "2011", cost: "600" },
   { title: "Avighna Residential Building — Tower Crane Supporting Arrangement", category: "Residential", client: "Simplex Infrastructures Ltd.", year: "2011" },
   { title: "Raft Design for G+6 Building at Goa", category: "Residential", client: "Shree Siddhivinayak Construction Co., Goa", year: "2012", cost: "20" },
-  { title: "G+16 Towers at Agasan, Thane", category: "Residential", client: "Anantnath Developers, Mumbai", architect: "Sameer Lotke", year: "2013", cost: "2000", image: "/projects/residential/agasan-towers.jpg" },
+  { title: "G+16 Towers at Agasan, Thane", category: "Residential", client: "Anantnath Developers, Mumbai", architect: "Sameer Lotke", year: "2013", cost: "2000", image: "/projects/residential/agasan-towers.jpg", slug: "agasan-towers", featured: true },
   { title: "Supporting Staff Quarter Building S+10 for ICT Mumbai", category: "Residential", client: "Institute of Chemical Technology, Mumbai", architect: "Patel Batliwala and Manohar", year: "2013", cost: "500" },
   { title: "Swimming Pool and Water Training Facility at ICGAS, MES, Daman", category: "Residential", client: "Nayan Dholakia, Kalyan", year: "2013", cost: "100" },
   { title: "Staff Quarter Housing H1 Type Building for IIT Bombay", category: "Residential", client: "Indian Institute of Technology (IIT) Bombay", architect: "Ratan Batliboi", year: "2013", cost: "1000" },
-  { title: "Residential 22 Storey Tower at Girgaon, Mumbai", category: "Residential", client: "Samir Natu Developers", architect: "Samir Natu", year: "2014", cost: "2400", image: "/projects/residential/girgaon.jpg" },
+  { title: "Residential 22 Storey Tower at Girgaon, Mumbai", category: "Residential", client: "Samir Natu Developers", architect: "Samir Natu", year: "2014", cost: "2400", image: "/projects/residential/girgaon.jpg", slug: "girgaon-tower", featured: true },
   { title: "Stilt+15 Storey A-Type Building for Staff at IIT Bombay", category: "Residential", client: "Indian Institute of Technology (IIT) Bombay", architect: "Ratan Batliboi", year: "2014", cost: "1800" },
   { title: "G+3 Residential Building for Sarang Buwa at Nandurbar", category: "Residential", client: "Sarang Buwa", architect: "Niraj Deshpande, Nandurbar", year: "2014", cost: "75" },
   { title: "Aasangaon Residential Project", category: "Residential", client: "Private", year: "2014", image: "/projects/residential/aasangaon.jpg" },
-  { title: "Hostel 18 Building for IIT Bombay — 1100 Students", category: "Residential", client: "Indian Institute of Technology (IIT) Bombay", architect: "Ratan Batliboi", year: "2015", cost: "3000", image: "/projects/residential/iit-bombay-hostel-18.jpg" },
+  { title: "Hostel 18 Building for IIT Bombay — 1100 Students", category: "Residential", client: "Indian Institute of Technology (IIT) Bombay", architect: "Ratan Batliboi", year: "2015", cost: "3000", image: "/projects/residential/iit-bombay-hostel-18.jpg", slug: "iit-bombay-hostel-18", featured: true },
   { title: "Hostel 19 Building for IIT Bombay", category: "Residential", client: "Indian Institute of Technology (IIT) Bombay", architect: "Ratan Batliboi", year: "2016", cost: "2500" },
 
   // === INDUSTRIAL ===
@@ -93,7 +96,7 @@ export const projects: Project[] = [
   { title: "A to Z Departmental Stores — Additions and Alterations, Borivli", category: "Commercial", client: "A to Z Department Stores", year: "1996" },
   { title: "Madhuram Eye Clinic and Residential Building at Nandurbar", category: "Commercial", client: "Dr. P.R. Sonar, Nandurbar", year: "2000", cost: "25", image: "/projects/commercial/sonar_house1.gif" },
   { title: "Tower 7-B at Bharat Diamond Bourse, BKC, Bandra", category: "Commercial", client: "Bharat Diamond Bourse", architect: "Raja Aederi Architects", year: "2000", cost: "2000" },
-  { title: "BSEL Infotech Park at Vashi, Navi Mumbai", category: "Commercial", client: "M/s BSEL Information Systems Ltd.", architect: "Nitin Killawala", year: "2002", cost: "3000", image: "/projects/commercial/commercial-bsel-2.gif" },
+  { title: "BSEL Infotech Park at Vashi, Navi Mumbai", category: "Commercial", client: "M/s BSEL Information Systems Ltd.", architect: "Nitin Killawala", year: "2002", cost: "3000", image: "/projects/commercial/commercial-bsel-2.gif", slug: "bsel-infotech", featured: true },
   { title: "Integration Lab for Reliance Infocomm, TFIPL, Navi Mumbai", category: "Commercial", client: "M/s Kvaerner Power Gas India Ltd.", architect: "Ratan J. Batliboi", year: "2002", cost: "350" },
   { title: "G+2 Housing cum Commercial Complex at Pali, Raigad", category: "Commercial", client: "Parmar Developers, Pali", architect: "Shehnath Salvankar, Panvel", year: "2003", cost: "150" },
   { title: "IT Park: B+G+15 Storey Commercial Complex at Vashi", category: "Commercial", client: "Private Developer", year: "2006", cost: "3000" },
@@ -169,7 +172,7 @@ export const projects: Project[] = [
 
   // === SPORTS COMPLEX ===
   { title: "Kridasankul at CIDCO for Nashik Municipal Corporation", category: "Sports Complex", client: "Nashik Municipal Corporation", architect: "Sanjay Dhumne & Associates", year: "2001", cost: "500", image: "/projects/sports-complex/sc-nashik1.gif" },
-  { title: "Indoor Stadium at Nashik for Nashik Municipal Corporation", category: "Sports Complex", client: "Nashik Municipal Corporation", year: "2008", cost: "800", image: "/projects/sports-complex/nashik-indoor-stadium.jpg" },
+  { title: "Indoor Stadium at Nashik for Nashik Municipal Corporation", category: "Sports Complex", client: "Nashik Municipal Corporation", year: "2008", cost: "800", image: "/projects/sports-complex/nashik-indoor-stadium.jpg", slug: "nashik-indoor-stadium", featured: true },
 
   // === COMMUNICATION TOWERS ===
   { title: "Communication Tower 30m at Vashi Railway Station", category: "Communication Towers", client: "Standard Constructions, Pune", year: "1998", cost: "8", image: "/projects/communication/communication-25antennae.gif" },
@@ -247,10 +250,10 @@ export const projects: Project[] = [
   { title: "Shuttering and Temporary Staging for High-Rise at Prabhadevi", category: "Shuttering Design", client: "M/s Simplex Concrete Piles (I) Ltd.", year: "2006" },
 
   // === SPECIAL PROJECTS ===
-  { title: "Theme Pavilion for Plast India Exhibition at New Delhi", category: "Special Projects", client: "Tata Interactive Systems", architect: "Ideamatrix - Gauri Roy", year: "1996", cost: "6", image: "/projects/special/plastindia-exhibition.jpg" },
+  { title: "Theme Pavilion for Plast India Exhibition at New Delhi", category: "Special Projects", client: "Tata Interactive Systems", architect: "Ideamatrix - Gauri Roy", year: "1996", cost: "6", image: "/projects/special/plastindia-exhibition.jpg", slug: "plastindia-exhibition", featured: true },
   { title: "Prefabricated Cabin Design", category: "Special Projects", client: "M/s Viral Prefab Industries Pvt. Ltd.", year: "2002" },
   { title: "D2O Upgrading Tower 60m High in TAPP-3 & TAPP-4 at Tarapur", category: "Special Projects", client: "M/s Nicco Corporation Ltd., Kolkata", year: "2002", cost: "200" },
-  { title: "Transmission Line Tower Testing Station at Nagpur", category: "Special Projects", client: "KEC International Limited, Mumbai", year: "2008", cost: "1500", image: "/projects/special/nagpur-transmission-tower.jpg" },
+  { title: "Transmission Line Tower Testing Station at Nagpur", category: "Special Projects", client: "KEC International Limited, Mumbai", year: "2008", cost: "1500", image: "/projects/special/nagpur-transmission-tower.jpg", slug: "nagpur-transmission-tower", featured: true },
   { title: "Design of Pre-fabricated Inverted Room", category: "Special Projects", client: "Satec Envir Engineering (I) Pvt. Ltd.", year: "2011" },
   { title: "Design Calculations and Load Tables for Wall Panels", category: "Special Projects", client: "Lloyd Insulations (I) Ltd.", year: "2011" },
   { title: "Platform for Walkway at Canopy of International Airport Mumbai", category: "Special Projects", client: "Lloyd Insulations (I) Ltd.", year: "2012", cost: "50" },
@@ -258,11 +261,11 @@ export const projects: Project[] = [
   { title: "Finite Element Analysis for Crane Base (Steel Plates)", category: "Special Projects", client: "M/s Raina Engineers", year: "2013" },
   { title: "Analysis of RRP Wharf Shed for Govt. of Dubai", category: "Special Projects", client: "Advance FRP - Hemant Bhide", year: "2014" },
   { title: "Piling Gantry for Jetty at Katupally", category: "Special Projects", client: "M/s Keller Ground Engineering", year: "2015", image: "/projects/special/katupally-piling-gantry.jpg" },
-  { title: "Piling Gantry at Tuticorin for Marine Jetty Works", category: "Special Projects", client: "ITD Cementation India Ltd.", year: "2016", image: "/projects/special/tuticorin-piling-gantry.jpg" },
+  { title: "Piling Gantry at Tuticorin for Marine Jetty Works", category: "Special Projects", client: "ITD Cementation India Ltd.", year: "2016", image: "/projects/special/tuticorin-piling-gantry.jpg", slug: "tuticorin-piling-gantry", featured: true },
   { title: "Pile Load Testing Setup and Structural Arrangement", category: "Special Projects", client: "Various Clients", year: "2020" },
 
   // === INDUSTRIAL (RECENT) ===
-  { title: "Industrial Shed at Plot J37, Taloja MIDC", category: "Industrial", client: "Private", year: "2019", image: "/projects/industrial/taloja-midc-shed.jpg" },
+  { title: "Industrial Shed at Plot J37, Taloja MIDC", category: "Industrial", client: "Private", year: "2019", image: "/projects/industrial/taloja-midc-shed.jpg", slug: "taloja-midc-shed", featured: true },
 
   // === PROOF CHECKING ===
   { title: "Analysis of Yard Crane for L&T Hazira (Proof Checking)", category: "Proof Checking", client: "WMI Cranes Ltd.", year: "2009" },
@@ -282,3 +285,29 @@ export const projects: Project[] = [
   { title: "Industrial Complex at Pithampur for Larsen & Toubro Ltd.", category: "SPA Tenure", client: "Larsen & Toubro Ltd.", year: "1993", image: "/projects/sap/pithampur.gif" },
   { title: "Wayside Railway Stations for Konkan Railway Corporation Ltd.", category: "SPA Tenure", client: "Konkan Railway Corporation Ltd.", year: "1993" },
 ];
+
+export function categorySlug(category: string): string {
+  return category.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+}
+
+export function getCategoryDescription(category: string): string {
+  const descriptions: Record<string, string> = {
+    "Residential": "High-rise towers, mass housing, bungalows, and staff quarters across Mumbai and beyond.",
+    "Industrial": "Factory buildings, industrial sheds, chemical plants, and manufacturing facilities.",
+    "Commercial": "Office complexes, IT parks, showrooms, and commercial developments.",
+    "Infrastructure": "Railway stations, bridges, jetties, and public infrastructure projects.",
+    "Educational": "Schools, college buildings, and institutional campus structures.",
+    "Repair": "Structural repair, rehabilitation, and restoration of aging buildings.",
+    "Structural Audit": "Comprehensive structural safety audits for residential and commercial buildings.",
+    "Computer Aided Analysis": "Advanced STAADPro analysis, finite element analysis, and computational design.",
+    "Hospitals": "Healthcare facility design including hospitals and medical centres.",
+    "Hotels": "Hospitality structures including hotels and resorts.",
+    "Sports Complex": "Indoor stadiums, sports facilities, and recreational structures.",
+    "Communication Towers": "Telecom towers, antenna structures, and communication infrastructure.",
+    "Shuttering Design": "Formwork and shuttering design for high-rise construction.",
+    "Special Projects": "Marine works, exhibition structures, transmission towers, and unique engineering challenges.",
+    "Proof Checking": "Independent verification and peer review of structural designs.",
+    "SPA Tenure": "Projects completed during tenure at Shirish Patel & Associates.",
+  };
+  return descriptions[category] || `Projects in the ${category} category.`;
+}
