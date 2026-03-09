@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import FadeIn from "@/components/FadeIn";
 
@@ -26,6 +27,14 @@ const career = [
   { period: "2006 - Present", role: "Principal Consultant", company: "Vadalkar & Associates", description: "Leading the firm independently, managing all structural engineering projects and expanding into new sectors." },
   { period: "1994 - 2006", role: "Partner", company: "Vartak - Vadalkar & Associates", description: "Co-founded the consulting firm. Designed many civil engineering projects including industrial, commercial, housing, and utility projects." },
   { period: "1989 - 1994", role: "Senior Design Engineer", company: "Shirish Patel & Associates Consultants Pvt. Ltd., Mumbai", description: "Handled STAAD analysis, design, detailing, estimating, and occasional site supervision for various industrial and commercial projects." },
+  { period: "1986 - 1987", role: "Site Engineer", company: "Dharamsi Morarji Chemicals Co. Ltd., Ambernath", description: "Supervised construction of 36m high Silo. Design and estimation for factory building extensions. Site engineer for new plant construction at Dhari, Gujarat." },
+];
+
+const publications = [
+  { title: "Innovative Designs for Platform Covers at New Mumbai Railway Stations", journal: "Indian Concrete Journal", date: "May 1992" },
+  { title: "Designing with Spread Sheets on Your Own", journal: "National Seminar, Nagpur", date: "February 1993" },
+  { title: "Off the Beaten Track — New Mumbai Railway Stations", journal: "Indian Architect and Builder", date: "December 1995" },
+  { title: "Various Technical Articles", journal: "Journal of Indian Society of Structural Engineers", date: "Various" },
 ];
 
 export default function TeamPage() {
@@ -65,8 +74,14 @@ export default function TeamPage() {
             <div className="lg:col-span-4">
               <FadeIn>
                 <div className="lg:sticky lg:top-28">
-                  <div className="w-full aspect-square max-w-xs bg-gradient-to-br from-primary-500 to-slate-700 flex items-center justify-center mb-8">
-                    <span className="text-white text-6xl font-bold tracking-tight">HV</span>
+                  <div className="w-full aspect-square max-w-xs relative overflow-hidden mb-8">
+                    <Image
+                      src="/team/hemant-vadalkar.jpg"
+                      alt="Hemant S. Vadalkar"
+                      fill
+                      className="object-cover"
+                      unoptimized
+                    />
                   </div>
                   <h2 className="text-3xl font-bold text-slate-900 mb-1">
                     Hemant S. Vadalkar
@@ -133,6 +148,31 @@ export default function TeamPage() {
                         </svg>
                       </div>
                       <span className="text-sm text-slate-600 leading-relaxed">{membership}</span>
+                    </div>
+                  </FadeIn>
+                ))}
+              </div>
+
+              {/* Publications */}
+              <FadeIn>
+                <div className="flex items-center gap-3 mb-8 mt-20">
+                  <div className="h-px w-12 bg-accent-400" />
+                  <span className="text-accent-500 font-medium text-sm uppercase tracking-[0.2em]">Research</span>
+                </div>
+                <h3 className="text-3xl font-bold text-slate-900 mb-12">
+                  Publications
+                </h3>
+              </FadeIn>
+              <div className="space-y-0">
+                {publications.map((pub, i) => (
+                  <FadeIn key={i} delay={i * 0.1}>
+                    <div className="py-6 border-b border-slate-100 group">
+                      <h4 className="text-lg font-semibold text-slate-900 group-hover:text-primary-500 transition-colors">
+                        {pub.title}
+                      </h4>
+                      <p className="text-sm text-slate-500 mt-1">
+                        {pub.journal} &middot; {pub.date}
+                      </p>
                     </div>
                   </FadeIn>
                 ))}
