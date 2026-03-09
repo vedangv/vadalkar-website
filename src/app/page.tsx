@@ -213,7 +213,7 @@ export default function Home() {
                 {services.map((service, i) => (
                   <FadeIn key={service.title} delay={i * 0.1}>
                     <div className="bg-white p-8 lg:p-10 group border border-transparent hover:border-accent-400/30 transition-all duration-300">
-                      <span className="text-4xl font-black italic text-slate-100 group-hover:text-accent-200 transition-colors mb-4 block">
+                      <span className="text-4xl font-black italic text-slate-200 group-hover:text-accent-400 transition-colors mb-4 block">
                         0{i + 1}
                       </span>
                       <h3 className="text-xl font-semibold text-slate-900 mb-3 group-hover:text-primary-500 transition-colors">
