@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
 
 const services = [
@@ -28,7 +29,17 @@ const services = [
   },
 ];
 
-const featuredProjects = [
+const featuredProjects: {
+  title: string;
+  subtitle: string;
+  location: string;
+  category: string;
+  year: string;
+  cost: string;
+  span: string;
+  height: string;
+  image?: string;
+}[] = [
   {
     title: "Videocon Towers",
     subtitle: "S+25 Storeys, Two Towers",
@@ -38,6 +49,7 @@ const featuredProjects = [
     cost: "Rs. 3,000 Lakhs",
     span: "lg:col-span-2 lg:row-span-2",
     height: "h-80 lg:h-full",
+    image: "/projects/residential/resi-videocon-tower.gif",
   },
   {
     title: "DESE & CESE Building, IIT Bombay",
@@ -48,6 +60,7 @@ const featuredProjects = [
     cost: "Rs. 4,000 Lakhs",
     span: "",
     height: "h-64",
+    image: undefined,
   },
   {
     title: "Haji Ali — Worli Sea Face Beautification",
@@ -58,6 +71,7 @@ const featuredProjects = [
     cost: "Rs. 2,500 Lakhs",
     span: "",
     height: "h-64",
+    image: undefined,
   },
 ];
 
@@ -251,6 +265,15 @@ export default function Home() {
                 <div
                   className={`group relative ${project.height} bg-gradient-to-br from-primary-500 to-slate-700 overflow-hidden cursor-pointer`}
                 >
+                  {project.image && (
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover"
+                      unoptimized
+                    />
+                  )}
                   {/* Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent z-10" />
                   <div className="absolute inset-0 bg-primary-500/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
@@ -296,20 +319,47 @@ export default function Home() {
 
       {/* Trusted By */}
       <section className="py-20 bg-white border-y border-slate-100">
+        <style>{`
+          @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+        `}</style>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn>
             <p className="text-center text-sm font-medium text-slate-400 uppercase tracking-[0.2em] mb-10">
               Trusted by leading organizations
             </p>
-            <div className="flex flex-wrap justify-center gap-x-12 gap-y-4">
-              {clients.map((client) => (
-                <span
-                  key={client}
-                  className="text-slate-300 font-semibold text-lg hover:text-slate-500 transition-colors"
-                >
-                  {client}
-                </span>
-              ))}
+            <div className="relative overflow-hidden">
+              {/* Left fade */}
+              <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+              {/* Right fade */}
+              <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+              <div
+                className="flex whitespace-nowrap"
+                style={{ animation: 'marquee 40s linear infinite' }}
+              >
+                {/* First copy */}
+                {clients.map((client) => (
+                  <span
+                    key={`a-${client}`}
+                    className="text-slate-400 font-semibold text-lg mx-4 inline-flex items-center gap-4"
+                  >
+                    {client}
+                    <span className="text-slate-200" aria-hidden="true">·</span>
+                  </span>
+                ))}
+                {/* Duplicate for seamless loop */}
+                {clients.map((client) => (
+                  <span
+                    key={`b-${client}`}
+                    className="text-slate-400 font-semibold text-lg mx-4 inline-flex items-center gap-4"
+                  >
+                    {client}
+                    <span className="text-slate-200" aria-hidden="true">·</span>
+                  </span>
+                ))}
+              </div>
             </div>
           </FadeIn>
         </div>
