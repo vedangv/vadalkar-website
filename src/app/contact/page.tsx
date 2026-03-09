@@ -30,25 +30,21 @@ export default function ContactPage() {
       <section className="relative bg-slate-900 pt-40 pb-24">
         <div className="absolute inset-0 bg-gradient-to-br from-primary-900 via-slate-800 to-primary-800" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn>
+          <div className="hero-animate" style={{ animationDelay: "0.1s" }}>
             <div className="flex items-center gap-3 mb-8">
               <div className="h-px w-12 bg-accent-400" />
               <span className="text-accent-400 font-medium text-sm uppercase tracking-[0.2em]">Contact</span>
             </div>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[0.95] tracking-tight mb-8">
-              Let&apos;s Build
-              <br />
-              Something <span className="text-accent-400">Together</span>
-            </h1>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <p className="text-xl text-slate-300 max-w-2xl leading-relaxed">
-              Whether you need a structural consultation, audit, or have a project
-              in mind — we&apos;d love to hear from you.
-            </p>
-          </FadeIn>
+          </div>
+          <h1 className="hero-animate text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[0.95] tracking-tight mb-8" style={{ animationDelay: "0.2s" }}>
+            Let&apos;s Build
+            <br />
+            Something <span className="text-accent-400">Together</span>
+          </h1>
+          <p className="hero-animate text-xl text-slate-300 max-w-2xl leading-relaxed" style={{ animationDelay: "0.3s" }}>
+            Whether you need a structural consultation, audit, or have a project
+            in mind — we&apos;d love to hear from you.
+          </p>
         </div>
       </section>
 

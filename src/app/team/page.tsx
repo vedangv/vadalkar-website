@@ -53,25 +53,21 @@ export default function TeamPage() {
       <section className="relative bg-slate-900 pt-40 pb-24">
         <div className="absolute inset-0 bg-gradient-to-br from-primary-900 via-slate-800 to-primary-800" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn>
+          <div className="hero-animate" style={{ animationDelay: "0.1s" }}>
             <div className="flex items-center gap-3 mb-8">
               <div className="h-px w-12 bg-accent-400" />
               <span className="text-accent-400 font-medium text-sm uppercase tracking-[0.2em]">Our Team</span>
             </div>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[0.95] tracking-tight mb-8">
-              Led by Experience,
-              <br />
-              Driven by <span className="text-accent-400">Excellence</span>
-            </h1>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <p className="text-xl text-slate-300 max-w-2xl leading-relaxed">
-              Our team of qualified engineers brings decades of hands-on experience
-              in structural design and analysis.
-            </p>
-          </FadeIn>
+          </div>
+          <h1 className="hero-animate text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[0.95] tracking-tight mb-8" style={{ animationDelay: "0.2s" }}>
+            Led by Experience,
+            <br />
+            Driven by <span className="text-accent-400">Excellence</span>
+          </h1>
+          <p className="hero-animate text-xl text-slate-300 max-w-2xl leading-relaxed" style={{ animationDelay: "0.3s" }}>
+            Our team of qualified engineers brings decades of hands-on experience
+            in structural design and analysis.
+          </p>
         </div>
       </section>
 
@@ -88,8 +84,8 @@ export default function TeamPage() {
                       src="/team/hemant-vadalkar.jpg"
                       alt="Hemant S. Vadalkar"
                       fill
+                      sizes="(max-width: 768px) 100vw, 320px"
                       className="object-cover"
-                      unoptimized
                     />
                   </div>
                   <h2 className="text-3xl font-bold text-slate-900 mb-1">
@@ -116,7 +112,7 @@ export default function TeamPage() {
               <FadeIn>
                 <div className="flex items-center gap-3 mb-8">
                   <div className="h-px w-12 bg-accent-400" />
-                  <span className="text-accent-500 font-medium text-sm uppercase tracking-[0.2em]">Career</span>
+                  <span className="text-accent-600 font-medium text-sm uppercase tracking-[0.2em]">Career</span>
                 </div>
                 <h3 className="text-3xl font-bold text-slate-900 mb-12">
                   Professional Journey
@@ -141,16 +137,16 @@ export default function TeamPage() {
               <FadeIn>
                 <div className="flex items-center gap-3 mb-8">
                   <div className="h-px w-12 bg-accent-400" />
-                  <span className="text-accent-500 font-medium text-sm uppercase tracking-[0.2em]">Affiliations</span>
+                  <span className="text-accent-600 font-medium text-sm uppercase tracking-[0.2em]">Affiliations</span>
                 </div>
                 <h3 className="text-3xl font-bold text-slate-900 mb-12">
                   Professional Memberships
                 </h3>
               </FadeIn>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-100">
+              <div className="grid grid-cols-1 sm:grid-cols-2">
                 {memberships.map((membership, i) => (
                   <FadeIn key={i} delay={i * 0.08}>
-                    <div className="bg-white p-6 flex gap-4 items-start">
+                    <div className="bg-white p-6 flex gap-4 items-start border border-slate-100 -mt-px -ml-px">
                       <div className="w-8 h-8 bg-primary-50 flex items-center justify-center shrink-0">
                         <svg className="w-4 h-4 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -166,7 +162,7 @@ export default function TeamPage() {
               <FadeIn>
                 <div className="flex items-center gap-3 mb-8 mt-20">
                   <div className="h-px w-12 bg-accent-400" />
-                  <span className="text-accent-500 font-medium text-sm uppercase tracking-[0.2em]">Research</span>
+                  <span className="text-accent-600 font-medium text-sm uppercase tracking-[0.2em]">Research</span>
                 </div>
                 <h3 className="text-3xl font-bold text-slate-900 mb-12">
                   Publications
@@ -197,7 +193,7 @@ export default function TeamPage() {
           <FadeIn>
             <div className="flex items-center gap-3 mb-8">
               <div className="h-px w-12 bg-accent-400" />
-              <span className="text-accent-500 font-medium text-sm uppercase tracking-[0.2em]">Acknowledgements</span>
+              <span className="text-accent-600 font-medium text-sm uppercase tracking-[0.2em]">Acknowledgements</span>
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 leading-tight mb-6">
               Our Mentors &amp; Guides
@@ -207,12 +203,12 @@ export default function TeamPage() {
               whose guidance and mentorship have shaped our practice and philosophy.
             </p>
           </FadeIn>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-200">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {acknowledgements.map((person, i) => (
               <FadeIn key={i} delay={i * 0.08}>
-                <div className="bg-white p-8 h-full">
+                <div className="bg-white p-8 border border-slate-200 -mt-px -ml-px">
                   <h3 className="text-lg font-bold text-slate-900 mb-2">{person.name}</h3>
-                  <p className="text-sm text-slate-500 leading-relaxed">{person.description}</p>
+                  <p className="text-sm text-slate-400 leading-relaxed">{person.description}</p>
                 </div>
               </FadeIn>
             ))}
@@ -256,7 +252,7 @@ export default function TeamPage() {
           <FadeIn>
             <div className="flex items-center gap-3 mb-8">
               <div className="h-px w-12 bg-accent-400" />
-              <span className="text-accent-500 font-medium text-sm uppercase tracking-[0.2em]">In Memoriam</span>
+              <span className="text-accent-600 font-medium text-sm uppercase tracking-[0.2em]">In Memoriam</span>
             </div>
           </FadeIn>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
@@ -267,8 +263,8 @@ export default function TeamPage() {
                     src="/team/ab-karnik.jpg"
                     alt="Shri A. B. Karnik"
                     fill
+                    sizes="(max-width: 768px) 100vw, 320px"
                     className="object-cover grayscale"
-                    unoptimized
                   />
                 </div>
               </FadeIn>

@@ -102,82 +102,75 @@ export default function Home() {
       <section className="relative min-h-screen flex items-end bg-slate-900">
         {/* Background with overlay */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/70 to-slate-900/30 z-10" />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/80 to-transparent z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/70 to-slate-900/30 z-10" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/80 to-transparent z-10" aria-hidden="true" />
           {/* Geometric pattern overlay */}
           <div
             className="absolute inset-0 opacity-[0.03] z-10"
+            aria-hidden="true"
             style={{
               backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0L100 50L50 100L0 50Z' fill='none' stroke='white' stroke-width='0.5'/%3E%3C/svg%3E")`,
             }}
           />
           {/* Gradient mesh background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary-900 via-slate-800 to-primary-800" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-900 via-slate-800 to-primary-800" aria-hidden="true" />
         </div>
 
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24 pt-40 w-full">
           <div className="max-w-4xl">
-            <FadeIn delay={0.1}>
+            <div className="hero-animate" style={{ animationDelay: "0.1s" }}>
               <div className="inline-flex items-center gap-2.5 px-4 py-1.5 border border-accent-400/20 bg-accent-400/5 mb-8">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent-400 animate-pulse" />
                 <span className="text-accent-400 font-semibold text-xs uppercase tracking-[0.2em]">
                   Established 1994
                 </span>
               </div>
-            </FadeIn>
+            </div>
 
-            <FadeIn delay={0.2}>
-              <h1 className="text-5xl sm:text-6xl lg:text-8xl font-bold text-white leading-[0.95] tracking-tight mb-8">
-                Building
-                <br />
-                Stronger
-                <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-300 via-accent-400 to-accent-600">Foundations</span>
-              </h1>
-            </FadeIn>
+            <h1 className="hero-animate text-5xl sm:text-6xl lg:text-8xl font-bold text-white leading-[0.95] tracking-tight mb-8" style={{ animationDelay: "0.2s" }}>
+              Building
+              <br />
+              Stronger
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-300 via-accent-400 to-accent-600">Foundations</span>
+            </h1>
 
-            <FadeIn delay={0.4}>
-              <p className="text-lg sm:text-xl text-slate-300 leading-relaxed max-w-xl mb-12">
-                A premier structural and civil engineering consultancy in Mumbai,
-                delivering safe, innovative, and cost-effective solutions for
-                over three decades.
-              </p>
-            </FadeIn>
+            <p className="hero-animate text-lg sm:text-xl text-slate-300 leading-relaxed max-w-xl mb-12" style={{ animationDelay: "0.35s" }}>
+              A premier structural and civil engineering consultancy in Mumbai,
+              delivering safe, innovative, and cost-effective solutions for
+              over three decades.
+            </p>
 
-            <FadeIn delay={0.5}>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  href="/projects"
-                  className="group bg-accent-400 text-slate-900 px-8 py-4 font-semibold text-base hover:bg-accent-300 transition-all text-center inline-flex items-center justify-center gap-2"
-                >
-                  Explore Our Work
-                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
-                <Link
-                  href="/contact"
-                  className="border border-white/30 text-white px-8 py-4 font-semibold text-base hover:bg-white/10 transition-all text-center"
-                >
-                  Start a Consultation
-                </Link>
-              </div>
-            </FadeIn>
+            <div className="hero-animate flex flex-col sm:flex-row gap-4" style={{ animationDelay: "0.45s" }}>
+              <Link
+                href="/projects"
+                className="group bg-accent-400 text-slate-900 px-8 py-4 font-semibold text-base hover:bg-accent-300 transition-all text-center inline-flex items-center justify-center gap-2"
+              >
+                Explore Our Work
+                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+              <Link
+                href="/contact"
+                className="border border-white/30 text-white px-8 py-4 font-semibold text-base hover:bg-white/10 transition-all text-center"
+              >
+                Start a Consultation
+              </Link>
+            </div>
           </div>
 
           <div className="mt-16 h-px w-full bg-gradient-to-r from-transparent via-accent-400/20 to-transparent" />
 
           {/* Stats strip at bottom of hero */}
-          <FadeIn delay={0.7}>
-            <div className="mt-4 pt-8 grid grid-cols-2 md:grid-cols-4 gap-8">
-              {stats.map((stat) => (
-                <div key={stat.label}>
-                  <p className="text-4xl lg:text-5xl font-bold text-white">{stat.value}</p>
-                  <p className="text-sm text-slate-400 mt-1">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-          </FadeIn>
+          <div className="hero-animate mt-4 pt-8 grid grid-cols-2 md:grid-cols-4 gap-8" style={{ animationDelay: "0.6s" }}>
+            {stats.map((stat) => (
+              <div key={stat.label}>
+                <p className="text-4xl lg:text-5xl font-bold text-white">{stat.value}</p>
+                <p className="text-sm text-slate-400 mt-1">{stat.label}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -190,7 +183,7 @@ export default function Home() {
                 <div className="lg:sticky lg:top-28">
                   <div className="flex items-center gap-3 mb-6">
                     <div className="h-px w-12 bg-accent-400" />
-                    <span className="text-accent-500 font-medium text-sm uppercase tracking-[0.2em]">
+                    <span className="text-accent-600 font-medium text-sm uppercase tracking-[0.2em]">
                       Services
                     </span>
                   </div>
@@ -209,10 +202,10 @@ export default function Home() {
             </div>
 
             <div className="lg:col-span-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-200">
+              <div className="grid grid-cols-1 sm:grid-cols-2">
                 {services.map((service, i) => (
                   <FadeIn key={service.title} delay={i * 0.1}>
-                    <div className="bg-white p-8 lg:p-10 group border border-transparent hover:border-accent-400/30 transition-all duration-300">
+                    <div className="bg-white p-8 lg:p-10 group border border-slate-200 hover:border-accent-400/30 transition-all duration-300 -mt-px -ml-px">
                       <span className="text-4xl font-black italic text-slate-200 group-hover:text-accent-400 transition-colors mb-4 block">
                         0{i + 1}
                       </span>
@@ -239,7 +232,7 @@ export default function Home() {
               <div>
                 <div className="flex items-center gap-3 mb-6">
                   <div className="h-px w-12 bg-accent-400" />
-                  <span className="text-accent-500 font-medium text-sm uppercase tracking-[0.2em]">
+                  <span className="text-accent-600 font-medium text-sm uppercase tracking-[0.2em]">
                     Portfolio
                   </span>
                 </div>
@@ -272,6 +265,7 @@ export default function Home() {
                       src={project.image}
                       alt={project.title}
                       fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                       unoptimized
                     />
@@ -283,6 +277,7 @@ export default function Home() {
                   {/* Geometric texture */}
                   <div
                     className="absolute inset-0 opacity-5"
+                    aria-hidden="true"
                     style={{
                       backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0z' fill='none'/%3E%3Cpath d='M0 20h40M20 0v40' stroke='white' stroke-width='0.5'/%3E%3C/svg%3E")`,
                     }}
@@ -320,7 +315,7 @@ export default function Home() {
       </section>
 
       {/* Trusted By — Dark marquee */}
-      <section className="py-16 bg-slate-900 overflow-hidden">
+      <section className="py-16 bg-slate-900 overflow-hidden" aria-label="Trusted by leading organizations">
         <FadeIn>
           <div className="relative">
             <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-slate-900 to-transparent z-10" />
@@ -349,6 +344,7 @@ export default function Home() {
       <section className="relative py-32 bg-slate-900 overflow-hidden">
         <div
           className="absolute inset-0 opacity-[0.03]"
+          aria-hidden="true"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0L100 50L50 100L0 50Z' fill='none' stroke='white' stroke-width='0.5'/%3E%3C/svg%3E")`,
           }}

@@ -147,11 +147,11 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-slate-400">
             &copy; {new Date().getFullYear()} Vadalkar & Associates. All rights
             reserved.
           </p>
-          <p className="text-xs text-slate-600">
+          <p className="text-xs text-slate-400">
             Structural & Civil Engineering Consultants since 1994
           </p>
         </div>

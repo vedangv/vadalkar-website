@@ -76,14 +76,14 @@ export default function ContactForm() {
         <div>
           <label htmlFor="service" className="block text-sm font-medium text-slate-300 mb-2">Service Required</label>
           <select id="service" name="service" className="w-full px-0 py-3 border-0 border-b-2 border-slate-700 focus:border-accent-400 text-white placeholder:text-slate-500 outline-none transition-colors text-base bg-transparent">
-            <option value="">Select a service</option>
-            <option value="Structural Design">Structural Design</option>
-            <option value="Structural Analysis">Structural Analysis</option>
-            <option value="Structural Audit">Structural Audit</option>
-            <option value="Repair Consulting">Repair Consulting</option>
-            <option value="Proof Checking">Proof Checking</option>
-            <option value="STAADPro Consulting">STAADPro Consulting</option>
-            <option value="Other">Other</option>
+            <option value="" className="bg-slate-900">Select a service</option>
+            <option value="Structural Design" className="bg-slate-900">Structural Design</option>
+            <option value="Structural Analysis" className="bg-slate-900">Structural Analysis</option>
+            <option value="Structural Audit" className="bg-slate-900">Structural Audit</option>
+            <option value="Repair Consulting" className="bg-slate-900">Repair Consulting</option>
+            <option value="Proof Checking" className="bg-slate-900">Proof Checking</option>
+            <option value="STAADPro Consulting" className="bg-slate-900">STAADPro Consulting</option>
+            <option value="Other" className="bg-slate-900">Other</option>
           </select>
         </div>
       </div>

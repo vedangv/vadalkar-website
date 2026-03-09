@@ -17,10 +17,12 @@ export default function ProjectsGrid() {
       {/* Category filter */}
       <section className="bg-slate-900 border-b border-slate-800 sticky top-20 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex gap-2 overflow-x-auto py-4 scrollbar-hide">
+          <div className="flex gap-2 overflow-x-auto py-4 scrollbar-hide" role="tablist" aria-label="Filter projects by category">
             {categories.map((cat) => (
               <button
                 key={cat}
+                role="tab"
+                aria-selected={cat === active}
                 onClick={() => setActive(cat)}
                 className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
                   cat === active
@@ -70,6 +72,7 @@ export default function ProjectsGrid() {
                       src={project.image}
                       alt={project.title}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
                       unoptimized
                     />
@@ -101,21 +104,21 @@ export default function ProjectsGrid() {
                   </div>
                 </div>
                 <div className="p-5">
-                  <h3 className="text-base font-semibold text-white uppercase tracking-tight mb-2 leading-snug">
+                  <h2 className="text-base font-semibold text-white uppercase tracking-tight mb-2 leading-snug">
                     {project.title}
-                  </h3>
+                  </h2>
                   <p className="text-sm text-slate-400 mb-1">
                     Client: {project.client}
                   </p>
                   {project.architect && (
-                    <p className="text-sm text-slate-500">
+                    <p className="text-sm text-slate-400">
                       Architect: {project.architect}
                     </p>
                   )}
                   {project.cost && (
                     <div className="pt-3 mt-3 border-t border-slate-800 flex justify-between items-center">
                       <span className="text-accent-400 font-black text-sm">Rs. {project.cost} Lakhs</span>
-                      <svg className="w-4 h-4 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </div>

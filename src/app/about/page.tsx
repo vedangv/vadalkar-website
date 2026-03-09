@@ -32,25 +32,21 @@ export default function AboutPage() {
       <section className="relative bg-slate-900 pt-40 pb-24">
         <div className="absolute inset-0 bg-gradient-to-br from-primary-900 via-slate-800 to-primary-800" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn>
+          <div className="hero-animate" style={{ animationDelay: "0.1s" }}>
             <div className="flex items-center gap-3 mb-8">
               <div className="h-px w-12 bg-accent-400" />
               <span className="text-accent-400 font-medium text-sm uppercase tracking-[0.2em]">About Us</span>
             </div>
-          </FadeIn>
-          <FadeIn delay={0.1}>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[0.95] tracking-tight mb-8">
-              Three Decades of
-              <br />
-              <span className="text-accent-400">Structural</span> Excellence
-            </h1>
-          </FadeIn>
-          <FadeIn delay={0.2}>
-            <p className="text-xl text-slate-300 max-w-2xl leading-relaxed">
-              From our office opposite Dadar Station to projects across India, we
-              have been shaping Mumbai&apos;s skyline since 1994.
-            </p>
-          </FadeIn>
+          </div>
+          <h1 className="hero-animate text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[0.95] tracking-tight mb-8" style={{ animationDelay: "0.2s" }}>
+            Three Decades of
+            <br />
+            <span className="text-accent-400">Structural</span> Excellence
+          </h1>
+          <p className="hero-animate text-xl text-slate-300 max-w-2xl leading-relaxed" style={{ animationDelay: "0.3s" }}>
+            From our office opposite Dadar Station to projects across India, we
+            have been shaping Mumbai&apos;s skyline since 1994.
+          </p>
         </div>
       </section>
 
@@ -62,7 +58,7 @@ export default function AboutPage() {
               <FadeIn>
                 <div className="flex items-center gap-3 mb-6">
                   <div className="h-px w-12 bg-accent-400" />
-                  <span className="text-accent-500 font-medium text-sm uppercase tracking-[0.2em]">Who We Are</span>
+                  <span className="text-accent-600 font-medium text-sm uppercase tracking-[0.2em]">Who We Are</span>
                 </div>
                 <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 leading-tight mb-8">
                   A Legacy of
@@ -98,16 +94,16 @@ export default function AboutPage() {
           <FadeIn>
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-12 bg-accent-400" />
-              <span className="text-accent-500 font-medium text-sm uppercase tracking-[0.2em]">What We Do</span>
+              <span className="text-accent-600 font-medium text-sm uppercase tracking-[0.2em]">What We Do</span>
             </div>
             <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 leading-tight mb-16">
               Activities of the Firm
             </h2>
           </FadeIn>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-slate-200">
+          <div className="grid grid-cols-1 md:grid-cols-2">
             {activities.map((activity, i) => (
               <FadeIn key={i} delay={i * 0.08}>
-                <div className="bg-white p-8 lg:p-10 flex gap-6 items-start group hover:bg-slate-50 transition-colors">
+                <div className="bg-white p-8 lg:p-10 flex gap-6 items-start group hover:bg-slate-50 transition-colors border border-slate-200 -mt-px -ml-px">
                   <span className="text-4xl font-bold text-slate-100 group-hover:text-accent-200 transition-colors shrink-0">
                     {String(i + 1).padStart(2, "0")}
                   </span>
@@ -125,7 +121,7 @@ export default function AboutPage() {
           <FadeIn>
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-12 bg-accent-400" />
-              <span className="text-accent-500 font-medium text-sm uppercase tracking-[0.2em]">Infrastructure</span>
+              <span className="text-accent-600 font-medium text-sm uppercase tracking-[0.2em]">Infrastructure</span>
             </div>
             <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 leading-tight mb-16">
               Facilities &amp; Resources
@@ -206,7 +202,7 @@ export default function AboutPage() {
           <FadeIn>
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-12 bg-accent-400" />
-              <span className="text-accent-500 font-medium text-sm uppercase tracking-[0.2em]">Our Journey</span>
+              <span className="text-accent-600 font-medium text-sm uppercase tracking-[0.2em]">Our Journey</span>
             </div>
             <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 leading-tight mb-16">
               Key Milestones

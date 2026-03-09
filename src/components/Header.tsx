@@ -64,7 +64,7 @@ export default function Header() {
             ))}
             <Link
               href="/contact"
-              className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all ${
+              className={`px-5 py-2.5 text-sm font-semibold transition-all ${
                 scrolled
                   ? "bg-primary-500 text-white hover:bg-primary-600"
                   : "bg-white/10 text-white border border-white/30 hover:bg-white/20 backdrop-blur-sm"
@@ -107,7 +107,7 @@ export default function Header() {
             ))}
             <Link
               href="/contact"
-              className="block bg-primary-500 text-white px-5 py-2.5 rounded-lg text-sm font-semibold text-center hover:bg-primary-600 transition-colors"
+              className="block bg-primary-500 text-white px-5 py-2.5 text-sm font-semibold text-center hover:bg-primary-600 transition-colors"
               onClick={() => setMobileOpen(false)}
             >
               Get in Touch
