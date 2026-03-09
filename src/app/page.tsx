@@ -212,8 +212,8 @@ export default function Home() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-200">
                 {services.map((service, i) => (
                   <FadeIn key={service.title} delay={i * 0.1}>
-                    <div className="bg-white p-8 lg:p-10 group hover:bg-slate-50 transition-colors">
-                      <span className="text-xs font-mono text-slate-300 mb-4 block">
+                    <div className="bg-white p-8 lg:p-10 group border border-transparent hover:border-accent-400/30 transition-all duration-300">
+                      <span className="text-4xl font-black italic text-slate-100 group-hover:text-accent-200 transition-colors mb-4 block">
                         0{i + 1}
                       </span>
                       <h3 className="text-xl font-semibold text-slate-900 mb-3 group-hover:text-primary-500 transition-colors">
@@ -272,7 +272,7 @@ export default function Home() {
                       src={project.image}
                       alt={project.title}
                       fill
-                      className="object-cover"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                       unoptimized
                     />
                   )}
@@ -319,52 +319,30 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Trusted By */}
-      <section className="py-20 bg-white border-y border-slate-100">
-        <style>{`
-          @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-          }
-        `}</style>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn>
-            <p className="text-center text-sm font-medium text-slate-400 uppercase tracking-[0.2em] mb-10">
-              Trusted by leading organizations
-            </p>
-            <div className="relative overflow-hidden">
-              {/* Left fade */}
-              <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-              {/* Right fade */}
-              <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-              <div
-                className="flex whitespace-nowrap"
-                style={{ animation: 'marquee 40s linear infinite' }}
-              >
-                {/* First copy */}
-                {clients.map((client) => (
-                  <span
-                    key={`a-${client}`}
-                    className="text-slate-400 font-semibold text-lg mx-4 inline-flex items-center gap-4"
-                  >
-                    {client}
-                    <span className="text-slate-200" aria-hidden="true">·</span>
-                  </span>
-                ))}
-                {/* Duplicate for seamless loop */}
-                {clients.map((client) => (
-                  <span
-                    key={`b-${client}`}
-                    className="text-slate-400 font-semibold text-lg mx-4 inline-flex items-center gap-4"
-                  >
-                    {client}
-                    <span className="text-slate-200" aria-hidden="true">·</span>
-                  </span>
-                ))}
-              </div>
+      {/* Trusted By — Dark marquee */}
+      <section className="py-16 bg-slate-900 overflow-hidden">
+        <FadeIn>
+          <div className="relative">
+            <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-slate-900 to-transparent z-10" />
+            <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-slate-900 to-transparent z-10" />
+            <style>{`
+              @keyframes marquee {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+              }
+            `}</style>
+            <div className="flex whitespace-nowrap" style={{ animation: 'marquee 35s linear infinite' }}>
+              {[...clients, ...clients].map((client, i) => (
+                <span
+                  key={i}
+                  className="text-white/15 font-black text-3xl lg:text-4xl uppercase tracking-tight mx-10 hover:text-accent-400 transition-colors cursor-default"
+                >
+                  {client}
+                </span>
+              ))}
             </div>
-          </FadeIn>
-        </div>
+          </div>
+        </FadeIn>
       </section>
 
       {/* CTA — Editorial, bold */}
