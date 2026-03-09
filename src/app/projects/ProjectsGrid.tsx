@@ -15,7 +15,7 @@ export default function ProjectsGrid() {
   return (
     <>
       {/* Category filter */}
-      <section className="bg-white border-b border-slate-200 sticky top-20 z-30">
+      <section className="bg-slate-900 border-b border-slate-800 sticky top-20 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex gap-2 overflow-x-auto py-4 scrollbar-hide">
             {categories.map((cat) => (
@@ -25,7 +25,7 @@ export default function ProjectsGrid() {
                 className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
                   cat === active
                     ? "bg-primary-500 text-white"
-                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                    : "bg-transparent text-slate-300 border border-slate-700 hover:border-accent-400 hover:text-accent-400"
                 }`}
               >
                 {cat}
@@ -41,14 +41,14 @@ export default function ProjectsGrid() {
       </section>
 
       {/* Results count */}
-      <section className="bg-slate-50 pt-6 pb-2">
+      <section className="bg-slate-950 pt-6 pb-2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-sm text-slate-500">
-            Showing <span className="font-semibold text-slate-700">{filtered.length}</span>{" "}
+          <p className="text-sm text-slate-400">
+            Showing <span className="font-semibold text-white">{filtered.length}</span>{" "}
             project{filtered.length !== 1 ? "s" : ""}
             {active !== "All" && (
               <>
-                {" "}in <span className="font-semibold text-slate-700">{active}</span>
+                {" "}in <span className="font-semibold text-white">{active}</span>
               </>
             )}
           </p>
@@ -56,26 +56,26 @@ export default function ProjectsGrid() {
       </section>
 
       {/* Projects grid */}
-      <section className="py-8 pb-20 bg-slate-50">
+      <section className="py-8 pb-20 bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((project, i) => (
               <div
                 key={i}
-                className="bg-white rounded-none overflow-hidden border border-slate-200 hover:shadow-lg hover:border-l-2 hover:border-l-accent-400 transition-shadow duration-300"
+                className="group bg-slate-900 overflow-hidden border border-slate-800 hover:border-accent-400/50 transition-all duration-300"
               >
-                <div className="h-40 bg-gradient-to-br from-primary-500/90 to-slate-700 relative flex items-center justify-center overflow-hidden">
+                <div className="aspect-[4/3] relative bg-gradient-to-br from-primary-500/90 to-slate-700 flex items-center justify-center overflow-hidden">
                   {project.image ? (
                     <Image
                       src={project.image}
                       alt={project.title}
                       fill
-                      className="object-cover"
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
                       unoptimized
                     />
                   ) : (
                     <svg
-                      className="w-10 h-10 text-white/20"
+                      className="w-10 h-10 text-white/10"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -88,33 +88,37 @@ export default function ProjectsGrid() {
                       />
                     </svg>
                   )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80 z-[1]" />
                   <div className="absolute top-3 left-3 z-10">
-                    <span className="bg-accent-400 text-slate-900 text-xs font-semibold px-3 py-1 rounded-none">
+                    <span className="bg-accent-400 text-slate-900 text-[10px] font-black px-3 py-1 uppercase tracking-tight">
                       {project.category}
                     </span>
                   </div>
                   <div className="absolute top-3 right-3 z-10">
-                    <span className="bg-white/20 text-white text-xs font-medium px-3 py-1 rounded-none backdrop-blur-sm">
+                    <span className="bg-slate-900 text-white text-[10px] font-black px-3 py-1 uppercase tracking-tight">
                       {project.year}
                     </span>
                   </div>
                 </div>
                 <div className="p-5">
-                  <h3 className="text-base font-semibold text-slate-900 mb-2 leading-snug">
+                  <h3 className="text-base font-semibold text-white uppercase tracking-tight mb-2 leading-snug">
                     {project.title}
                   </h3>
-                  <p className="text-sm text-slate-500 mb-1">
+                  <p className="text-sm text-slate-400 mb-1">
                     Client: {project.client}
                   </p>
                   {project.architect && (
-                    <p className="text-sm text-slate-400">
+                    <p className="text-sm text-slate-500">
                       Architect: {project.architect}
                     </p>
                   )}
                   {project.cost && (
-                    <p className="text-xs text-accent-600 font-medium mt-2">
-                      Rs. {project.cost} Lakhs
-                    </p>
+                    <div className="pt-3 mt-3 border-t border-slate-800 flex justify-between items-center">
+                      <span className="text-accent-400 font-black text-sm">Rs. {project.cost} Lakhs</span>
+                      <svg className="w-4 h-4 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
                   )}
                 </div>
               </div>
