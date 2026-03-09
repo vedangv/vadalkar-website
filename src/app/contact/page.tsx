@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import FadeIn from "@/components/FadeIn";
+import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {
   title: "Contact Us | Vadalkar And Associates",
@@ -67,47 +68,7 @@ export default function ContactPage() {
                 </h2>
               </FadeIn>
               <FadeIn delay={0.1}>
-                <form className="space-y-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">Full Name *</label>
-                      <input type="text" id="name" name="name" required className="w-full px-0 py-3 border-0 border-b-2 border-slate-200 focus:border-primary-500 outline-none transition-colors text-base bg-transparent" placeholder="Your name" />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">Email Address *</label>
-                      <input type="email" id="email" name="email" required className="w-full px-0 py-3 border-0 border-b-2 border-slate-200 focus:border-primary-500 outline-none transition-colors text-base bg-transparent" placeholder="you@example.com" />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-2">Phone Number</label>
-                      <input type="tel" id="phone" name="phone" className="w-full px-0 py-3 border-0 border-b-2 border-slate-200 focus:border-primary-500 outline-none transition-colors text-base bg-transparent" placeholder="+91 XXXXX XXXXX" />
-                    </div>
-                    <div>
-                      <label htmlFor="service" className="block text-sm font-medium text-slate-700 mb-2">Service Required</label>
-                      <select id="service" name="service" className="w-full px-0 py-3 border-0 border-b-2 border-slate-200 focus:border-primary-500 outline-none transition-colors text-base bg-transparent">
-                        <option value="">Select a service</option>
-                        <option value="structural-design">Structural Design</option>
-                        <option value="structural-analysis">Structural Analysis</option>
-                        <option value="structural-audit">Structural Audit</option>
-                        <option value="repair-consulting">Repair Consulting</option>
-                        <option value="proof-checking">Proof Checking</option>
-                        <option value="staadpro">STAADPro Consulting</option>
-                        <option value="other">Other</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">Project Details *</label>
-                    <textarea id="message" name="message" required rows={5} className="w-full px-0 py-3 border-0 border-b-2 border-slate-200 focus:border-primary-500 outline-none transition-colors text-base bg-transparent resize-none" placeholder="Tell us about your project or enquiry..." />
-                  </div>
-                  <button type="submit" className="group bg-primary-500 text-white px-10 py-4 font-semibold hover:bg-primary-600 transition-all inline-flex items-center gap-2 mt-4">
-                    Send Message
-                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                </form>
+                <ContactForm />
               </FadeIn>
             </div>
 
