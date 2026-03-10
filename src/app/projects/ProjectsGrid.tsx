@@ -1,12 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { projects, categories, categorySlug } from "@/data/projects";
 
 export default function ProjectsGrid() {
   const [active, setActive] = useState("All");
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const checkScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 4);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 4);
+  }, []);
+
+  useEffect(() => {
+    checkScroll();
+    const el = scrollRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", checkScroll, { passive: true });
+    window.addEventListener("resize", checkScroll);
+    return () => {
+      el.removeEventListener("scroll", checkScroll);
+      window.removeEventListener("resize", checkScroll);
+    };
+  }, [checkScroll]);
+
+  const scroll = (dir: "left" | "right") => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir === "left" ? -200 : 200, behavior: "smooth" });
+  };
 
   const filtered =
     active === "All"
@@ -17,8 +45,26 @@ export default function ProjectsGrid() {
     <>
       {/* Category filter */}
       <section className="bg-slate-900 border-b border-slate-800 sticky top-20 z-30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex gap-2 overflow-x-auto py-4 scrollbar-hide" role="tablist" aria-label="Filter projects by category">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          {/* Left arrow */}
+          {canScrollLeft && (
+            <button
+              onClick={() => scroll("left")}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-gradient-to-r from-slate-900 via-slate-900/95 to-transparent pr-2"
+              aria-label="Scroll categories left"
+            >
+              <svg className="w-5 h-5 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+          )}
+
+          <div
+            ref={scrollRef}
+            className="flex gap-2 overflow-x-auto py-4 scrollbar-hide px-1"
+            role="tablist"
+            aria-label="Filter projects by category"
+          >
             {categories.map((cat) => (
               <button
                 key={cat}
@@ -40,6 +86,19 @@ export default function ProjectsGrid() {
               </button>
             ))}
           </div>
+
+          {/* Right arrow */}
+          {canScrollRight && (
+            <button
+              onClick={() => scroll("right")}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-gradient-to-l from-slate-900 via-slate-900/95 to-transparent pl-2"
+              aria-label="Scroll categories right"
+            >
+              <svg className="w-5 h-5 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          )}
         </div>
       </section>
 
