@@ -13,13 +13,18 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://vadalkar-website.vercel.app"),
   title: "Vadalkar And Associates | Structural & Civil Engineering Consultants",
   description:
     "Leading structural and civil engineering consultancy in Mumbai since 1994. Specializing in residential, commercial, industrial projects, structural audits, and STAADPro consulting.",
   keywords:
     "structural engineering, civil engineering, Mumbai, consultant, structural audit, STAADPro, Vadalkar",
   icons: {
-    icon: "/favicon.svg",
+    icon: [
+      { url: "/favicon.ico", sizes: "32x32" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-touch-icon.png",
   },
   openGraph: {
     title: "Vadalkar And Associates",

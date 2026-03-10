@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
+import HomeStats from "@/components/HomeStats";
 
 const services = [
   {
@@ -311,6 +312,26 @@ export default function Home() {
               </FadeIn>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* By the Numbers — Animated stats */}
+      <section className="py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="h-px w-12 bg-accent-400" />
+              <span className="text-accent-600 font-medium text-sm uppercase tracking-[0.2em]">
+                Track Record
+              </span>
+            </div>
+            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 leading-tight mb-16">
+              By the
+              <br />
+              Numbers
+            </h2>
+          </FadeIn>
+          <HomeStats />
         </div>
       </section>
 

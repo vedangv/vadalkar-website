@@ -18,10 +18,12 @@ This is the **main corporate website only**. The `blog/` subdirectory is a separ
 - Font: Inter (Google Fonts)
 
 ## Architecture
-- 5 routes: `/` (home), `/about`, `/projects`, `/team`, `/contact`
-- Shared layout: Header (fixed, scroll-aware) + Footer
-- Logo: `/public/banner.gif` with CSS invert trick for dark/light backgrounds
-- Project data: 212 projects in `src/data/projects.ts` (client-side filtering)
+- 8 base routes: `/` (home), `/about`, `/projects`, `/team`, `/contact`, `/careers`, `/projects/[category]`, `/projects/[category]/[slug]`
+- Dynamic routes: 16 category pages + 11 featured project detail pages (SSG via `generateStaticParams`)
+- Shared layout: Header (fixed, always white) + Footer + WhatsAppButton + ScrollToTop
+- Logo: `/public/banner.gif` (no invert trick — header always white)
+- Project data: 220+ projects in `src/data/projects.ts` (client-side filtering on /projects, SSG for category/detail pages)
+- Featured project descriptions in `src/data/featured-projects.ts`
 - No CMS — all content is static in component files
 - Contact form: submits to `/api/contact` endpoint
 
@@ -35,16 +37,23 @@ This is the **main corporate website only**. The `blog/` subdirectory is a separ
 
 ## Key Files
 ```
-src/app/page.tsx          — Home (hero, services, featured projects, clients, CTA)
-src/app/about/page.tsx    — Company history, activities, timeline
-src/app/projects/page.tsx — Hero + ProjectsGrid.tsx (filter + cards)
-src/app/team/page.tsx     — Hemant Vadalkar profile, career, memberships
-src/app/contact/page.tsx  — Contact form + office info
-src/app/globals.css       — Tailwind @theme with color palette
-src/components/Header.tsx — Fixed nav, scroll-aware, mobile menu
-src/components/Footer.tsx — 4-column footer
-src/components/FadeIn.tsx — Framer Motion scroll-triggered animations
-src/data/projects.ts      — 145+ project records with categories
+src/app/page.tsx                        — Home (hero, services, featured projects, stats, clients, CTA)
+src/app/about/page.tsx                  — Company history, activities, timeline, project stats
+src/app/projects/page.tsx               — Hero + ProjectsGrid.tsx (filter + cards)
+src/app/projects/[category]/page.tsx    — Category landing pages (SSG)
+src/app/projects/[category]/[slug]/page.tsx — Featured project detail pages (SSG)
+src/app/team/page.tsx                   — Hemant Vadalkar profile, career, memberships
+src/app/contact/page.tsx                — Contact form + office info
+src/app/careers/page.tsx                — Careers page with open positions
+src/app/globals.css                     — Tailwind @theme with color palette
+src/components/Header.tsx               — Fixed nav, always white, mobile menu
+src/components/Footer.tsx               — 4-column footer
+src/components/FadeIn.tsx               — Framer Motion scroll-triggered animations
+src/components/HomeStats.tsx            — Animated stats for home page (counters + bar chart)
+src/components/ProjectStats.tsx         — Full project stats for about page
+src/components/WhatsAppButton.tsx       — Floating WhatsApp CTA
+src/data/projects.ts                    — 220+ project records with categories
+src/data/featured-projects.ts           — Descriptions/highlights for 11 featured projects
 ```
 
 ## Development

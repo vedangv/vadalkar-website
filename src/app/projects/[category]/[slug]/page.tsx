@@ -37,6 +37,45 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://vadalkar-website.vercel.app" },
+              { "@type": "ListItem", position: 2, name: "Projects", item: "https://vadalkar-website.vercel.app/projects" },
+              { "@type": "ListItem", position: 3, name: project.category, item: `https://vadalkar-website.vercel.app/projects/${catSlug}` },
+              { "@type": "ListItem", position: 4, name: project.title },
+            ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            name: project.title,
+            description: details?.description || `Structural engineering for ${project.title}`,
+            dateCreated: project.year,
+            creator: {
+              "@type": "Organization",
+              name: "Vadalkar And Associates",
+              url: "https://vadalkar-website.vercel.app",
+            },
+            ...(project.cost && {
+              estimatedCost: {
+                "@type": "MonetaryAmount",
+                currency: "INR",
+                value: parseInt(project.cost) * 100000,
+              },
+            }),
+          }),
+        }}
+      />
       {/* Hero */}
       <section className="relative bg-slate-900 pt-32 pb-0">
         {project.image ? (

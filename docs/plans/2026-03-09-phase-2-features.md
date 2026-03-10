@@ -147,12 +147,20 @@
 
 ---
 
-## Implementation Priority
+## Implementation Status (Updated 2026-03-09)
 
-1. **WhatsApp button** — Quick win, high impact (30 min)
-2. **Downloadable brochure** — Quick win (15 min)
-3. **Project detail pages** — Biggest feature, highest value
-4. **Services pages** — Content-driven, template approach
-5. **Careers page** — Moderate effort
-6. **Statistics dashboard** — Fun visual feature
-7. **3D viewer** — Stretch, pending assets
+| # | Feature | Status |
+|---|---------|--------|
+| 1 | WhatsApp button | **DONE** |
+| 2 | Downloadable brochure | **DONE** (Home + About) |
+| 3 | Project detail pages | **DONE** (16 category + 11 featured) |
+| 4 | Services pages | **BLOCKED** — waiting on content from dad |
+| 5 | Careers page | **DONE** |
+| 6 | Statistics dashboard | **DONE** (Home + About) |
+| 7 | 3D viewer | **PARKED** — waiting on 3D models |
+
+### Additional completed (not in original plan)
+- Header always white, logo 50% larger
+- Sitemap updated with all dynamic routes
+- CLAUDE.md updated with current architecture
+- Brochure download link on About page
