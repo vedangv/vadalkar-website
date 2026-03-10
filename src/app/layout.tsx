@@ -20,10 +20,7 @@ export const metadata: Metadata = {
   keywords:
     "structural engineering, civil engineering, Mumbai, consultant, structural audit, STAADPro, Vadalkar",
   icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "32x32" },
-      { url: "/favicon.svg", type: "image/svg+xml" },
-    ],
+    icon: "/favicon.ico",
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
