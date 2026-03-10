@@ -22,7 +22,7 @@ This is the **main corporate website only**. The `blog/` subdirectory is a separ
 - Dynamic routes: 16 category pages + 11 featured project detail pages (SSG via `generateStaticParams`)
 - Shared layout: Header (fixed, always white) + Footer + WhatsAppButton + ScrollToTop
 - Logo: `/public/banner.gif` (no invert trick — header always white)
-- Project data: 220+ projects in `src/data/projects.ts` (client-side filtering on /projects, SSG for category/detail pages)
+- Project data: 370+ projects in `src/data/projects.ts` (client-side filtering on /projects, SSG for category/detail pages)
 - Featured project descriptions in `src/data/featured-projects.ts`
 - No CMS — all content is static in component files
 - Contact form: submits to `/api/contact` endpoint
@@ -52,8 +52,9 @@ src/components/FadeIn.tsx               — Framer Motion scroll-triggered anima
 src/components/HomeStats.tsx            — Animated stats for home page (counters + bar chart)
 src/components/ProjectStats.tsx         — Full project stats for about page
 src/components/WhatsAppButton.tsx       — Floating WhatsApp CTA
-src/data/projects.ts                    — 220+ project records with categories
+src/data/projects.ts                    — 370+ project records with categories (1994-2025)
 src/data/featured-projects.ts           — Descriptions/highlights for 11 featured projects
+public/brochure.html                    — Standalone 6-page corporate brochure (printable)
 ```
 
 ## Development
@@ -61,9 +62,7 @@ src/data/featured-projects.ts           — Descriptions/highlights for 11 featu
 - `npm run build` — Production build
 - Auto-deploys on push to main via Vercel
 
-## Content Source
-All content comes from the original http://vadalkar.com site (2007 era):
-- Company profile, contact details, office addresses
-- Full project portfolio across 14 categories
-- Hemant Vadalkar's credentials, career, and memberships
-- Scope of services (12 items)
+## Content Sources
+- Original website: http://vadalkar.com (2007 era) — company profile, contact details, services
+- Client brochure PDF: `docs/1321- Urban analysis-VA Intro.pdf` (Feb 2026) — 371 projects with details, photos, credentials
+- Project photos extracted to `docs/brochure-assets/` and `public/projects/` (21 images across 10 categories)

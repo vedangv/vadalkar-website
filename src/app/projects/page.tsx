@@ -4,7 +4,7 @@ import ProjectsGrid from "./ProjectsGrid";
 export const metadata: Metadata = {
   title: "Our Projects | Vadalkar And Associates",
   description:
-    "Explore our portfolio of 200+ structural engineering projects across residential, commercial, industrial, and infrastructure sectors.",
+    "Explore our portfolio of 370+ structural engineering projects across residential, commercial, industrial, and infrastructure sectors.",
 };
 
 export default function ProjectsPage() {
