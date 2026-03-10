@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Vadalkar And Associates — Corporate Brochure 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy: #1e3a5f;
+    --navy-dark: #0f2440;
+    --gold: #d97706;
+    --gold-light: #f59e0b;
+    --slate-50: #f8fafc;
+    --slate-100: #f1f5f9;
+    --slate-200: #e2e8f0;
+    --slate-300: #cbd5e1;
+    --slate-400: #94a3b8;
+    --slate-500: #64748b;
+    --slate-600: #475569;
+    --slate-700: #334155;
+    --slate-800: #1e293b;
+    --slate-900: #0f172a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--slate-800);
+    background: var(--slate-50);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .font-display { font-family: 'Playfair Display', serif; }
+
+  /* ── Page sections ── */
+  .page {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ── Blueprint grid texture ── */
+  .blueprint-grid {
+    background-image:
+      linear-gradient(rgba(30,58,95,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30,58,95,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* ── Diagonal gold accent ── */
+  .gold-slash {
+    position: absolute;
+    width: 6px;
+    height: 120px;
+    background: var(--gold);
+    transform: rotate(-20deg);
+  }
+
+  /* ── Print styles ── */
+  @media print {
+    .page { page-break-after: always; min-height: auto; height: 297mm; }
+    .page:last-child { page-break-after: avoid; }
+    body { background: white; }
+    .no-print { display: none !important; }
+  }
+
+  /* ── Animations ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes widthGrow {
+    from { width: 0; }
+    to { width: 80px; }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .animate-fade-up {
+    animation: fadeUp 0.8s ease-out forwards;
+    opacity: 0;
+  }
+  .animate-fade-in {
+    animation: fadeIn 1s ease-out forwards;
+    opacity: 0;
+  }
+  .delay-1 { animation-delay: 0.15s; }
+  .delay-2 { animation-delay: 0.3s; }
+  .delay-3 { animation-delay: 0.45s; }
+  .delay-4 { animation-delay: 0.6s; }
+  .delay-5 { animation-delay: 0.75s; }
+  .delay-6 { animation-delay: 0.9s; }
+
+  /* ── Cover hero ── */
+  .cover-hero {
+    background:
+      linear-gradient(160deg, rgba(15,36,64,0.88) 0%, rgba(30,58,95,0.75) 50%, rgba(15,36,64,0.92) 100%),
+      url('/projects/special/tuticorin-piling-gantry.jpg') center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 60px 40px;
+  }
+
+  /* ── Corner brackets ── */
+  .corner-tl, .corner-tr, .corner-bl, .corner-br {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+  }
+  .corner-tl { top: 32px; left: 32px; border-top: 2px solid rgba(217,119,6,0.4); border-left: 2px solid rgba(217,119,6,0.4); }
+  .corner-tr { top: 32px; right: 32px; border-top: 2px solid rgba(217,119,6,0.4); border-right: 2px solid rgba(217,119,6,0.4); }
+  .corner-bl { bottom: 32px; left: 32px; border-bottom: 2px solid rgba(217,119,6,0.4); border-left: 2px solid rgba(217,119,6,0.4); }
+  .corner-br { bottom: 32px; right: 32px; border-bottom: 2px solid rgba(217,119,6,0.4); border-right: 2px solid rgba(217,119,6,0.4); }
+
+  /* ── Stats grid ── */
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 7vw, 80px);
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--navy);
+    margin-top: 8px;
+  }
+  .stat-desc {
+    font-size: 12px;
+    color: var(--slate-400);
+    margin-top: 6px;
+    max-width: 160px;
+    line-height: 1.5;
+  }
+
+  /* ── Services grid ── */
+  .service-card {
+    background: white;
+    border: 1px solid var(--slate-200);
+    padding: 36px 28px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  .service-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 8px 30px rgba(30,58,95,0.08);
+    transform: translateY(-2px);
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 0;
+    background: var(--gold);
+    transition: height 0.3s ease;
+  }
+  .service-card:hover::before { height: 100%; }
+  .service-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .service-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+  .service-desc {
+    font-size: 14px;
+    color: var(--slate-500);
+    line-height: 1.6;
+  }
+
+  /* ── Project cards ── */
+  .project-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--slate-900);
+  }
+  .project-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease, opacity 0.3s ease;
+    opacity: 0.85;
+  }
+  .project-card:hover img {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  .project-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px;
+    background: linear-gradient(transparent, rgba(15,36,64,0.95));
+    color: white;
+  }
+  .project-category {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .project-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 6px;
+    line-height: 1.3;
+  }
+  .project-meta {
+    font-size: 12px;
+    color: var(--slate-300);
+    margin-top: 6px;
+  }
+
+  /* ── Credential badges ── */
+  .credential-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--slate-100);
+  }
+  .credential-icon {
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+  .credential-text {
+    font-size: 14px;
+    color: var(--slate-600);
+    line-height: 1.5;
+  }
+  .credential-text strong { color: var(--navy); }
+
+  /* ── Client grid ── */
+  .client-tag {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid var(--slate-200);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--slate-600);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.2s;
+  }
+  .client-tag:hover {
+    border-color: var(--gold);
+    color: var(--navy);
+    background: rgba(217,119,6,0.05);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .cover-hero { padding: 40px 24px; }
+    .page-inner { padding: 40px 24px !important; }
+    .stats-grid { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
+    .services-grid { grid-template-columns: 1fr !important; }
+    .projects-mosaic { grid-template-columns: 1fr !important; grid-template-rows: auto !important; }
+    .projects-mosaic > * { grid-column: auto !important; grid-row: auto !important; height: 280px !important; }
+    .credentials-layout { grid-template-columns: 1fr !important; }
+    .back-cover-content { grid-template-columns: 1fr !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 1 — COVER
+     ════════════════════════════════════════════════════ -->
+<section class="page cover-hero">
+  <div class="corner-tl"></div>
+  <div class="corner-tr"></div>
+  <div class="corner-bl"></div>
+  <div class="corner-br"></div>
+
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;max-width:800px;">
+    <div class="animate-fade-up" style="width:80px;height:3px;background:var(--gold);margin-bottom:48px;"></div>
+
+    <h1 class="font-display animate-fade-up delay-1" style="font-size:clamp(42px,8vw,88px);font-weight:400;letter-spacing:0.18em;text-transform:uppercase;line-height:1.1;margin-bottom:24px;text-align:center;">
+      Vadalkar<br/>And Associates
+    </h1>
+
+    <p class="animate-fade-up delay-2" style="font-size:clamp(14px,2vw,20px);letter-spacing:0.25em;text-transform:uppercase;opacity:0.85;font-weight:300;margin-bottom:60px;">
+      Structural &amp; Civil Engineering Consultants
+    </p>
+
+    <div class="animate-fade-up delay-3" style="display:flex;align-items:center;gap:16px;color:var(--gold);font-size:14px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;">
+      <span>Est. 1994</span>
+      <span style="width:6px;height:6px;background:var(--gold);border-radius:50%;"></span>
+      <span>Mumbai, India</span>
+    </div>
+  </div>
+
+  <div class="animate-fade-in delay-5" style="position:absolute;bottom:40px;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;opacity:0.4;">
+    Corporate Profile 2026
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 2 — AT A GLANCE
+     ════════════════════════════════════════════════════ -->
+<section class="page blueprint-grid" style="display:flex;flex-direction:column;justify-content:center;background:white;">
+  <!-- Header bar -->
+  <div style="position:absolute;top:0;left:0;right:0;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-weight:700;font-size:13px;letter-spacing:0.1em;color:var(--navy);">VADALKAR <span style="color:var(--gold);">&amp;</span> ASSOCIATES</div>
+    <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate-400);">At a Glance &middot; 02</div>
+  </div>
+
+  <div class="page-inner" style="padding:100px 48px 60px 48px;max-width:1200px;margin:0 auto;width:100%;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+
+      <!-- Left: Tagline -->
+      <div>
+        <div style="width:8px;height:8px;background:var(--gold);border-radius:50%;margin-bottom:32px;"></div>
+        <h2 class="font-display" style="font-size:clamp(36px,5vw,64px);color:var(--navy);line-height:1.15;">
+          Engineering<br/>
+          <em style="color:var(--gold);">Excellence</em><br/>
+          Since 1994
+        </h2>
+        <div style="width:80px;height:4px;background:var(--gold);margin-top:32px;border-radius:2px;"></div>
+      </div>
+
+      <!-- Right: Stats -->
+      <div class="stats-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;">
+        <div>
+          <div class="stat-number">370+</div>
+          <div class="stat-label">Projects Completed</div>
+          <div class="stat-desc">Spanning residential, industrial, commercial, and infrastructure sectors across India and internationally.</div>
+        </div>
+        <div>
+          <div class="stat-number">14</div>
+          <div class="stat-label">Sectors Served</div>
+          <div class="stat-desc">Diversified portfolio across specialized engineering and structural domains.</div>
+        </div>
+        <div>
+          <div class="stat-number">30+</div>
+          <div class="stat-label">Years Experience</div>
+          <div class="stat-desc">Three decades of unwavering commitment to structural integrity and innovation.</div>
+        </div>
+        <div>
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Landmark Buildings</div>
+          <div class="stat-desc">Defining skylines from IIT Bombay hostels to 25-storey towers and international projects.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom paragraph -->
+    <div style="margin-top:64px;padding-top:32px;border-top:1px solid var(--slate-200);">
+      <p style="font-size:16px;color:var(--slate-500);line-height:1.8;max-width:700px;">
+        Our consultancy specializes in innovative structural design, precise project management, and high-end technical auditing. We combine decades of heritage with cutting-edge engineering technology to deliver resilient infrastructure solutions &mdash; from mass housing projects to marine piling gantries, transmission towers to industrial complexes.
+      </p>
+    </div>
+  </div>
+
+  <!-- Decorative gold slash -->
+  <div class="gold-slash" style="top:15%;right:5%;"></div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 3 — OUR SERVICES
+     ════════════════════════════════════════════════════ -->
+<section class="page blueprint-grid" style="background:var(--slate-50);">
+  <div style="position:absolute;top:0;left:0;right:0;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-weight:700;font-size:13px;letter-spacing:0.1em;color:var(--navy);">VADALKAR <span style="color:var(--gold);">&amp;</span> ASSOCIATES</div>
+    <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate-400);">Services &middot; 03</div>
+  </div>
+
+  <div class="page-inner" style="padding:120px 48px 60px 48px;max-width:1200px;margin:0 auto;width:100%;">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+      <div style="height:2px;width:40px;background:var(--gold);"></div>
+      <span style="font-size:12px;text-transform:uppercase;letter-spacing:0.2em;color:var(--gold);font-weight:600;">What We Do</span>
+    </div>
+    <h2 class="font-display" style="font-size:clamp(32px,4vw,48px);color:var(--navy);margin-bottom:48px;">Our Services</h2>
+
+    <div class="services-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;">
+      <div class="service-card">
+        <div class="service-number">01</div>
+        <div class="service-title">Structural Design &amp; Analysis</div>
+        <div class="service-desc">Comprehensive design and stability assessment for complex vertical and horizontal structures using STAADPro and advanced FEM analysis.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-number">02</div>
+        <div class="service-title">Structural Audit &amp; Repairs</div>
+        <div class="service-desc">Technical evaluation of existing assets and detailed retrofitting solutions. Over 80 structural audits completed for housing societies, institutions, and commercial buildings.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-number">03</div>
+        <div class="service-title">Proof Checking</div>
+        <div class="service-desc">Independent third-party verification of engineering designs, ensuring compliance with IS codes, IRC loading standards, and international safety codes.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-number">04</div>
+        <div class="service-title">STAADPro Consulting</div>
+        <div class="service-desc">Advanced computational modeling for optimized structural performance and material efficiency. Software dealership, training, and technical support since 1996.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-number">05</div>
+        <div class="service-title">Project Management</div>
+        <div class="service-desc">End-to-end technical supervision from tendering and contractor selection to periodic site visits, bill certification, and stability certificates.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-number">06</div>
+        <div class="service-title">Infrastructure &amp; Marine</div>
+        <div class="service-desc">Specialized engineering for jetties, piling gantries, bridges, ports, and offshore structures. Projects across India, Qatar, Sri Lanka, and Mauritius.</div>
+      </div>
+    </div>
+
+    <!-- Additional capabilities -->
+    <div style="margin-top:48px;padding:32px;background:var(--navy);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:10px;height:10px;background:var(--gold);border-radius:50%;"></div>
+        <span style="color:white;font-size:13px;font-weight:500;">Residential &amp; Commercial Buildings</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:10px;height:10px;background:var(--gold);border-radius:50%;"></div>
+        <span style="color:white;font-size:13px;font-weight:500;">Industrial Plants &amp; Sheds</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:10px;height:10px;background:var(--gold);border-radius:50%;"></div>
+        <span style="color:white;font-size:13px;font-weight:500;">Transmission Towers</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:10px;height:10px;background:var(--gold);border-radius:50%;"></div>
+        <span style="color:white;font-size:13px;font-weight:500;">Sewage Treatment Plants</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 4 — FEATURED PROJECTS
+     ════════════════════════════════════════════════════ -->
+<section class="page" style="background:white;">
+  <div style="position:absolute;top:0;left:0;right:0;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;z-index:2;">
+    <div style="font-weight:700;font-size:13px;letter-spacing:0.1em;color:var(--navy);">VADALKAR <span style="color:var(--gold);">&amp;</span> ASSOCIATES</div>
+    <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate-400);">Portfolio &middot; 04</div>
+  </div>
+
+  <div class="page-inner" style="padding:100px 48px 48px 48px;max-width:1300px;margin:0 auto;width:100%;">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+      <div style="height:2px;width:40px;background:var(--gold);"></div>
+      <span style="font-size:12px;text-transform:uppercase;letter-spacing:0.2em;color:var(--gold);font-weight:600;">Portfolio</span>
+    </div>
+    <h2 class="font-display" style="font-size:clamp(32px,4vw,48px);color:var(--navy);margin-bottom:40px;">Featured Projects</h2>
+
+    <!-- Mosaic grid -->
+    <div class="projects-mosaic" style="display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:320px 280px;gap:16px;">
+
+      <!-- Large: IIT Bombay -->
+      <div class="project-card" style="grid-column:1/3;grid-row:1/2;">
+        <img src="/projects/residential/iit-bombay-hostel-18.jpg" alt="IIT Bombay Hostel 18"/>
+        <div class="project-overlay">
+          <div class="project-category">Educational / Residential</div>
+          <div class="project-title">IIT Bombay &mdash; Hostel 17 &amp; 18</div>
+          <div class="project-meta">G+9 &middot; 1100 Students &middot; Rs. 7,000 Lakhs &middot; 2015</div>
+        </div>
+      </div>
+
+      <!-- Tall: Tuticorin Piling Gantry -->
+      <div class="project-card" style="grid-column:3/4;grid-row:1/3;">
+        <img src="/projects/special/tuticorin-piling-gantry.jpg" alt="Tuticorin Piling Gantry"/>
+        <div class="project-overlay">
+          <div class="project-category">Marine Infrastructure</div>
+          <div class="project-title">Piling Gantry &mdash; Tuticorin Port</div>
+          <div class="project-meta">ITD Cementation &middot; 2009</div>
+        </div>
+      </div>
+
+      <!-- Nashik Stadium -->
+      <div class="project-card" style="grid-column:1/2;grid-row:2/3;">
+        <img src="/projects/sports-complex/nashik-indoor-stadium.jpg" alt="Indoor Stadium Nashik"/>
+        <div class="project-overlay">
+          <div class="project-category">Sports Complex</div>
+          <div class="project-title">Indoor Stadium &mdash; Nashik</div>
+          <div class="project-meta">Nashik Municipal Corporation &middot; 2001</div>
+        </div>
+      </div>
+
+      <!-- Plast India Exhibition -->
+      <div class="project-card" style="grid-column:2/3;grid-row:2/3;">
+        <img src="/projects/special/plastindia-exhibition.jpg" alt="Plast India Exhibition Structure"/>
+        <div class="project-overlay">
+          <div class="project-category">Special Structures</div>
+          <div class="project-title">Exhibition Pavilion &mdash; Plast India</div>
+          <div class="project-meta">Tata Interactive &middot; New Delhi &middot; 1996</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project highlights strip -->
+    <div style="margin-top:32px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+      <div style="padding:20px;border:1px solid var(--slate-200);">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);font-weight:600;margin-bottom:4px;">Landmark</div>
+        <div style="font-size:14px;font-weight:600;color:var(--navy);">Reliance Jamnagar Complex</div>
+        <div style="font-size:12px;color:var(--slate-400);margin-top:4px;">Rs. 4,000 Lakhs &middot; 2022</div>
+      </div>
+      <div style="padding:20px;border:1px solid var(--slate-200);">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);font-weight:600;margin-bottom:4px;">International</div>
+        <div style="font-size:14px;font-weight:600;color:var(--navy);">Five Star Hotel, Mauritius</div>
+        <div style="font-size:12px;color:var(--slate-400);margin-top:4px;">Sagar Hotels &middot; Rs. 1,500 Lakhs</div>
+      </div>
+      <div style="padding:20px;border:1px solid var(--slate-200);">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);font-weight:600;margin-bottom:4px;">Infrastructure</div>
+        <div style="font-size:14px;font-weight:600;color:var(--navy);">Nagpur Transmission Tower</div>
+        <div style="font-size:12px;color:var(--slate-400);margin-top:4px;">KEC International &middot; 100m Tall</div>
+      </div>
+      <div style="padding:20px;border:1px solid var(--slate-200);">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);font-weight:600;margin-bottom:4px;">Mass Housing</div>
+        <div style="font-size:14px;font-weight:600;color:var(--navy);">CIDCO Ghansoli &mdash; 2400 Units</div>
+        <div style="font-size:12px;color:var(--slate-400);margin-top:4px;">Simplex Infrastructure &middot; Rs. 4,200 Lakhs</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 5 — CREDENTIALS & CLIENTS
+     ════════════════════════════════════════════════════ -->
+<section class="page blueprint-grid" style="background:white;">
+  <div style="position:absolute;top:0;left:0;right:0;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-weight:700;font-size:13px;letter-spacing:0.1em;color:var(--navy);">VADALKAR <span style="color:var(--gold);">&amp;</span> ASSOCIATES</div>
+    <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate-400);">Credentials &middot; 05</div>
+  </div>
+
+  <div class="page-inner" style="padding:100px 48px 60px 48px;max-width:1200px;margin:0 auto;width:100%;">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+      <div style="height:2px;width:40px;background:var(--gold);"></div>
+      <span style="font-size:12px;text-transform:uppercase;letter-spacing:0.2em;color:var(--gold);font-weight:600;">Leadership</span>
+    </div>
+    <h2 class="font-display" style="font-size:clamp(32px,4vw,48px);color:var(--navy);margin-bottom:48px;">Principal Engineer</h2>
+
+    <div class="credentials-layout" style="display:grid;grid-template-columns:280px 1fr;gap:60px;align-items:start;">
+      <!-- Photo -->
+      <div>
+        <div style="width:100%;aspect-ratio:3/4;overflow:hidden;position:relative;">
+          <img src="/team/hemant-vadalkar-new.jpg" alt="Hemant S. Vadalkar" style="width:100%;height:100%;object-fit:cover;"/>
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:16px;background:linear-gradient(transparent,rgba(30,58,95,0.9));">
+            <div style="color:white;font-weight:700;font-size:16px;">Hemant S. Vadalkar</div>
+            <div style="color:var(--gold);font-size:12px;letter-spacing:0.1em;margin-top:2px;">B.E. (Civil), M.E. (Structures)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Credentials -->
+      <div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 40px;">
+          <div class="credential-item">
+            <div class="credential-icon"></div>
+            <div class="credential-text"><strong>Gold Medalist</strong> &mdash; M.E. (Structures), University of Bombay, 1989</div>
+          </div>
+          <div class="credential-item">
+            <div class="credential-icon"></div>
+            <div class="credential-text"><strong>President</strong> &mdash; Indian Society of Structural Engineers (ISSE)</div>
+          </div>
+          <div class="credential-item">
+            <div class="credential-icon"></div>
+            <div class="credential-text"><strong>Member</strong> &mdash; Institution of Engineers (India)</div>
+          </div>
+          <div class="credential-item">
+            <div class="credential-icon"></div>
+            <div class="credential-text"><strong>Member</strong> &mdash; American Concrete Institute (India Chapter)</div>
+          </div>
+          <div class="credential-item">
+            <div class="credential-icon"></div>
+            <div class="credential-text"><strong>Member</strong> &mdash; Indian Geotechnical Society (IGS)</div>
+          </div>
+          <div class="credential-item">
+            <div class="credential-icon"></div>
+            <div class="credential-text"><strong>6 Published Papers</strong> in technical journals and national seminars</div>
+          </div>
+          <div class="credential-item">
+            <div class="credential-icon"></div>
+            <div class="credential-text"><strong>External Examiner</strong> &mdash; M.Tech at Mumbai University, VJTI, and SPCE</div>
+          </div>
+          <div class="credential-item">
+            <div class="credential-icon"></div>
+            <div class="credential-text"><strong>STAADPro Trainer</strong> &mdash; Conducting seminars and workshops since 1996</div>
+          </div>
+        </div>
+
+        <!-- Trusted By -->
+        <div style="margin-top:40px;">
+          <h3 style="font-size:12px;text-transform:uppercase;letter-spacing:0.2em;color:var(--gold);font-weight:600;margin-bottom:20px;">Trusted By</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <span class="client-tag">IIT Bombay</span>
+            <span class="client-tag">CIDCO</span>
+            <span class="client-tag">Simplex Infrastructure</span>
+            <span class="client-tag">ITD Cementation</span>
+            <span class="client-tag">Central Railway</span>
+            <span class="client-tag">Western Railway</span>
+            <span class="client-tag">KEC International</span>
+            <span class="client-tag">Keller Ground Engineering</span>
+            <span class="client-tag">Mott MacDonald</span>
+            <span class="client-tag">L&amp;T</span>
+            <span class="client-tag">Reliance</span>
+            <span class="client-tag">MCGM</span>
+            <span class="client-tag">State Bank of India</span>
+            <span class="client-tag">Tata Steel</span>
+            <span class="client-tag">Mazgaon Dock</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 6 — BACK COVER / CONTACT
+     ════════════════════════════════════════════════════ -->
+<section class="page" style="display:flex;flex-direction:column;">
+  <!-- Navy top half -->
+  <div style="flex:3;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 40px;position:relative;">
+    <div class="corner-tl"></div>
+    <div class="corner-tr"></div>
+
+    <!-- VA Logo Mark -->
+    <img src="/icon-512.png" alt="VA Logo" style="width:100px;height:100px;margin-bottom:32px;opacity:0.9;"/>
+
+    <h2 class="font-display" style="font-size:clamp(28px,4vw,42px);color:white;letter-spacing:0.12em;text-transform:uppercase;font-weight:400;">
+      Vadalkar<br/>
+      <span style="color:var(--gold);">&amp;</span> Associates
+    </h2>
+    <p style="margin-top:12px;font-size:14px;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate-400);">
+      Structural &amp; Civil Engineering Consultants
+    </p>
+
+    <div class="gold-slash" style="bottom:30%;left:8%;"></div>
+    <div class="gold-slash" style="top:20%;right:10%;"></div>
+  </div>
+
+  <!-- White bottom half with contact info -->
+  <div style="flex:2;background:white;padding:48px;display:flex;flex-direction:column;justify-content:center;">
+    <div style="max-width:800px;margin:0 auto;width:100%;">
+      <div style="font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:24px;">Contact Information</div>
+
+      <div class="back-cover-content" style="display:grid;grid-template-columns:1fr 1fr;gap:40px;">
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;">Mumbai Office</div>
+          <div style="font-size:14px;color:var(--slate-500);line-height:1.8;">
+            B-703, New Samadhan CHS Ltd,<br/>
+            Senapati Bapat Road,<br/>
+            Opp. Dadar Station (W),<br/>
+            Mumbai 400028<br/>
+            Maharashtra, India
+          </div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;">Get in Touch</div>
+          <div style="font-size:14px;color:var(--slate-500);line-height:2.2;">
+            <span style="color:var(--gold);margin-right:8px;">&#9742;</span> +91 22 2430 8872<br/>
+            <span style="color:var(--gold);margin-right:8px;">&#9993;</span> vadalkar@gmail.com<br/>
+            <span style="color:var(--gold);margin-right:8px;">&#9672;</span> www.vadalkar.com
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gold bar footer -->
+  <div style="background:var(--gold);padding:16px 48px;text-align:center;">
+    <span style="font-size:13px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:white;">
+      Engineering Excellence Since 1994
+    </span>
+  </div>
+</section>
+
+</body>
+</html>
