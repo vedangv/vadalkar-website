@@ -64,7 +64,7 @@ export const projects: Project[] = [
   { title: "Stilt+15 Storey A-Type Building for Staff at IIT Bombay", category: "Residential", client: "Indian Institute of Technology (IIT) Bombay", architect: "Ratan Batliboi", year: "2014", cost: "1800" },
   { title: "G+3 Residential Building for Sarang Buwa at Nandurbar", category: "Residential", client: "Sarang Buwa", architect: "Niraj Deshpande, Nandurbar", year: "2014", cost: "75" },
   { title: "Aasangaon Residential Project", category: "Residential", client: "Private", year: "2014", image: "/projects/residential/aasangaon.jpg" },
-  { title: "Hostel 18 Building for IIT Bombay — 1100 Students", category: "Residential", client: "Indian Institute of Technology (IIT) Bombay", architect: "Ratan Batliboi", year: "2015", cost: "3000", image: "/projects/residential/iit-bombay-hostel-18.jpg", slug: "iit-bombay-hostel-18", featured: true },
+  { title: "Hostel 18 Building for IIT Bombay — 1100 Students", category: "Residential", client: "Indian Institute of Technology (IIT) Bombay", architect: "Ratan Batliboi", year: "2015", cost: "3000", slug: "iit-bombay-hostel-18", featured: true },
   { title: "Hostel 19 Building for IIT Bombay", category: "Residential", client: "Indian Institute of Technology (IIT) Bombay", architect: "Ratan Batliboi", year: "2016", cost: "2500" },
   // --- Residential (2015-2025) ---
   { title: "G+9 Residential Building for Hostel 17 at IIT Bombay", category: "Residential", client: "Indian Institute of Technology (IIT) Bombay", architect: "Ratan Batliboi", year: "2015", cost: "7000" },
@@ -438,7 +438,7 @@ export const projects: Project[] = [
   { title: "Design of Walkways Below Auditorium Roof at NISER, Odisha", category: "Special Projects", client: "National Institute of Science Education and Research, Odisha", architect: "Ratan J. Batliboi", year: "2020" },
 
   // === INDUSTRIAL (RECENT) ===
-  { title: "Industrial Shed at Plot J37, Taloja MIDC", category: "Industrial", client: "Private", year: "2019", image: "/projects/industrial/taloja-midc-shed.jpg", slug: "taloja-midc-shed", featured: true },
+  { title: "Industrial Shed at Plot J37, Taloja MIDC", category: "Industrial", client: "Private", year: "2019", slug: "taloja-midc-shed", featured: true },
 
   // === PROOF CHECKING ===
   { title: "Analysis of Yard Crane for L&T Hazira (Proof Checking)", category: "Proof Checking", client: "WMI Cranes Ltd.", year: "2009" },
