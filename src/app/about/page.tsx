@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import FadeIn from "@/components/FadeIn";
 import ProjectStats from "@/components/ProjectStats";
+import { getProjects } from "@/sanity/lib/queries";
 
 export const metadata: Metadata = {
   title: "About Us | Vadalkar And Associates",
@@ -26,7 +27,8 @@ const activities = [
   "Shuttering design and construction supervision",
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const projects = await getProjects();
   return (
     <>
       {/* Hero */}
@@ -252,7 +254,7 @@ export default function AboutPage() {
               Project Statistics
             </h2>
           </FadeIn>
-          <ProjectStats />
+          <ProjectStats projects={projects} />
         </div>
       </section>
     </>

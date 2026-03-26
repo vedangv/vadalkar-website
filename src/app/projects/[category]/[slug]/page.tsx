@@ -3,12 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import FadeIn from "@/components/FadeIn";
-import { projects, categorySlug } from "@/data/projects";
+import { categorySlug } from "@/data/projects";
 import { featuredDescriptions } from "@/data/featured-projects";
+import { getProjects, getProjectBySlug } from "@/sanity/lib/queries";
 
-const featuredProjects = projects.filter((p) => p.featured && p.slug);
-
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const allProjects = await getProjects();
+  const featuredProjects = allProjects.filter((p) => p.featured && p.slug);
   return featuredProjects.map((p) => ({
     category: categorySlug(p.category),
     slug: p.slug!,
@@ -17,7 +18,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const project = featuredProjects.find((p) => p.slug === slug);
+  const project = await getProjectBySlug(slug);
   if (!project) return {};
   return {
     title: `${project.title} | Vadalkar And Associates`,
@@ -27,11 +28,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ProjectDetailPage({ params }: { params: Promise<{ category: string; slug: string }> }) {
   const { category: catSlug, slug } = await params;
-  const project = featuredProjects.find((p) => p.slug === slug);
+  const project = await getProjectBySlug(slug);
   if (!project) notFound();
 
   const details = featuredDescriptions[slug];
-  const relatedProjects = projects
+  const allProjects = await getProjects();
+  const relatedProjects = allProjects
     .filter((p) => p.category === project.category && p.slug !== project.slug)
     .slice(0, 3);
 

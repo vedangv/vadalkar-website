@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
 import HomeStats from "@/components/HomeStats";
+import { getProjects } from "@/sanity/lib/queries";
 
 const services = [
   {
@@ -96,7 +97,8 @@ const clients = [
   "Delhi Development Authority",
 ];
 
-export default function Home() {
+export default async function Home() {
+  const projects = await getProjects();
   return (
     <>
       {/* Hero — Full viewport, editorial style */}
@@ -331,7 +333,7 @@ export default function Home() {
               Numbers
             </h2>
           </FadeIn>
-          <HomeStats />
+          <HomeStats projects={projects} />
         </div>
       </section>
 

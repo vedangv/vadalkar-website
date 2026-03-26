@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ProjectsGrid from "./ProjectsGrid";
+import { getProjects } from "@/sanity/lib/queries";
 
 export const metadata: Metadata = {
   title: "Our Projects | Vadalkar And Associates",
@@ -7,7 +8,8 @@ export const metadata: Metadata = {
     "Explore our portfolio of 370+ structural engineering projects across residential, commercial, industrial, and infrastructure sectors.",
 };
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const projects = await getProjects();
   return (
     <>
       {/* Hero */}
@@ -32,7 +34,7 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      <ProjectsGrid />
+      <ProjectsGrid projects={projects} />
     </>
   );
 }

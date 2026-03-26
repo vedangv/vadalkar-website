@@ -1,7 +1,37 @@
 import { groq } from 'next-sanity'
 
 export const postsQuery = groq`
-  *[_type == "post"] | order(publishedAt desc) {
+  *[_type == "post"] | order(publishedAt asc) {
+    _id,
+    title,
+    slug,
+    mainImage,
+    excerpt,
+    publishedAt,
+    "categories": categories[]->{ _id, title, slug },
+    "author": author->{ name, image }
+  }
+`
+
+export const paginatedPostsQuery = groq`
+  *[_type == "post"] | order(publishedAt asc) [$start...$end] {
+    _id,
+    title,
+    slug,
+    mainImage,
+    excerpt,
+    publishedAt,
+    "categories": categories[]->{ _id, title, slug },
+    "author": author->{ name, image }
+  }
+`
+
+export const postCountQuery = groq`
+  count(*[_type == "post"])
+`
+
+export const featuredPostQuery = groq`
+  *[_type == "post"] | order(publishedAt asc) [0] {
     _id,
     title,
     slug,
@@ -37,7 +67,7 @@ export const categoriesQuery = groq`
 `
 
 export const postsByCategoryQuery = groq`
-  *[_type == "post" && $categoryId in categories[]->_id] | order(publishedAt desc) {
+  *[_type == "post" && $categoryId in categories[]->_id] | order(publishedAt asc) {
     _id,
     title,
     slug,
@@ -55,6 +85,29 @@ export const relatedPostsQuery = groq`
     title,
     slug,
     mainImage,
+    excerpt,
+    publishedAt
+  }
+`
+
+export const adjacentPostsQuery = groq`{
+  "prev": *[_type == "post" && publishedAt < $publishedAt] | order(publishedAt desc) [0] {
+    _id,
+    title,
+    slug
+  },
+  "next": *[_type == "post" && publishedAt > $publishedAt] | order(publishedAt asc) [0] {
+    _id,
+    title,
+    slug
+  }
+}`
+
+export const searchPostsQuery = groq`
+  *[_type == "post"] | order(publishedAt asc) {
+    _id,
+    title,
+    slug,
     excerpt,
     publishedAt
   }

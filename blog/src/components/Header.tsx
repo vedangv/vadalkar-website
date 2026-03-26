@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import SearchModal from '@/components/SearchModal'
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -12,6 +13,7 @@ const navLinks = [
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
 
   // Track scroll for subtle header background change
   useEffect(() => {
@@ -20,6 +22,18 @@ export default function Header() {
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Cmd/Ctrl+K keyboard shortcut to toggle search
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault()
+        setSearchOpen((prev) => !prev)
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
   }, [])
 
   // Prevent body scroll when mobile menu is open
@@ -102,6 +116,37 @@ export default function Header() {
               </li>
             ))}
           </ul>
+
+          {/* Desktop Search Button */}
+          <button
+            type="button"
+            className="
+              hidden md:flex items-center justify-center
+              w-9 h-9 rounded-lg
+              text-[var(--color-muted)]
+              hover:text-[var(--color-primary)]
+              hover:bg-[var(--color-surface)]
+              transition-colors duration-200
+              ml-2
+            "
+            onClick={() => setSearchOpen(true)}
+            aria-label="Search posts (Cmd+K)"
+            title="Search (Cmd+K)"
+          >
+            <svg
+              className="w-[18px] h-[18px]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+              />
+            </svg>
+          </button>
 
           {/* Mobile Hamburger Button */}
           <button
@@ -191,6 +236,46 @@ export default function Header() {
             </ul>
           </nav>
 
+          {/* Mobile Search Button */}
+          <button
+            type="button"
+            className={`
+              mt-8 flex items-center gap-3
+              px-6 py-3
+              text-lg
+              text-[var(--color-muted)]
+              hover:text-[var(--color-accent)]
+              transition-all duration-500 ease-out
+              ${mobileMenuOpen
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-4'
+              }
+            `}
+            style={{
+              transitionDelay: mobileMenuOpen ? `${150 + navLinks.length * 75}ms` : '0ms',
+            }}
+            onClick={() => {
+              setMobileMenuOpen(false)
+              setSearchOpen(true)
+            }}
+            aria-label="Search posts"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+              />
+            </svg>
+            Search
+          </button>
+
           {/* Decorative element in mobile menu */}
           <div
             className={`
@@ -202,6 +287,9 @@ export default function Header() {
           />
         </div>
       </div>
+
+      {/* Search Modal */}
+      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   )
 }

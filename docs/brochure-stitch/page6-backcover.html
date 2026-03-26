@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vadalkar &amp; Associates - Back Cover</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&amp;family=Montserrat:wght@300;400;500;600;700&amp;family=Material+Icons&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1e3a5f", // Navy
+                        accent: "#d97706",  // Gold
+                        "background-light": "#ffffff",
+                        "background-dark": "#0f172a",
+                    },
+                    fontFamily: {
+                        display: ["Cinzel", "serif"],
+                        body: ["Montserrat", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "4px",
+                    },
+                },
+            },
+        };
+    </script>
+<style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .va-logo-mark {
+            font-family: 'Cinzel', serif;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 dark:bg-slate-900 min-h-screen flex items-center justify-center p-8">
+<div class="w-full max-w-4xl aspect-[1/1.414] bg-background-light dark:bg-background-dark shadow-2xl flex flex-col overflow-hidden transition-colors duration-300">
+<div class="h-1/2 bg-primary flex flex-col items-center justify-center relative overflow-hidden">
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="40" id="grid" patternUnits="userSpaceOnUse" width="40">
+<path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="0.5"></path>
+</pattern>
+</defs>
+<rect fill="url(#grid)" height="100%" width="100%"></rect>
+</svg>
+</div>
+<div class="relative z-10 flex flex-col items-center">
+<div class="va-logo-mark text-9xl font-bold text-accent mb-4 tracking-tighter">
+                    VA
+                </div>
+<h1 class="font-display text-3xl text-white tracking-[0.2em] uppercase text-center px-12 leading-tight">
+                    Vadalkar <br/>
+<span class="text-xl tracking-[0.4em] font-light">&amp; Associates</span>
+</h1>
+</div>
+<div class="absolute top-12 left-12 w-12 h-12 border-t-2 border-l-2 border-accent opacity-50"></div>
+<div class="absolute top-12 right-12 w-12 h-12 border-t-2 border-r-2 border-accent opacity-50"></div>
+</div>
+<div class="h-1/2 flex flex-col justify-between p-16 bg-background-light dark:bg-background-dark transition-colors duration-300">
+<div class="flex flex-col items-center text-center space-y-12 mt-4">
+<h2 class="text-primary dark:text-blue-200 font-semibold tracking-widest uppercase text-sm border-b-2 border-accent pb-2">
+                    Contact Information
+                </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-2xl">
+<div class="flex flex-col items-center md:items-start text-center md:text-left">
+<span class="material-icons text-accent mb-3">location_on</span>
+<h3 class="text-primary dark:text-blue-100 font-bold text-xs uppercase mb-2 tracking-wider">Mumbai Office</h3>
+<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-[200px]">
+                            Suite 405, Engineering Heights,<br/>
+                            BKC, Mumbai - 400051,<br/>
+                            Maharashtra, India
+                        </p>
+</div>
+<div class="flex flex-col items-center md:items-start text-center md:text-left">
+<span class="material-icons text-accent mb-3">contact_support</span>
+<h3 class="text-primary dark:text-blue-100 font-bold text-xs uppercase mb-2 tracking-wider">Get in Touch</h3>
+<div class="text-slate-600 dark:text-slate-400 text-sm space-y-1">
+<p class="flex items-center justify-center md:justify-start gap-2">
+<span class="material-icons text-[16px] text-primary dark:text-blue-300">phone</span>
+                                +91 (22) 2845-XXXX
+                            </p>
+<p class="flex items-center justify-center md:justify-start gap-2">
+<span class="material-icons text-[16px] text-primary dark:text-blue-300">email</span>
+                                contact@vadalkar.com
+                            </p>
+<p class="flex items-center justify-center md:justify-start gap-2">
+<span class="material-icons text-[16px] text-primary dark:text-blue-300">language</span>
+                                www.vadalkar.com
+                            </p>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full bg-accent py-4 -mx-16 px-16 translate-y-16">
+<p class="text-white text-center font-display tracking-[0.3em] uppercase text-xs sm:text-sm font-medium">
+                    Engineering Excellence Since 1994
+                </p>
+</div>
+</div>
+</div>
+<button class="fixed bottom-6 right-6 p-3 rounded-full bg-primary text-white shadow-lg hover:bg-slate-700 transition-colors z-50" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-icons block dark:hidden">dark_mode</span>
+<span class="material-icons hidden dark:block">light_mode</span>
+</button>
+
+</body></html>

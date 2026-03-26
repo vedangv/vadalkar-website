@@ -19,10 +19,10 @@ This is the **main corporate website only**. The `blog/` subdirectory is a separ
 
 ## Architecture
 - 8 base routes: `/` (home), `/about`, `/projects`, `/team`, `/contact`, `/careers`, `/projects/[category]`, `/projects/[category]/[slug]`
-- Dynamic routes: 16 category pages + 11 featured project detail pages (SSG via `generateStaticParams`)
+- Dynamic routes: 17 category pages + 11 featured project detail pages (SSG via `generateStaticParams`)
 - Shared layout: Header (fixed, always white) + Footer + WhatsAppButton + ScrollToTop
 - Logo: `/public/banner.gif` (no invert trick — header always white)
-- Project data: 370+ projects in `src/data/projects.ts` (client-side filtering on /projects, SSG for category/detail pages)
+- Project data: 386 projects in `src/data/projects.ts` across 17 categories (client-side filtering with scroll arrows on /projects, SSG for category/detail pages)
 - Featured project descriptions in `src/data/featured-projects.ts`
 - No CMS — all content is static in component files
 - Contact form: submits to `/api/contact` endpoint
@@ -65,4 +65,5 @@ public/brochure.html                    — Standalone 6-page corporate brochure
 ## Content Sources
 - Original website: http://vadalkar.com (2007 era) — company profile, contact details, services
 - Client brochure PDF: `docs/1321- Urban analysis-VA Intro.pdf` (Feb 2026) — 371 projects with details, photos, credentials
-- Project photos extracted to `docs/brochure-assets/` and `public/projects/` (21 images across 10 categories)
+- Project photos extracted to `docs/brochure-assets/` and `public/projects/` (20 images across 10 directories)
+- **Note**: Image filenames were corrected on 2026-03-10 (original extraction had every filename wrong). IIT Bombay Hostel 18 and Taloja MIDC Shed images still missing.

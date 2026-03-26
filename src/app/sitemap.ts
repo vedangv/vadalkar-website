@@ -1,10 +1,12 @@
 import type { MetadataRoute } from "next";
-import { projects, categories, categorySlug } from "@/data/projects";
+import { categories, categorySlug } from "@/data/projects";
+import { getProjects } from "@/sanity/lib/queries";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://vadalkar-website.vercel.app";
 
   const activeCats = categories.filter((c) => c !== "All");
+  const projects = await getProjects();
   const featuredProjects = projects.filter((p) => p.featured && p.slug);
 
   return [

@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client'
-import { postBySlugQuery, relatedPostsQuery } from '@/sanity/lib/queries'
+import { postBySlugQuery, adjacentPostsQuery } from '@/sanity/lib/queries'
 import { urlFor } from '@/sanity/lib/image'
 import { groq } from 'next-sanity'
 import { notFound } from 'next/navigation'
@@ -7,7 +7,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import PortableTextRenderer from '@/components/PortableTextRenderer'
 import ShareButtons from '@/components/ShareButtons'
-import RelatedPosts from '@/components/RelatedPosts'
+import PostNavigation from '@/components/PostNavigation'
+import Comments from '@/components/Comments'
 
 export const revalidate = 60
 
@@ -35,9 +36,30 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const post = await client.fetch(postBySlugQuery, { slug })
     if (!post) return { title: 'Post Not Found' }
 
+    const siteUrl = 'https://blog-seven-murex-93.vercel.app'
+    const ogImageUrl = `${siteUrl}/og?title=${encodeURIComponent(post.title)}`
+    const postUrl = `${siteUrl}/posts/${slug}`
+    const mainImageUrl = post.mainImage?.asset
+      ? urlFor(post.mainImage).width(1200).height(630).url()
+      : null
+
     return {
       title: post.title,
       description: post.excerpt || '',
+      openGraph: {
+        title: post.title,
+        description: post.excerpt || '',
+        url: postUrl,
+        type: 'article',
+        publishedTime: post.publishedAt,
+        images: [{ url: mainImageUrl || ogImageUrl, width: 1200, height: 630 }],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: post.title,
+        description: post.excerpt || '',
+        images: [mainImageUrl || ogImageUrl],
+      },
     }
   } catch {
     return { title: 'Post Not Found' }
@@ -76,7 +98,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   const { slug } = await params
 
   let post: any = null
-  let relatedPosts: any[] = []
+  let adjacentPosts: { prev: any; next: any } = { prev: null, next: null }
 
   try {
     post = await client.fetch(postBySlugQuery, { slug })
@@ -88,17 +110,15 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     notFound()
   }
 
-  // Fetch related posts based on categories
+  // Fetch previous and next posts in chronological order
   try {
-    const categoryIds = post.categories?.map((c: any) => c._id) || []
-    if (categoryIds.length > 0) {
-      relatedPosts = await client.fetch(relatedPostsQuery, {
-        postId: post._id,
-        categoryIds,
+    if (post.publishedAt) {
+      adjacentPosts = await client.fetch(adjacentPostsQuery, {
+        publishedAt: post.publishedAt,
       })
     }
   } catch {
-    // Silently fail — related posts are not critical
+    // Silently fail — navigation is not critical
   }
 
   const hasMainImage = post.mainImage?.asset
@@ -314,6 +334,11 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           </div>
 
           {/* ============================================
+              Prev / Next Navigation
+              ============================================ */}
+          <PostNavigation prev={adjacentPosts.prev} next={adjacentPosts.next} />
+
+          {/* ============================================
               Author Bio
               ============================================ */}
           {post.author && (
@@ -356,23 +381,15 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       </div>
 
       {/* ============================================
-          Related Posts
+          Comments
           ============================================ */}
-      {relatedPosts.length > 0 && (
-        <div className="bg-[var(--color-surface)] border-t border-[var(--color-border)]">
-          <div className="mx-auto max-w-5xl px-6 lg:px-8 py-20 md:py-28">
-            <RelatedPosts posts={relatedPosts} />
-          </div>
-        </div>
-      )}
-
-      {/* ============================================
-          Comments Placeholder (Phase 2)
-          ============================================ */}
-      {/* <div className="mx-auto max-w-[680px] px-6 lg:px-8 py-16">
-        <h2 className="text-2xl font-bold mb-8">Comments</h2>
-        {/* Cusdis or other comment system will go here */}
-      {/* </div> */}
+      <div className="mx-auto max-w-[680px] px-6 lg:px-8 pb-16">
+        <Comments
+          pageId={post._id}
+          pageTitle={post.title}
+          pageUrl={`https://blog-seven-murex-93.vercel.app/posts/${post.slug.current}`}
+        />
+      </div>
     </article>
   )
 }

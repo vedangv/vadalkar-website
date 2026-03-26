@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
-import { projects, categorySlug } from "@/data/projects";
+import { categorySlug } from "@/data/projects";
+import { getProjects, getProjectBySlug } from "@/sanity/lib/queries";
 
 export const alt = "Vadalkar And Associates - Project";
 
@@ -10,9 +11,9 @@ export const size = {
 
 export const contentType = "image/png";
 
-const featuredProjects = projects.filter((p) => p.featured && p.slug);
-
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const projects = await getProjects();
+  const featuredProjects = projects.filter((p) => p.featured && p.slug);
   return featuredProjects.map((p) => ({
     category: categorySlug(p.category),
     slug: p.slug!,
@@ -25,7 +26,7 @@ export default async function Image({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = featuredProjects.find((p) => p.slug === slug);
+  const project = await getProjectBySlug(slug);
 
   if (!project) {
     return new ImageResponse(

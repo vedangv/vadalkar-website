@@ -3,7 +3,7 @@ import { groq } from 'next-sanity'
 import type { MetadataRoute } from 'next'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://reflections.blog'
+  const baseUrl = 'https://blog-seven-murex-93.vercel.app'
 
   let posts: any[] = []
   let categories: any[] = []

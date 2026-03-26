@@ -3,9 +3,10 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { projects, categories, categorySlug } from "@/data/projects";
+import { categories, categorySlug } from "@/data/projects";
+import type { SanityProject } from "@/sanity/lib/queries";
 
-export default function ProjectsGrid() {
+export default function ProjectsGrid({ projects }: { projects: SanityProject[] }) {
   const [active, setActive] = useState("All");
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);

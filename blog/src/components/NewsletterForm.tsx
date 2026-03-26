@@ -35,10 +35,12 @@ export default function NewsletterForm() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email_address: email }),
+          redirect: 'manual',
         }
       )
 
-      if (!response.ok) {
+      // Kit returns 302 redirect to success page on successful subscription
+      if (!response.ok && response.status !== 302 && response.status !== 0) {
         throw new Error('Subscription failed. Please try again.')
       }
 

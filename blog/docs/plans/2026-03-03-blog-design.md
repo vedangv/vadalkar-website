@@ -1,7 +1,8 @@
 # Blog Design Document
 
 **Date:** 2026-03-03
-**Status:** Approved
+**Status:** Phase 1 Complete
+**Last Updated:** 2026-03-03
 
 ## Purpose
 A personal/lifestyle blog for Vedang's mother. Standalone site, not connected to the Vadalkar & Associates business website.
@@ -79,6 +80,19 @@ A personal/lifestyle blog for Vedang's mother. Standalone site, not connected to
 - **Category**: title, slug, description
 - **Author**: name, bio, image
 
+## Deployment
+- **Blog**: https://blog-seven-murex-93.vercel.app
+- **Sanity Studio**: https://blog-seven-murex-93.vercel.app/studio
+- **GitHub**: https://github.com/vedangv/reflections-blog
+- **Sanity Project**: k6e4jp5z (dataset: production)
+
+## Current Content
+- **Author**: कीर्ती वडाळकर (Mumbai-based Marathi travel writer)
+- **Posts**: 15 live (letters 111–125 from "जगाच्या पाठीवर..." series)
+- **Categories**: प्रवास पत्रे, Travel
+- **Remaining**: 110 letters (1–110) to be uploaded from .eml exports
+
 ## Phases
-1. **Today**: Build Next.js blog + Sanity CMS, deploy to Vercel. Newsletter signup with Kit.
-2. **Later**: Set up Cloudflare Tunnel + Cusdis on home laptop. Wire comments into blog.
+1. **Phase 1 (COMPLETE)**: Built Next.js blog + Sanity CMS, deployed to Vercel, uploaded 15 real Marathi posts, author bio, categories, SEO.
+2. **Phase 2 (PENDING — on home laptop)**: Set up Cloudflare Tunnel + Cusdis Docker on home laptop. Wire comments into blog. Set up Kit newsletter account.
+3. **Ongoing**: Upload remaining 110 letters, add photos, custom domain.

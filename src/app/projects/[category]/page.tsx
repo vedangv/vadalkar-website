@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import FadeIn from "@/components/FadeIn";
-import { projects, categories, categorySlug, getCategoryDescription, type Project } from "@/data/projects";
+import { categories, categorySlug, getCategoryDescription } from "@/data/projects";
+import { getProjects, type SanityProject } from "@/sanity/lib/queries";
 
 const categoryList = categories.filter((c) => c !== "All");
 
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
   };
 }
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project }: { project: SanityProject }) {
   return (
     <div className="bg-slate-900 overflow-hidden border border-slate-800 hover:border-accent-400/50 transition-all duration-300 h-full">
       <div className="aspect-[4/3] relative bg-gradient-to-br from-primary-500/90 to-slate-700 flex items-center justify-center overflow-hidden">
@@ -72,6 +73,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
   const category = categoryList.find((c) => categorySlug(c) === slug);
   if (!category) notFound();
 
+  const projects = await getProjects();
   const categoryProjects = projects.filter((p) => p.category === category);
 
   return (

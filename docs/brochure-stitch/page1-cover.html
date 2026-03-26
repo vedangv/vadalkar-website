@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vadalkar And Associates | Brochure Cover</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1e3a5f", // Navy blue from prompt
+                        gold: "#d97706",    // Gold from prompt
+                        "background-light": "#f8fafc",
+                        "background-dark": "#0f172a",
+                    },
+                    fontFamily: {
+                        display: ["Cinzel", "serif"],
+                        sans: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                    },
+                },
+            },
+        };
+    </script>
+<style>
+        .hero-overlay {
+            background: linear-gradient(rgba(30, 58, 95, 0.7), rgba(30, 58, 95, 0.85));
+        }
+        .letter-spacing-widest {
+            letter-spacing: 0.25em;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-sans transition-colors duration-300">
+<main class="relative h-screen w-full overflow-hidden flex items-center justify-center">
+<div class="absolute inset-0 z-0">
+<img alt="Industrial construction site at a port with cranes and heavy equipment" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAk2ysCjN_ToWvvVEg8wE3shlT2zo79L7dcyoFBGPJ0fi_tIl3hmTScjCPRUtWIfYlAJIQlXGKB_ROgziL021LuoWGLGtxnUlNkKQv1MHYndzdiJmZ6g0kmLqCMBNRA3479nJz4NUT8XVudK3yiuKWKl4lnM69qINW16W11oT4Oa_FomcTbpA4rRvOnlZyQTBYCfCAQFeU1cFNbUwKJvifn_NqA32i2l636uXzwpWNoH_VrdID8oxXjNJFDxcXONXZnFXoZJ7jq8fsP"/>
+<div class="absolute inset-0 hero-overlay"></div>
+</div>
+<div class="relative z-10 flex flex-col items-center text-center px-6 max-w-5xl">
+<div class="w-24 h-px bg-gold mb-8 animate-pulse"></div>
+<h1 class="font-display text-5xl md:text-7xl lg:text-8xl text-white font-normal mb-6 letter-spacing-widest uppercase tracking-[0.2em] leading-tight">
+                Vadalkar And <br/> Associates
+            </h1>
+<p class="text-xl md:text-2xl text-blue-100 font-light tracking-widest uppercase mb-16 opacity-90">
+                Structural &amp; Civil Engineering Consultants
+            </p>
+<div class="absolute bottom-12 flex flex-col items-center">
+<div class="flex items-center gap-4 text-gold font-medium tracking-[0.3em] text-sm md:text-base uppercase">
+<span>Est. 1994</span>
+<span class="w-1 h-1 bg-gold rounded-full"></span>
+<span>Mumbai, India</span>
+</div>
+<div class="mt-12 group cursor-pointer animate-bounce">
+<svg class="w-6 h-6 text-white opacity-50 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M19 14l-7 7m0 0l-7-7m7 7V3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+</div>
+<div class="absolute top-8 left-8 w-12 h-12 border-t-2 border-l-2 border-gold/30"></div>
+<div class="absolute top-8 right-8 w-12 h-12 border-t-2 border-r-2 border-gold/30"></div>
+<div class="absolute bottom-8 left-8 w-12 h-12 border-b-2 border-l-2 border-gold/30"></div>
+<div class="absolute bottom-8 right-8 w-12 h-12 border-b-2 border-r-2 border-gold/30"></div>
+</main>
+<div class="fixed top-8 right-12 z-50 flex items-center space-x-6">
+<button class="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-md transition-all" onclick="document.documentElement.classList.toggle('dark')">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+
+</body></html>

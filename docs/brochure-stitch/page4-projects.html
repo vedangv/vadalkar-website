@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Featured Projects Page 4 - Vadalkar And Associates</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=Inter:wght@300;400;500;600&amp;family=Material+Icons&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1e293b", // Dark Navy
+                        gold: "#c5a059",
+                        "background-light": "#f8fafc",
+                        "background-dark": "#0f172a",
+                    },
+                    fontFamily: {
+                        display: ["Playfair Display", "serif"],
+                        sans: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                    },
+                },
+            },
+        };
+    </script>
+<style>
+        .masonry-container {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: repeat(12, 5vw);
+            grid-gap: 2rem;
+        }
+        .project-card:hover .project-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .image-zoom:hover img {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 transition-colors duration-300 font-sans">
+<nav class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-display text-2xl font-bold tracking-tight text-primary dark:text-white uppercase">Vadalkar &amp; Associates</span>
+<span class="text-[10px] tracking-[0.3em] uppercase text-gold">Engineering Excellence</span>
+</div>
+<div class="hidden md:flex items-center space-x-8 text-sm font-medium uppercase tracking-widest">
+<a class="hover:text-gold transition-colors" href="#">Home</a>
+<a class="hover:text-gold transition-colors border-b-2 border-gold" href="#">Projects</a>
+<a class="hover:text-gold transition-colors" href="#">Services</a>
+<a class="hover:text-gold transition-colors" href="#">Contact</a>
+<button class="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-icons text-sm">dark_mode</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="max-w-7xl mx-auto px-6 py-12">
+<header class="mb-16 flex flex-col md:flex-row md:items-end justify-between border-b border-slate-200 dark:border-slate-800 pb-8">
+<div class="max-w-2xl">
+<h1 class="font-display text-5xl md:text-6xl mb-4">Featured Projects</h1>
+<p class="text-slate-500 dark:text-slate-400 font-light leading-relaxed">
+                    A curated selection of our most challenging industrial and architectural engineering achievements. From heavy infrastructure to complex structural frameworks.
+                </p>
+</div>
+<div class="mt-6 md:mt-0 flex items-center gap-4 text-sm font-semibold tracking-tighter italic text-slate-400">
+<span>PAGE 04</span>
+<div class="h-[1px] w-12 bg-slate-300 dark:bg-slate-700"></div>
+<div class="flex gap-1">
+<span class="h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-700"></span>
+<span class="h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-700"></span>
+<span class="h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-700"></span>
+<span class="h-2 w-2 rounded-full bg-gold"></span>
+</div>
+</div>
+</header>
+<div class="masonry-container mb-24">
+<div class="project-card relative overflow-hidden image-zoom group shadow-xl" style="grid-column: 1 / 8; grid-row: 1 / 8;">
+<img alt="Nagpur Transmission Tower Construction" class="w-full h-full object-cover transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBydErolYEuZ9ig5-0WHD3_-fM9nw3lkFSd0OPByrMWA_Xczab6i7m7DCmXRCxIFyEfjW8eoFeDRKKWM64Ss-ldXISJqxBYvpQ706VSHLYBzkdYjnW2-uGJHVlUQN3awnwMukivOvdgTDTEE-0MQA5HGGo1k7fKgfW8NqdlW0Eh_9VoEQj612YAsGNZSr5FUwYes8vUweCLiQ_8ICe34SZ4XmaLvHJdWsmC6PMs1muzMbvGVNW7Xcnau3dTtuZN16T5a36ag9_cVGcF"/>
+<div class="absolute bottom-0 left-0 right-0 bg-primary/95 backdrop-blur-sm p-6 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 border-l-4 border-gold">
+<div class="flex justify-between items-end">
+<div>
+<span class="text-gold text-xs uppercase tracking-[0.2em] font-bold mb-1 block">Industrial Infrastructure</span>
+<h3 class="text-white font-display text-2xl tracking-wide">Nagpur Transmission Tower</h3>
+</div>
+<div class="text-right">
+<span class="text-slate-400 text-xs font-mono uppercase">Year: 2025</span>
+</div>
+</div>
+</div>
+</div>
+<div class="project-card relative overflow-hidden image-zoom group shadow-xl" style="grid-column: 8 / 13; grid-row: 1 / 13;">
+<img alt="Tuticorin Piling Gantry Project" class="w-full h-full object-cover transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAP48HzeyfCADIWh6viVUokgpRIPNt0JAFKXO6dYdzAhZI4iNF9v2AfDJGT_b-jjrExHCM9vvcIFsOXGV1ECUOn1_Oa3K1-_TiLkDN3pwCN3MsuQMC3Nu_5pWcRKnE-kBmjm7OY0XSr-D_dPHY7pocb8CBCAo_Cll3e-ogcEl79QWMz62j-PjuI_ekRIHqdf3-TcS82KnxsHLjY2Ggc-aamII8YvDbNiPI62CZalwcBKE1jg80c-pcE-RDAl5rHqo0heVOnhgriFLi4"/>
+<div class="absolute bottom-0 left-0 right-0 bg-primary/95 backdrop-blur-sm p-6 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 border-l-4 border-gold">
+<div class="flex flex-col">
+<span class="text-gold text-xs uppercase tracking-[0.2em] font-bold mb-1">Maritime Engineering</span>
+<h3 class="text-white font-display text-2xl tracking-wide">Tuticorin Piling Gantry</h3>
+<div class="mt-4 pt-4 border-t border-slate-700/50">
+<span class="text-slate-400 text-xs font-mono uppercase block">Status: Completed</span>
+<span class="text-slate-400 text-xs font-mono uppercase block">Project Ref: V-882</span>
+</div>
+</div>
+</div>
+</div>
+<div class="project-card relative overflow-hidden image-zoom group shadow-xl" style="grid-column: 1 / 5; grid-row: 8 / 13;">
+<img alt="Nashik Indoor Stadium Steel Frame" class="w-full h-full object-cover transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfwuFTCuokFM0j97-Nt0BXWAYmi8Hxu1TSB5fdup4fZpk7hhJGJrlqp8eQ5Jyoh-BWm-97jQ-pUROmKO7rPWjl9RcWEAF1gviPguU1H-nOc3Hy0_0Lak9ptFbOzWnhcy-Pnjwjcpjf9zaIKd771tkFrHWicHyTAEWfytEmiJmGxf50d4z8jEs0tqlAutF76hVvEVy54zJrRA3FgNm8Eh5m47W33ylnfzHIiWkWy34Ybh-uSpYotxGmMyKe2_0PuuJKr4F5qhaNXqoe"/>
+<div class="absolute bottom-0 left-0 right-0 bg-primary/95 backdrop-blur-sm p-4 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 border-l-4 border-gold">
+<span class="text-gold text-[10px] uppercase tracking-[0.2em] font-bold mb-0.5 block">Structural Steel</span>
+<h3 class="text-white font-display text-lg">Nashik Indoor Stadium</h3>
+<span class="text-slate-400 text-[10px] font-mono uppercase">Archival • 2022</span>
+</div>
+</div>
+<div class="project-card relative overflow-hidden image-zoom group shadow-xl" style="grid-column: 5 / 8; grid-row: 8 / 13;">
+<img alt="Agasan Towers Construction Site" class="w-full h-full object-cover transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAX-OkLsu3m60G0enhzS0Nn7n2DXNLk3nJpCebb_RKICjrxHus7KjK6FSIQ3yFtx4bC7YQqYa7qrjOYkSUbe8TxXsrWgU_oVdFKDfVhqoBO9aYtq0T3jzk0lHOWiUmusLdEPJIXxzwgFGn9xJ4RhZ18ylg4cxyeEjji-VehEuP0Hikiv7EJftgG6h7WN1-xX--lGpxRHCJdz8-rGBwfmk9IuRvLmIST1ykunbWUce-cNf7dDwdHuoJ6fcQBGJxKVpeh_bqbjtFttKFM"/>
+<div class="absolute bottom-0 left-0 right-0 bg-primary/95 backdrop-blur-sm p-4 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 border-l-4 border-gold">
+<span class="text-gold text-[10px] uppercase tracking-[0.2em] font-bold mb-0.5 block">Residential Development</span>
+<h3 class="text-white font-display text-lg">Agasan Towers</h3>
+<span class="text-slate-400 text-[10px] font-mono uppercase">Multi-Phase • Ongoing</span>
+</div>
+</div>
+</div>
+<section class="grid grid-cols-1 md:grid-cols-3 gap-12 py-12 border-t border-slate-200 dark:border-slate-800">
+<div>
+<h4 class="font-display text-xl mb-4">Engineering Precision</h4>
+<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                    Our approach integrates advanced structural analysis with practical onsite expertise. Every project featured on Page 4 represents a milestone in structural innovation.
+                </p>
+</div>
+<div>
+<h4 class="font-display text-xl mb-4">Sector Focus</h4>
+<ul class="text-slate-500 dark:text-slate-400 text-sm space-y-2">
+<li class="flex items-center gap-2"><span class="h-1 w-1 bg-gold rounded-full"></span> Maritime &amp; Port Infrastructure</li>
+<li class="flex items-center gap-2"><span class="h-1 w-1 bg-gold rounded-full"></span> Power Transmission &amp; Distribution</li>
+<li class="flex items-center gap-2"><span class="h-1 w-1 bg-gold rounded-full"></span> Large-Scale Residential Complexes</li>
+<li class="flex items-center gap-2"><span class="h-1 w-1 bg-gold rounded-full"></span> Specialized Industrial Fabrications</li>
+</ul>
+</div>
+<div class="bg-primary p-8 rounded shadow-inner flex flex-col justify-between">
+<p class="text-slate-300 text-sm italic font-light">"Challenging the boundaries of structural possibility since 1994."</p>
+<div class="mt-6 flex justify-between items-center">
+<span class="text-white font-display">Page 04</span>
+<a class="group flex items-center text-gold text-xs font-bold tracking-widest uppercase" href="#">
+                        View More Projects
+                        <span class="material-icons ml-2 text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-slate-100 dark:bg-slate-900 py-8 text-center text-xs text-slate-400 uppercase tracking-widest">
+        © 2024 Vadalkar And Associates. All Rights Reserved. Professional Engineers &amp; Consultants.
+    </footer>
+
+</body></html>

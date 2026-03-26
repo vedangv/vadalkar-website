@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
-import { categories, categorySlug, projects } from "@/data/projects";
+import { categories, categorySlug } from "@/data/projects";
+import { getProjects } from "@/sanity/lib/queries";
 
 export const alt = "Vadalkar And Associates - Project Category";
 
@@ -24,6 +25,7 @@ export default async function Image({
   const { category: slug } = await params;
   const category = categoryList.find((c) => categorySlug(c) === slug);
   const categoryName = category ?? slug;
+  const projects = await getProjects();
   const count = projects.filter((p) => p.category === category).length;
 
   return new ImageResponse(

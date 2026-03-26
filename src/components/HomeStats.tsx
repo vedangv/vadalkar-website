@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState, useMemo } from "react";
-import { projects, categories } from "@/data/projects";
+import { categories } from "@/data/projects";
+import type { SanityProject } from "@/sanity/lib/queries";
 
 function useCountUp(target: number, isVisible: boolean, duration = 1500) {
   const [count, setCount] = useState(0);
@@ -36,7 +37,7 @@ function useCountUp(target: number, isVisible: boolean, duration = 1500) {
   return count;
 }
 
-export default function HomeStats() {
+export default function HomeStats({ projects }: { projects: SanityProject[] }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
