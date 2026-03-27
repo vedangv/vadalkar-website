@@ -38,7 +38,7 @@ function useCountUp(target: number, isVisible: boolean, duration = 1500) {
   return count;
 }
 
-export default function ProjectStats({ projects }: { projects: SanityProject[] }) {
+export default function ProjectStats({ projects, yearsActive = 36 }: { projects: SanityProject[], yearsActive?: number }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -123,7 +123,7 @@ export default function ProjectStats({ projects }: { projects: SanityProject[] }
         </div>
         <div>
           <p className="text-5xl sm:text-6xl font-bold text-accent-400 tabular-nums">
-            {useCountUp(30, isVisible)}
+            {useCountUp(yearsActive, isVisible)}
             <span className="text-3xl sm:text-4xl">+</span>
           </p>
           <p className="text-slate-500 mt-2 text-sm uppercase tracking-widest font-medium">

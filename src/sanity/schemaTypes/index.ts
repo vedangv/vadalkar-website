@@ -3,7 +3,10 @@ import project from './project'
 import team from './team'
 import career from './career'
 import siteSettings from './siteSettings'
+import homePage from './homePage'
+import aboutPage from './aboutPage'
+import contactPage from './contactPage'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [project, team, career, siteSettings],
+  types: [project, career, team, siteSettings, homePage, aboutPage, contactPage],
 }

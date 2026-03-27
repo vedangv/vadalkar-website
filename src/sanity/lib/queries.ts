@@ -65,3 +65,19 @@ export async function getProjectBySlug(slug: string): Promise<SanityProject | nu
     image: project.image ? urlFor(project.image).url() : undefined
   }
 }
+
+export async function getHomePage() {
+  return await client.fetch(groq`*[_type == "homePage"][0]`)
+}
+
+export async function getAboutPage() {
+  return await client.fetch(groq`*[_type == "aboutPage"][0]`)
+}
+
+export async function getContactPage() {
+  return await client.fetch(groq`*[_type == "contactPage"][0]`)
+}
+
+export async function getSiteSettings() {
+  return await client.fetch(groq`*[_type == "siteSettings"][0]`)
+}

@@ -8,22 +8,14 @@ export const metadata: Metadata = {
     "Get in touch with Vadalkar And Associates for structural and civil engineering consultations. Offices in Dadar and Vashi, Mumbai.",
 };
 
-const offices = [
-  {
-    name: "Head Office — Dadar",
-    address: "B-703, New Samadhan CHS Ltd, Senapati Bapat Road, Near Zarapkar, Opp. Dadar Stn. (W), Mumbai - 400 028",
-    phone: "+91 22 2430 8872",
-    cell: "+91 93225 32578",
-  },
-  {
-    name: "Vashi Office",
-    address: "C-482, II Floor, Vashi Plaza, Sector 17, Vashi, Navi Mumbai - 400 705",
-    phone: null,
-    cell: null,
-  },
-];
+import { getContactPage, getSiteSettings } from "@/sanity/lib/queries";
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const contactData = await getContactPage();
+  const settings = await getSiteSettings();
+
+  const offices = contactData?.offices || [];
+  const heroTitleLines = (contactData?.heroTitle || "Let's Build\nSomething Together").split('\n');
   return (
     <>
       {/* Hero */}
@@ -37,13 +29,15 @@ export default function ContactPage() {
             </div>
           </div>
           <h1 className="hero-animate text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[0.95] tracking-tight mb-8" style={{ animationDelay: "0.2s" }}>
-            Let&apos;s Build
-            <br />
-            Something <span className="text-accent-400">Together</span>
+            {heroTitleLines.map((line: string, i: number) => (
+              <span key={i}>
+                {i > 0 && <br />}
+                {i === heroTitleLines.length - 1 ? <span className="text-accent-400">{line}</span> : line}
+              </span>
+            ))}
           </h1>
           <p className="hero-animate text-xl text-slate-300 max-w-2xl leading-relaxed" style={{ animationDelay: "0.3s" }}>
-            Whether you need a structural consultation, audit, or have a project
-            in mind — we&apos;d love to hear from you.
+            {contactData?.heroDescription || "Whether you need a structural consultation, audit, or have a project in mind — we'd love to hear from you."}
           </p>
         </div>
       </section>
@@ -81,7 +75,7 @@ export default function ContactPage() {
               </FadeIn>
 
               <div className="space-y-8">
-                {offices.map((office, i) => (
+                {offices.map((office: any, i: number) => (
                   <FadeIn key={office.name} delay={0.3 + i * 0.1}>
                     <div className="border-l-2 border-slate-700 pl-8 py-2 hover:border-accent-400 transition-colors">
                       <h3 className="text-lg font-semibold text-white mb-3">{office.name}</h3>
@@ -104,8 +98,8 @@ export default function ContactPage() {
                   <div className="bg-slate-800 p-8 mt-8 border border-slate-700">
                     <h3 className="text-lg font-semibold text-white mb-2">Email Us</h3>
                     <p className="text-slate-400 text-sm mb-4">For enquiries and project discussions</p>
-                    <a href="mailto:vadalkar@gmail.com" className="text-accent-400 font-semibold hover:text-accent-300 transition-colors text-lg">
-                      vadalkar@gmail.com
+                    <a href={`mailto:${settings?.email || "vadalkar@gmail.com"}`} className="text-accent-400 font-semibold hover:text-accent-300 transition-colors text-lg">
+                      {settings?.email || "vadalkar@gmail.com"}
                     </a>
                     <p className="text-slate-500 text-sm mt-4">
                       Contact: Hemant Vadalkar / Kirty Vadalkar

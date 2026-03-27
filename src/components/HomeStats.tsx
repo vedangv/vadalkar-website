@@ -37,7 +37,7 @@ function useCountUp(target: number, isVisible: boolean, duration = 1500) {
   return count;
 }
 
-export default function HomeStats({ projects }: { projects: SanityProject[] }) {
+export default function HomeStats({ projects, yearsActive = 36 }: { projects: SanityProject[], yearsActive?: number }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -82,7 +82,7 @@ export default function HomeStats({ projects }: { projects: SanityProject[] }) {
 
   const totalAnim = useCountUp(totalProjects, isVisible);
   const sectorsAnim = useCountUp(sectorsServed, isVisible);
-  const yearsAnim = useCountUp(30, isVisible);
+  const yearsAnim = useCountUp(yearsActive, isVisible);
   const featuredAnim = useCountUp(featuredCount, isVisible);
 
   return (

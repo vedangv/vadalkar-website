@@ -2,34 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
 import HomeStats from "@/components/HomeStats";
-import { getProjects } from "@/sanity/lib/queries";
-
-const services = [
-  {
-    title: "Structural Design",
-    description: "Comprehensive design for residential, commercial, and industrial buildings using latest codes.",
-  },
-  {
-    title: "Structural Analysis",
-    description: "Advanced computer-aided analysis using STAADPro and industry-leading software.",
-  },
-  {
-    title: "Structural Audit",
-    description: "Thorough assessment of existing structures for safety and code compliance.",
-  },
-  {
-    title: "Repair Consulting",
-    description: "Expert consultation for repair and rehabilitation of aging structures.",
-  },
-  {
-    title: "Proof Checking",
-    description: "Independent verification of structural designs ensuring safety standards.",
-  },
-  {
-    title: "STAADPro Consulting",
-    description: "Training and technical support for STAADPro software across Mumbai.",
-  },
-];
+import { getProjects, getHomePage, getSiteSettings } from "@/sanity/lib/queries";
 
 const featuredProjects: {
   title: string;
@@ -77,28 +50,25 @@ const featuredProjects: {
   },
 ];
 
-const stats = [
-  { value: "35+", label: "Years of Experience" },
-  { value: "370+", label: "Projects Delivered" },
-  { value: "14", label: "Sectors Served" },
-  { value: "2", label: "Office Locations" },
-];
-
-const clients = [
-  "CIDCO",
-  "Western Railway",
-  "Central Railway",
-  "IIT Bombay",
-  "MCGM",
-  "Shapoorji Pallonji",
-  "Simplex Infrastructure",
-  "Reliance",
-  "BEST Undertaking",
-  "Delhi Development Authority",
-];
 
 export default async function Home() {
   const projects = await getProjects();
+  const homeData = await getHomePage();
+  const settings = await getSiteSettings();
+
+  const services: { title: string; description: string }[] = homeData?.services || [];
+  const clients: string[] = homeData?.clients || [];
+  
+  const stats = [
+    { value: settings?.experienceYears ? `${settings.experienceYears}+` : "35+", label: "Years of Experience" },
+    { value: settings?.projectsDelivered ? `${settings.projectsDelivered}+` : "370+", label: "Projects Delivered" },
+    { value: settings?.sectorsServed?.toString() || "14", label: "Sectors Served" },
+    { value: settings?.officeLocations?.toString() || "2", label: "Office Locations" },
+  ];
+
+  const defaultHeroTitle = "Building\nStronger\nFoundations";
+  const heroTitleLines = (homeData?.heroTitle || defaultHeroTitle).split('\n');
+
   return (
     <>
       {/* Hero — Full viewport, editorial style */}
@@ -125,23 +95,22 @@ export default async function Home() {
               <div className="inline-flex items-center gap-2.5 px-4 py-1.5 border border-accent-400/20 bg-accent-400/5 mb-8">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent-400 animate-pulse" />
                 <span className="text-accent-400 font-semibold text-xs uppercase tracking-[0.2em]">
-                  Established 1994
+                  {homeData?.heroSubtitle || "Established 1994"}
                 </span>
               </div>
             </div>
 
             <h1 className="hero-animate text-5xl sm:text-6xl lg:text-8xl font-bold text-white leading-[0.95] tracking-tight mb-8" style={{ animationDelay: "0.2s" }}>
-              Building
+              {heroTitleLines[0]}
               <br />
-              Stronger
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-300 via-accent-400 to-accent-600">Foundations</span>
+              {heroTitleLines.length > 2 && <>{heroTitleLines[1]}<br /></>}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-300 via-accent-400 to-accent-600">
+                {heroTitleLines[heroTitleLines.length - 1]}
+              </span>
             </h1>
 
             <p className="hero-animate text-lg sm:text-xl text-slate-300 leading-relaxed max-w-xl mb-12" style={{ animationDelay: "0.35s" }}>
-              A premier structural and civil engineering consultancy in Mumbai,
-              delivering safe, innovative, and cost-effective solutions for
-              over three decades.
+              {homeData?.heroDescription || "A premier structural and civil engineering consultancy in Mumbai, delivering safe, innovative, and cost-effective solutions for over three decades."}
             </p>
 
             <div className="hero-animate flex flex-col sm:flex-row gap-4" style={{ animationDelay: "0.45s" }}>
@@ -249,7 +218,7 @@ export default async function Home() {
                 href="/projects"
                 className="group text-primary-500 font-semibold text-sm flex items-center gap-2 hover:gap-3 transition-all"
               >
-                View all 370+ projects
+                View all {settings?.projectsDelivered || '370'}+ projects
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
@@ -333,7 +302,7 @@ export default async function Home() {
               Numbers
             </h2>
           </FadeIn>
-          <HomeStats projects={projects} />
+          <HomeStats projects={projects} yearsActive={settings?.experienceYears || 36} />
         </div>
       </section>
 
@@ -409,10 +378,10 @@ export default async function Home() {
                     View Our Brochure
                   </a>
                   <a
-                    href="tel:+912224308872"
+                    href={`tel:${(settings?.phone || "+91 22 2430 8872").replace(/\\s/g, "")}`}
                     className="border border-white/20 text-white px-8 py-4 font-semibold text-base hover:bg-white/5 transition-all text-center"
                   >
-                    +91 22 2430 8872
+                    {settings?.phone || "+91 22 2430 8872"}
                   </a>
                 </div>
               </div>
