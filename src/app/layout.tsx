@@ -103,8 +103,10 @@ export default function RootLayout({
         <Header />
         <main id="main-content">{children}</main>
         <Footer />
-        <WhatsAppButton />
-        <ScrollToTop />
+        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-4">
+          <ScrollToTop />
+          <WhatsAppButton />
+        </div>
         <Analytics />
       </body>
     </html>
