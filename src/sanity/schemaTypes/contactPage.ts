@@ -19,6 +19,13 @@ export default defineType({
             { name: 'address', title: 'Address', type: 'text' },
             { name: 'phone', title: 'Phone Number (Optional)', type: 'string' },
             { name: 'cell', title: 'Cell Number (Optional)', type: 'string' },
+            {
+              name: 'active',
+              title: 'Show on website',
+              type: 'boolean',
+              description: 'Turn this off to retain an office record without publishing it.',
+              initialValue: true,
+            },
           ]
         }
       ]

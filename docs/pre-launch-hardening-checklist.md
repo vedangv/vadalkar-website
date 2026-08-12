@@ -17,8 +17,8 @@ Current launch candidate: GitHub `main` / Vercel production, currently aliased t
 - [x] Make Cloudflare Email Routing the sole inbound-mail provider; remove the conflicting Hostinger MX records and Hostinger SPF include.
 - [x] Activate and verify `info@vadalkar.com`, `support@vadalkar.com`, and `contact@vadalkar.com` as named forwarding aliases; keep catch-all delivery disabled.
 - [x] Verify the authoritative DNS publishes Cloudflare's three routing MX records, SPF include, and Email Routing DKIM key.
-- [ ] Confirm whether the Vashi office is still active.
-- [ ] Confirm or remove the three advertised job openings.
+- [x] Mark Vashi inactive, hide it from public office listings, retain its CMS record pending Dad's disposition decision, and set the public office count to one.
+- [x] Remove the three unconfirmed job openings and convert Careers to a general enquiry form and `info@vadalkar.com` contact.
 - [ ] Confirm the present-tense ISSE President claim and dates.
 
 ## Gate 2 — SEO, Indexing, and Domain Cutover
@@ -43,6 +43,7 @@ Current launch candidate: GitHub `main` / Vercel production, currently aliased t
 - [x] Type all Sanity query results and remove unsafe `any` mappings.
 - [ ] Ensure CMS fallbacks never produce empty services, offices, milestones, or critical contact information.
 - [x] Update README, environment template, and project documentation for the current Sanity/Vercel architecture.
+- [x] Add a per-office publication toggle so inactive office records can be retained without appearing publicly.
 
 ## Gate 4 — Quality, Security, and Dependencies
 
@@ -75,6 +76,7 @@ Current launch candidate: GitHub `main` / Vercel production, currently aliased t
 - [ ] **BLOCKED — Dad:** approve detailed service scope copy.
 - [ ] **BLOCKED — Dad:** provide verified awards, testimonials, and current major-client additions.
 - [ ] **BLOCKED — Dad:** provide a vector/SVG logo if available.
+- [ ] **BLOCKED — Dad:** decide whether the six-page digital brochure is sufficient or provide current manpower, facilities, adviser, publication, and project-schedule content for a formal capability statement.
 
 ## Cutover Runbook
 
@@ -95,6 +97,9 @@ Current launch candidate: GitHub `main` / Vercel production, currently aliased t
 - [x] No broken internal links were found in the discovered public route set.
 - [x] Responsive checks found no horizontal overflow at 390 px or 1440 px.
 - [x] Project category filtering and native contact-form validation work.
+- [x] The public office list shows Dadar only; Vashi remains retained as an inactive CMS record, and the map pin targets STADD Engineers Mumbai at `2RCV+JC`.
+- [x] The Careers page advertises no openings and routes general career enquiries through the contact API with a distinct email subject.
+- [x] The six-page digital brochure has no broken images, reflects 386 projects / 17 sectors / 35+ years, links the full portfolio, and supports print/save-to-PDF.
 - [x] Sanity contains 386 projects across 17 categories with no duplicate titles or slugs.
 - [x] Cloudflare Email Routing is enabled and DNS-locked; public DNS returns all three Cloudflare MX records plus the Cloudflare SPF and DKIM records.
 - [x] Local production build generates 71 routes on Next.js 16.3.

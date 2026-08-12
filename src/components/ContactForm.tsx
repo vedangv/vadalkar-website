@@ -5,7 +5,23 @@ import { CONTACT_SERVICES } from "@/lib/contact";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-export default function ContactForm({ initialService = "" }: { initialService?: string }) {
+type ContactFormProps = {
+  initialService?: string;
+  source?: "Contact page" | "Careers page";
+  showService?: boolean;
+  messageLabel?: string;
+  messagePlaceholder?: string;
+  submitLabel?: string;
+};
+
+export default function ContactForm({
+  initialService = "",
+  source = "Contact page",
+  showService = true,
+  messageLabel = "Project Details",
+  messagePlaceholder = "Tell us about your project or enquiry...",
+  submitLabel = "Send Message",
+}: ContactFormProps) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -59,6 +75,7 @@ export default function ContactForm({ initialService = "" }: { initialService?: 
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      <input type="hidden" name="source" value={source} />
       <div className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
         <label htmlFor="website">Website</label>
         <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
@@ -78,19 +95,21 @@ export default function ContactForm({ initialService = "" }: { initialService?: 
           <label htmlFor="phone" className="block text-sm font-medium text-slate-300 mb-2">Phone Number</label>
           <input type="tel" id="phone" name="phone" maxLength={40} autoComplete="tel" className="w-full px-0 py-3 border-0 border-b-2 border-slate-700 focus:border-accent-400 text-white placeholder:text-slate-500 outline-none transition-colors text-base bg-transparent" placeholder="+91 XXXXX XXXXX" />
         </div>
-        <div>
-          <label htmlFor="service" className="block text-sm font-medium text-slate-300 mb-2">Service Required</label>
-          <select id="service" name="service" defaultValue={initialService} className="w-full px-0 py-3 border-0 border-b-2 border-slate-700 focus:border-accent-400 text-white placeholder:text-slate-500 outline-none transition-colors text-base bg-transparent">
-            <option value="" className="bg-slate-900">Select a service</option>
-            {CONTACT_SERVICES.map((service) => (
-              <option key={service} value={service} className="bg-slate-900">{service}</option>
-            ))}
-          </select>
-        </div>
+        {showService && (
+          <div>
+            <label htmlFor="service" className="block text-sm font-medium text-slate-300 mb-2">Service Required</label>
+            <select id="service" name="service" defaultValue={initialService} className="w-full px-0 py-3 border-0 border-b-2 border-slate-700 focus:border-accent-400 text-white placeholder:text-slate-500 outline-none transition-colors text-base bg-transparent">
+              <option value="" className="bg-slate-900">Select a service</option>
+              {CONTACT_SERVICES.map((service) => (
+                <option key={service} value={service} className="bg-slate-900">{service}</option>
+              ))}
+            </select>
+          </div>
+        )}
       </div>
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">Project Details *</label>
-        <textarea id="message" name="message" required minLength={20} maxLength={5000} rows={5} className="w-full px-0 py-3 border-0 border-b-2 border-slate-700 focus:border-accent-400 text-white placeholder:text-slate-500 outline-none transition-colors text-base bg-transparent resize-none" placeholder="Tell us about your project or enquiry..." />
+        <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">{messageLabel} *</label>
+        <textarea id="message" name="message" required minLength={20} maxLength={5000} rows={5} className="w-full px-0 py-3 border-0 border-b-2 border-slate-700 focus:border-accent-400 text-white placeholder:text-slate-500 outline-none transition-colors text-base bg-transparent resize-none" placeholder={messagePlaceholder} />
       </div>
 
       {status === "error" && (
@@ -114,7 +133,7 @@ export default function ContactForm({ initialService = "" }: { initialService?: 
           </>
         ) : (
           <>
-            Send Message
+            {submitLabel}
             <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
