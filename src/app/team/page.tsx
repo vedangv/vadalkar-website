@@ -4,9 +4,9 @@ import Link from "next/link";
 import FadeIn from "@/components/FadeIn";
 
 export const metadata: Metadata = {
-  title: "Our Team | Vadalkar And Associates",
+  title: "Leadership | Vadalkar And Associates",
   description:
-    "Meet the experienced engineers behind Vadalkar And Associates, led by Hemant Vadalkar, M.E. (Structures) Gold Medalist.",
+    "Meet Hemant Vadalkar, Principal Consultant and Founder of Vadalkar And Associates, M.E. (Structures) Gold Medalist.",
   alternates: { canonical: "/team" },
   openGraph: { url: "/team" },
 };
@@ -61,7 +61,7 @@ export default function TeamPage() {
           <div className="hero-animate" style={{ animationDelay: "0.1s" }}>
             <div className="flex items-center gap-3 mb-8">
               <div className="h-px w-12 bg-accent-400" />
-              <span className="text-accent-400 font-medium text-sm uppercase tracking-[0.2em]">Our Team</span>
+              <span className="text-accent-400 font-medium text-sm uppercase tracking-[0.2em]">Leadership</span>
             </div>
           </div>
           <h1 className="hero-animate text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[0.95] tracking-tight mb-8" style={{ animationDelay: "0.2s" }}>
@@ -70,8 +70,8 @@ export default function TeamPage() {
             Driven by <span className="text-accent-400">Excellence</span>
           </h1>
           <p className="hero-animate text-xl text-slate-300 max-w-2xl leading-relaxed" style={{ animationDelay: "0.3s" }}>
-            Our team of qualified engineers brings decades of hands-on experience
-            in structural design and analysis.
+            Meet the principal engineer whose professional practice and technical
+            leadership have shaped the firm since 1994.
           </p>
         </div>
       </section>

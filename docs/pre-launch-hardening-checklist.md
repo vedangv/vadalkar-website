@@ -61,7 +61,7 @@ Current launch candidate: GitHub `main` / Vercel production, currently aliased t
 - [x] Make homepage featured-project cards real links.
 - [x] Add search, decade filtering, content-visibility optimization, and 36-item progressive disclosure to the 386-project portfolio.
 - [x] Preserve category, decade, and search filters in the URL so filtered views are shareable and navigable.
-- [ ] Clarify “Team” versus “Leadership” if Hemant remains the only profile.
+- [x] Present the single-profile page as “Leadership” while retaining the stable `/team` route.
 - [x] Add `aria-expanded` and `aria-controls` to the mobile navigation trigger.
 - [x] Fix low-contrast project-stat values and the header logo aspect ratio.
 - [ ] Make scroll-triggered content resilient when JavaScript or IntersectionObserver fails.
@@ -72,11 +72,11 @@ Current launch candidate: GitHub `main` / Vercel production, currently aliased t
 
 - [ ] **BLOCKED — Dad:** approve 6–10 flagship projects.
 - [ ] **BLOCKED — Dad:** provide approved high-resolution project images and usage permission.
-- [ ] **BLOCKED — Dad:** provide/approve staff profiles or approve renaming Team to Leadership.
+- [ ] **BLOCKED — Dad:** provide/approve additional staff profiles if the Leadership page should expand beyond Hemant.
 - [ ] **BLOCKED — Dad:** approve detailed service scope copy.
 - [ ] **BLOCKED — Dad:** provide verified awards, testimonials, and current major-client additions.
 - [ ] **BLOCKED — Dad:** provide a vector/SVG logo if available.
-- [ ] **BLOCKED — Dad:** decide whether the six-page digital brochure is sufficient or provide current manpower, facilities, adviser, publication, and project-schedule content for a formal capability statement.
+- [ ] **BLOCKED — Dad:** confirm whether the eight-page, sector-tailored capability profile is sufficient or provide current manpower, facilities, adviser, and publication details for a longer formal statement.
 
 ## Cutover Runbook
 
@@ -99,7 +99,7 @@ Current launch candidate: GitHub `main` / Vercel production, currently aliased t
 - [x] Project category filtering and native contact-form validation work.
 - [x] The public office list shows Dadar only; Vashi remains retained as an inactive CMS record, and the map pin targets STADD Engineers Mumbai at `2RCV+JC`.
 - [x] The Careers page advertises no openings and routes general career enquiries through the contact API with a distinct email subject.
-- [x] The six-page digital brochure has no broken images, reflects 386 projects / 17 sectors / 35+ years, links the full portfolio, and supports print/save-to-PDF.
+- [x] The eight-page digital brochure has no broken images, reflects 386 projects / 17 sectors / 35+ professional years, supports sector-specific project selections and schedules, links the full portfolio, and prints to A4 landscape PDF.
 - [x] Sanity contains 386 projects across 17 categories with no duplicate titles or slugs.
 - [x] Cloudflare Email Routing is enabled and DNS-locked; public DNS returns all three Cloudflare MX records plus the Cloudflare SPF and DKIM records.
 - [x] Local production build generates 71 routes on Next.js 16.3.

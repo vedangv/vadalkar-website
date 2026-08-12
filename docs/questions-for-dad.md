@@ -9,7 +9,7 @@ Running list of materials and information needed from Hemant Vadalkar to improve
 - [ ] Any projects completed after 2020 that should be added
 - [ ] Which projects does he consider the firm's "highlight" or flagship projects?
 
-### Team Page
+### Leadership Page
 - [ ] When did he become President of ISSE? (currently listed as President based on 2026 brochure)
 - [ ] Vashi is confirmed inactive. Should its address be deleted, retained privately as a former office, or described as a former location anywhere on the site?
 - [ ] Any other team members to feature? (associate engineers, draughtsmen)
@@ -27,7 +27,7 @@ Running list of materials and information needed from Hemant Vadalkar to improve
 ### Content & Branding
 - [x] Preferred public website email: info@vadalkar.com.
 - [ ] Logo — does he have a vector/SVG version of the banner?
-- [ ] Is the six-page digital brochure sufficient for introductions, or does he also need a formal downloadable capability statement?
+- [ ] Is the eight-page, sector-tailored capability profile sufficient for introductions, or should it include current manpower, facilities, advisers, or a longer publication history?
 - [ ] If a formal capability statement is needed, provide current manpower, facilities, advisers, publications, and any project schedule fields that are safe to publish. The old 39-page PDF contains stale Vashi and staffing details.
 
 ## Answered / Resolved
