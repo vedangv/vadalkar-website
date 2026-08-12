@@ -1,15 +1,34 @@
 import type { Metadata } from "next";
 import ProjectsGrid from "./ProjectsGrid";
 import { getProjects } from "@/sanity/lib/queries";
+import { categories } from "@/data/projects";
 
-export const metadata: Metadata = {
-  title: "Our Projects | Vadalkar And Associates",
-  description:
-    "Explore our portfolio of 370+ structural engineering projects across residential, commercial, industrial, and infrastructure sectors.",
-};
-
-export default async function ProjectsPage() {
+export async function generateMetadata(): Promise<Metadata> {
   const projects = await getProjects();
+  const sectors = new Set(projects.map((project) => project.category).filter(Boolean)).size;
+
+  return {
+    title: "Our Projects | Vadalkar And Associates",
+    description: `Explore ${projects.length} structural engineering projects across ${sectors} sectors, including residential, commercial, industrial, and infrastructure work.`,
+    alternates: { canonical: "/projects" },
+    openGraph: { url: "/projects" },
+  };
+}
+
+export default async function ProjectsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string; decade?: string; q?: string }>;
+}) {
+  const params = await searchParams;
+  const projects = await getProjects();
+  const sectors = new Set(projects.map((project) => project.category).filter(Boolean)).size;
+  const initialCategory = categories.includes(params.category || "")
+    ? params.category || "All"
+    : "All";
+  const initialDecade = /^(1990|2000|2010|2020)s$/.test(params.decade || "")
+    ? params.decade || "All"
+    : "All";
   return (
     <>
       {/* Hero */}
@@ -28,13 +47,18 @@ export default async function ProjectsPage() {
             The Test of <span className="text-accent-400">Time</span>
           </h1>
           <p className="hero-animate text-xl text-slate-300 max-w-2xl leading-relaxed" style={{ animationDelay: "0.3s" }}>
-            Over 200 projects across 14 sectors — from high-rise residential
+            {projects.length} projects across {sectors} sectors — from high-rise residential
             towers to industrial complexes, infrastructure, and structural audits.
           </p>
         </div>
       </section>
 
-      <ProjectsGrid projects={projects} />
+      <ProjectsGrid
+        projects={projects}
+        initialCategory={initialCategory}
+        initialDecade={initialDecade}
+        initialSearch={(params.q || "").slice(0, 100)}
+      />
     </>
   );
 }

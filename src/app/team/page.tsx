@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   title: "Our Team | Vadalkar And Associates",
   description:
     "Meet the experienced engineers behind Vadalkar And Associates, led by Hemant Vadalkar, M.E. (Structures) Gold Medalist.",
+  alternates: { canonical: "/team" },
+  openGraph: { url: "/team" },
 };
 
 const credentials = [

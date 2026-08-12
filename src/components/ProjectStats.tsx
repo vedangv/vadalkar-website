@@ -73,7 +73,7 @@ export default function ProjectStats({ projects, yearsActive = 36 }: { projects:
       }))
       .sort((a, b) => b.count - a.count);
     return data;
-  }, [activeCats]);
+  }, [activeCats, projects]);
 
   const maxCount = categoryData.length > 0 ? categoryData[0].count : 1;
 
@@ -92,7 +92,7 @@ export default function ProjectStats({ projects, yearsActive = 36 }: { projects:
         return !isNaN(y) && y >= r.min && y <= r.max;
       }).length,
     }));
-  }, []);
+  }, [projects]);
 
   const totalProjects = projects.length;
   const sectorsServed = activeCats.length;
@@ -107,7 +107,6 @@ export default function ProjectStats({ projects, yearsActive = 36 }: { projects:
         <div>
           <p className="text-5xl sm:text-6xl font-bold text-accent-400 tabular-nums">
             {totalCount}
-            <span className="text-3xl sm:text-4xl">+</span>
           </p>
           <p className="text-slate-500 mt-2 text-sm uppercase tracking-widest font-medium">
             Total Projects
@@ -127,7 +126,7 @@ export default function ProjectStats({ projects, yearsActive = 36 }: { projects:
             <span className="text-3xl sm:text-4xl">+</span>
           </p>
           <p className="text-slate-500 mt-2 text-sm uppercase tracking-widest font-medium">
-            Years Active
+            Years of Experience
           </p>
         </div>
         <div>
@@ -157,7 +156,7 @@ export default function ProjectStats({ projects, yearsActive = 36 }: { projects:
                   <span className="text-sm text-slate-600 font-medium">
                     {cat.name}
                   </span>
-                  <span className="text-sm text-slate-400 tabular-nums font-medium">
+                  <span className="text-sm text-slate-600 tabular-nums font-medium">
                     {cat.count}
                   </span>
                 </div>
@@ -189,7 +188,7 @@ export default function ProjectStats({ projects, yearsActive = 36 }: { projects:
               <p className="text-3xl sm:text-4xl font-bold text-slate-900 tabular-nums">
                 {isVisible ? d.count : 0}
               </p>
-              <p className="text-slate-400 mt-1 text-sm font-medium uppercase tracking-wider">
+              <p className="text-slate-600 mt-1 text-sm font-medium uppercase tracking-wider">
                 {d.label}
               </p>
             </div>

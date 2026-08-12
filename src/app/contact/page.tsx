@@ -6,13 +6,20 @@ export const metadata: Metadata = {
   title: "Contact Us | Vadalkar And Associates",
   description:
     "Get in touch with Vadalkar And Associates for structural and civil engineering consultations. Offices in Dadar and Vashi, Mumbai.",
+  alternates: { canonical: "/contact" },
+  openGraph: { url: "/contact" },
 };
 
-import { getContactPage, getSiteSettings } from "@/sanity/lib/queries";
+import { getContactPage } from "@/sanity/lib/queries";
+import { CONTACT_SERVICES } from "@/lib/contact";
+import { SITE_EMAIL } from "@/lib/site";
 
-export default async function ContactPage() {
+export default async function ContactPage({ searchParams }: { searchParams: Promise<{ service?: string }> }) {
+  const { service } = await searchParams;
+  const initialService = CONTACT_SERVICES.includes(service as (typeof CONTACT_SERVICES)[number])
+    ? service
+    : "";
   const contactData = await getContactPage();
-  const settings = await getSiteSettings();
 
   const offices = contactData?.offices || [];
   const heroTitleLines = (contactData?.heroTitle || "Let's Build\nSomething Together").split('\n');
@@ -58,7 +65,7 @@ export default async function ContactPage() {
                 </h2>
               </FadeIn>
               <FadeIn delay={0.1}>
-                <ContactForm />
+                <ContactForm initialService={initialService} />
               </FadeIn>
             </div>
 
@@ -75,7 +82,7 @@ export default async function ContactPage() {
               </FadeIn>
 
               <div className="space-y-8">
-                {offices.map((office: any, i: number) => (
+                {offices.map((office, i) => (
                   <FadeIn key={office.name} delay={0.3 + i * 0.1}>
                     <div className="border-l-2 border-slate-700 pl-8 py-2 hover:border-accent-400 transition-colors">
                       <h3 className="text-lg font-semibold text-white mb-3">{office.name}</h3>
@@ -98,8 +105,8 @@ export default async function ContactPage() {
                   <div className="bg-slate-800 p-8 mt-8 border border-slate-700">
                     <h3 className="text-lg font-semibold text-white mb-2">Email Us</h3>
                     <p className="text-slate-400 text-sm mb-4">For enquiries and project discussions</p>
-                    <a href={`mailto:${settings?.email || "vadalkar@gmail.com"}`} className="text-accent-400 font-semibold hover:text-accent-300 transition-colors text-lg">
-                      {settings?.email || "vadalkar@gmail.com"}
+                    <a href={`mailto:${SITE_EMAIL}`} className="text-accent-400 font-semibold hover:text-accent-300 transition-colors text-lg">
+                      {SITE_EMAIL}
                     </a>
                     <p className="text-slate-500 text-sm mt-4">
                       Contact: Hemant Vadalkar / Kirty Vadalkar

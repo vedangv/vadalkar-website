@@ -77,7 +77,7 @@ git push origin main
 
 The route accepts POST with JSON body `{ name, email, phone, service, message }`. It:
 1. Validates required fields (name, email, message)
-2. Sends notification email via Resend to vadalkar@gmail.com
+2. Sends notification email via Resend to info@vadalkar.com
 3. Optionally posts to Google Sheets webhook (if env var set)
 4. Returns success/error JSON
 
@@ -101,7 +101,7 @@ export async function POST(req: NextRequest) {
     // Send email notification
     const { error } = await resend.emails.send({
       from: "Vadalkar Website <onboarding@resend.dev>",
-      to: "vadalkar@gmail.com",
+      to: "info@vadalkar.com",
       replyTo: email,
       subject: `New Enquiry: ${service || "General"} — ${name}`,
       html: `
@@ -301,7 +301,7 @@ const jsonLd = {
   description: "Structural & Civil Engineering Consultants in Mumbai since 1994",
   url: "https://vadalkar-website.vercel.app",
   telephone: "+912224308872",
-  email: "vadalkar@gmail.com",
+  email: "info@vadalkar.com",
   foundingDate: "1994",
   address: {
     "@type": "PostalAddress",

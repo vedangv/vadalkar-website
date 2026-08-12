@@ -4,10 +4,20 @@ import ProjectStats from "@/components/ProjectStats";
 import { getProjects, getAboutPage, getSiteSettings } from "@/sanity/lib/queries";
 import { PortableText } from "next-sanity";
 
+export const metadata: Metadata = {
+  title: "About Us | Vadalkar And Associates",
+  description:
+    "Learn about Vadalkar And Associates, structural and civil engineering consultants serving Mumbai and projects across India since 1994.",
+  alternates: { canonical: "/about" },
+  openGraph: { url: "/about" },
+};
+
 export default async function AboutPage() {
-  const projects = await getProjects();
-  const aboutData = await getAboutPage();
-  const settings = await getSiteSettings();
+  const [projects, aboutData, settings] = await Promise.all([
+    getProjects(),
+    getAboutPage(),
+    getSiteSettings(),
+  ]);
 
   const heroTitleLines = (aboutData?.heroTitle || "Three Decades of\nStructural Excellence").split('\n');
 
@@ -120,26 +130,26 @@ export default async function AboutPage() {
             </h2>
           </FadeIn>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {(aboutData?.infrastructure || []).map((infra: any, i: number) => {
+            {(aboutData?.infrastructure || []).map((infra, i) => {
               const icons = [
-                <svg className="w-6 h-6 text-accent-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <svg key="office" className="w-6 h-6 text-accent-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
                 </svg>,
-                <svg className="w-6 h-6 text-accent-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <svg key="computer" className="w-6 h-6 text-accent-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25A2.25 2.25 0 0 1 5.25 3h13.5A2.25 2.25 0 0 1 21 5.25Z" />
                 </svg>,
-                <svg className="w-6 h-6 text-accent-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <svg key="software" className="w-6 h-6 text-accent-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
                 </svg>,
-                <svg className="w-6 h-6 text-accent-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <svg key="printer" className="w-6 h-6 text-accent-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0 1 10.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0 .229 2.523a1.125 1.125 0 0 1-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0 0 21 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 0 0-1.913-.247M6.34 18H5.25A2.25 2.25 0 0 1 3 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 0 1 1.913-.247m10.5 0a48.536 48.536 0 0 0-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M9.75 8.25h.008v.008H9.75V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
                 </svg>,
-                <svg className="w-6 h-6 text-accent-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <svg key="team" className="w-6 h-6 text-accent-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
                 </svg>
               ];
               return (
-                <FadeIn key={i} delay={i * 0.08}>
+                <FadeIn key={infra.title} delay={i * 0.08}>
                   <div className="p-8 rounded-2xl border border-slate-100 hover:border-accent-200 transition-colors group">
                     <div className="w-12 h-12 rounded-xl bg-accent-50 flex items-center justify-center mb-6 group-hover:bg-accent-100 transition-colors">
                       {icons[i % icons.length]}
@@ -167,8 +177,8 @@ export default async function AboutPage() {
             </h2>
           </FadeIn>
           <div className="space-y-0">
-            {(aboutData?.milestones || []).map((milestone: any, i: number) => (
-              <FadeIn key={i} delay={i * 0.1}>
+            {(aboutData?.milestones || []).map((milestone, i) => (
+              <FadeIn key={`${milestone.year}-${milestone.title}`} delay={i * 0.1}>
                 <div className="grid grid-cols-12 gap-6 py-8 border-b border-slate-100 group">
                   <div className="col-span-3 sm:col-span-2">
                     <span className="text-2xl font-bold text-accent-500">{milestone.year}</span>

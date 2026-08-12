@@ -83,7 +83,7 @@ const contactPage = {
       officeLocations: 2,
       address: 'B-703, New Samadhan CHS Ltd, Senapati Bapat Road, Near Zarapkar, Opp. Dadar Stn. (W), Mumbai - 400 028',
       phone: '+91 22 2430 8872',
-      email: 'vadalkar@gmail.com',
+      email: 'info@vadalkar.com',
       whatsappParams: '919322532578'
   }
   

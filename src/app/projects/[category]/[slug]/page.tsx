@@ -6,6 +6,7 @@ import FadeIn from "@/components/FadeIn";
 import { categorySlug } from "@/data/projects";
 import { featuredDescriptions } from "@/data/featured-projects";
 import { getProjects, getProjectBySlug } from "@/sanity/lib/queries";
+import { absoluteUrl, serializeJsonLd, SITE_URL } from "@/lib/site";
 
 export async function generateStaticParams() {
   const allProjects = await getProjects();
@@ -16,13 +17,15 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params;
+export async function generateMetadata({ params }: { params: Promise<{ category: string; slug: string }> }): Promise<Metadata> {
+  const { category, slug } = await params;
   const project = await getProjectBySlug(slug);
   if (!project) return {};
   return {
     title: `${project.title} | Vadalkar And Associates`,
     description: featuredDescriptions[slug]?.description || `${project.title} — structural engineering by Vadalkar And Associates.`,
+    alternates: { canonical: `/projects/${category}/${slug}` },
+    openGraph: { url: `/projects/${category}/${slug}` },
   };
 }
 
@@ -42,14 +45,14 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: serializeJsonLd({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Home", item: "https://vadalkar-website.vercel.app" },
-              { "@type": "ListItem", position: 2, name: "Projects", item: "https://vadalkar-website.vercel.app/projects" },
-              { "@type": "ListItem", position: 3, name: project.category, item: `https://vadalkar-website.vercel.app/projects/${catSlug}` },
-              { "@type": "ListItem", position: 4, name: project.title },
+              { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+              { "@type": "ListItem", position: 2, name: "Projects", item: absoluteUrl("/projects") },
+              { "@type": "ListItem", position: 3, name: project.category, item: absoluteUrl(`/projects/${catSlug}`) },
+              { "@type": "ListItem", position: 4, name: project.title, item: absoluteUrl(`/projects/${catSlug}/${slug}`) },
             ],
           }),
         }}
@@ -57,7 +60,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: serializeJsonLd({
             "@context": "https://schema.org",
             "@type": "CreativeWork",
             name: project.title,
@@ -66,7 +69,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
             creator: {
               "@type": "Organization",
               name: "Vadalkar And Associates",
-              url: "https://vadalkar-website.vercel.app",
+              url: SITE_URL,
             },
             ...(project.cost && {
               estimatedCost: {
@@ -162,10 +165,12 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
               <FadeIn delay={0.1}>
                 <div className="bg-slate-800 border border-slate-700 p-8 space-y-6">
                   <h3 className="text-lg font-bold text-white mb-6">Project Details</h3>
-                  <div>
-                    <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Client</p>
-                    <p className="text-white font-medium">{project.client}</p>
-                  </div>
+                  {project.client && (
+                    <div>
+                      <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Client</p>
+                      <p className="text-white font-medium">{project.client}</p>
+                    </div>
+                  )}
                   {project.architect && (
                     <div>
                       <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Architect</p>
@@ -206,11 +211,11 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
             </FadeIn>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               {relatedProjects.map((rp, i) => (
-                <FadeIn key={i} delay={i * 0.1}>
+                <FadeIn key={`${rp.title}-${rp.year}`} delay={i * 0.1}>
                   <div className="bg-slate-900 border border-slate-800 p-5">
                     <span className="text-accent-400 text-xs font-bold">{rp.year}</span>
                     <h3 className="text-white font-semibold mt-2 leading-snug">{rp.title}</h3>
-                    <p className="text-slate-500 text-sm mt-2">{rp.client}</p>
+                    {rp.client && <p className="text-slate-500 text-sm mt-2">{rp.client}</p>}
                   </div>
                 </FadeIn>
               ))}

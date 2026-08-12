@@ -5,6 +5,10 @@ import { createReadStream } from 'fs'
 
 const client = getCliClient()
 
+function errorMessage(error: unknown): string {
+  return error instanceof Error ? error.message : String(error)
+}
+
 async function migrate() {
   console.log('Starting migration of ' + projects.length + ' projects...')
   for (const project of projects) {
@@ -18,8 +22,8 @@ async function migrate() {
           filename: basename(imagePath)
         })
         imageAssetId = asset._id
-      } catch (err: any) {
-        console.warn(`Failed to upload image for ${project.title}:`, err.message)
+      } catch (error: unknown) {
+        console.warn(`Failed to upload image for ${project.title}:`, errorMessage(error))
       }
     }
 
@@ -46,8 +50,8 @@ async function migrate() {
     try {
       await client.create(doc)
       console.log(`Migrated: ${project.title}`)
-    } catch (err: any) {
-      console.error(`Failed to migrate ${project.title}:`, err.message)
+    } catch (error: unknown) {
+      console.error(`Failed to migrate ${project.title}:`, errorMessage(error))
     }
   }
   console.log('Migration complete!')

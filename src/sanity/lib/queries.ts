@@ -1,13 +1,18 @@
-import { groq } from 'next-sanity'
-import { client } from './client'
-import imageUrlBuilder from '@sanity/image-url'
+import { cache } from "react";
+import type { PortableTextBlock } from "@portabletext/types";
+import imageUrlBuilder from "@sanity/image-url";
+import { groq } from "next-sanity";
+import { client } from "./client";
 
-const builder = imageUrlBuilder(client)
-export function urlFor(source: any) {
-  return builder.image(source)
+const builder = imageUrlBuilder(client);
+const REVALIDATE_SECONDS = 3_600;
+
+type SanityImageSource = Parameters<typeof builder.image>[0];
+
+export function urlFor(source: SanityImageSource) {
+  return builder.image(source);
 }
 
-// Minimal type representing the transformed Sanity project
 export type SanityProject = {
   title: string;
   category: string;
@@ -19,65 +24,119 @@ export type SanityProject = {
   featured?: boolean;
   description?: string;
   image?: string;
+  updatedAt: string;
 };
 
-export async function getProjects(): Promise<SanityProject[]> {
-  const projects = await client.fetch(groq`
-    *[_type == "project"] | order(year desc) {
-      title,
-      category,
-      client,
-      architect,
-      year,
-      cost,
-      "slug": slug.current,
-      featured,
-      description,
-      image
-    }
-  `)
-  
-  return projects.map((p: any) => ({
-    ...p,
-    image: p.image ? urlFor(p.image).url() : undefined
-  }))
-}
+type RawSanityProject = Omit<SanityProject, "image"> & {
+  image?: SanityImageSource;
+};
 
-export async function getProjectBySlug(slug: string): Promise<SanityProject | null> {
-  const project = await client.fetch(groq`
-    *[_type == "project" && slug.current == $slug][0] {
-      title,
-      category,
-      client,
-      architect,
-      year,
-      cost,
-      "slug": slug.current,
-      featured,
-      description,
-      image
-    }
-  `, { slug })
-  
-  if (!project) return null
+export type HomePageData = {
+  heroTitle?: string;
+  heroSubtitle?: string;
+  heroDescription?: string;
+  services?: Array<{ title: string; description: string }>;
+  clients?: string[];
+};
+
+export type AboutPageData = {
+  heroTitle?: string;
+  heroDescription?: string;
+  whoWeAre?: PortableTextBlock[];
+  activities?: string[];
+  infrastructure?: Array<{ title: string; description: string }>;
+  milestones?: Array<{ year: string; title: string; description: string }>;
+};
+
+export type ContactPageData = {
+  heroTitle?: string;
+  heroDescription?: string;
+  offices?: Array<{
+    name: string;
+    address: string;
+    phone?: string;
+    cell?: string;
+  }>;
+};
+
+export type SiteSettings = {
+  experienceYears?: number;
+  projectsDelivered?: number;
+  sectorsServed?: number;
+  officeLocations?: number;
+  address?: string;
+  phone?: string;
+  email?: string;
+  whatsappParams?: string;
+};
+
+const fetchOptions = { next: { revalidate: REVALIDATE_SECONDS } } as const;
+
+function transformProject(project: RawSanityProject): SanityProject {
   return {
     ...project,
-    image: project.image ? urlFor(project.image).url() : undefined
-  }
+    image: project.image ? urlFor(project.image).url() : undefined,
+  };
 }
 
-export async function getHomePage() {
-  return await client.fetch(groq`*[_type == "homePage"][0]`)
-}
+export const getProjects = cache(async (): Promise<SanityProject[]> => {
+  const projects = await client.fetch<RawSanityProject[]>(
+    groq`*[_type == "project"] | order(year desc) {
+      title,
+      category,
+      client,
+      architect,
+      year,
+      cost,
+      "slug": slug.current,
+      featured,
+      description,
+      image,
+      "updatedAt": _updatedAt
+    }`,
+    {},
+    fetchOptions,
+  );
 
-export async function getAboutPage() {
-  return await client.fetch(groq`*[_type == "aboutPage"][0]`)
-}
+  return projects.map(transformProject);
+});
 
-export async function getContactPage() {
-  return await client.fetch(groq`*[_type == "contactPage"][0]`)
-}
+export const getProjectBySlug = cache(
+  async (slug: string): Promise<SanityProject | null> => {
+    const project = await client.fetch<RawSanityProject | null>(
+      groq`*[_type == "project" && slug.current == $slug][0] {
+        title,
+        category,
+        client,
+        architect,
+        year,
+        cost,
+        "slug": slug.current,
+        featured,
+        description,
+        image,
+        "updatedAt": _updatedAt
+      }`,
+      { slug },
+      fetchOptions,
+    );
 
-export async function getSiteSettings() {
-  return await client.fetch(groq`*[_type == "siteSettings"][0]`)
-}
+    return project ? transformProject(project) : null;
+  },
+);
+
+export const getHomePage = cache(() =>
+  client.fetch<HomePageData | null>(groq`*[_type == "homePage"][0]`, {}, fetchOptions),
+);
+
+export const getAboutPage = cache(() =>
+  client.fetch<AboutPageData | null>(groq`*[_type == "aboutPage"][0]`, {}, fetchOptions),
+);
+
+export const getContactPage = cache(() =>
+  client.fetch<ContactPageData | null>(groq`*[_type == "contactPage"][0]`, {}, fetchOptions),
+);
+
+export const getSiteSettings = cache(() =>
+  client.fetch<SiteSettings | null>(groq`*[_type == "siteSettings"][0]`, {}, fetchOptions),
+);

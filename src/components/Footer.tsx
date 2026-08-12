@@ -1,14 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-
-const services = [
-  "Structural Design",
-  "Structural Analysis",
-  "Structural Audit",
-  "Repair Consulting",
-  "STAADPro Consulting",
-  "Proof Checking",
-];
+import { DEFAULT_SERVICES, serviceSlug } from "@/data/services";
+import { SITE_EMAIL } from "@/lib/site";
 
 const quickLinks = [
   { name: "About Us", href: "/about" },
@@ -47,11 +40,14 @@ export default function Footer() {
               Services
             </h3>
             <ul className="space-y-2.5">
-              {services.map((service) => (
-                <li key={service}>
-                  <span className="text-sm text-slate-400 hover:text-white transition-colors">
-                    {service}
-                  </span>
+              {DEFAULT_SERVICES.map((service) => (
+                <li key={service.title}>
+                  <Link
+                    href={`/services#${serviceSlug(service.title)}`}
+                    className="text-sm text-slate-400 hover:text-white transition-colors"
+                  >
+                    {service.title}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -140,7 +136,12 @@ export default function Footer() {
                     d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
                   />
                 </svg>
-                <span>vadalkar@gmail.com</span>
+                <a
+                  href={`mailto:${SITE_EMAIL}`}
+                  className="hover:text-white transition-colors"
+                >
+                  {SITE_EMAIL}
+                </a>
               </li>
             </ul>
           </div>
@@ -152,9 +153,14 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Vadalkar & Associates. All rights
             reserved.
           </p>
-          <p className="text-xs text-slate-400">
-            Structural & Civil Engineering Consultants since 1994
-          </p>
+          <div className="text-center sm:text-right">
+            <p className="text-xs text-slate-400">
+              Structural & Civil Engineering Consultants since 1994
+            </p>
+            <p className="mt-1 text-xs text-slate-500">
+              Website designed &amp; built by Vedang Vadalkar
+            </p>
+          </div>
         </div>
       </div>
     </footer>
