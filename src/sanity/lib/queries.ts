@@ -135,7 +135,21 @@ export const getAboutPage = cache(() =>
 );
 
 export const getContactPage = cache(() =>
-  client.fetch<ContactPageData | null>(groq`*[_type == "contactPage"][0]`, {}, fetchOptions),
+  client.fetch<ContactPageData | null>(
+    groq`*[_type == "contactPage"][0] {
+      heroTitle,
+      heroDescription,
+      offices[] {
+        name,
+        address,
+        phone,
+        cell,
+        active
+      }
+    }`,
+    {},
+    fetchOptions,
+  ),
 );
 
 export const getSiteSettings = cache(() =>
