@@ -28,7 +28,8 @@ export default function WhatsAppButton() {
 
   return (
     <div
-      className="fixed bottom-6 right-6 z-50 flex items-center gap-2 transition-all duration-500 ease-out"
+      aria-hidden={!visible}
+      className={`${visible ? "" : "absolute right-0"} flex items-center gap-2 transition-all duration-500 ease-out`}
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(24px)",
@@ -40,6 +41,7 @@ export default function WhatsAppButton() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with us on WhatsApp"
+        tabIndex={visible ? 0 : -1}
         className="group flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-3 text-white shadow-lg transition-shadow duration-200 hover:shadow-xl"
       >
         <svg
@@ -56,6 +58,7 @@ export default function WhatsAppButton() {
       <button
         onClick={handleDismiss}
         aria-label="Dismiss WhatsApp button"
+        tabIndex={visible ? 0 : -1}
         className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-800/70 text-xs text-white transition-colors duration-200 hover:bg-gray-800 cursor-pointer"
       >
         &#10005;
