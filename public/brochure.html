@@ -49,6 +49,25 @@
     box-shadow: 0 8px 30px rgba(15,36,64,0.2);
     backdrop-filter: blur(10px);
   }
+  .brochure-toolbar label {
+    align-items: center;
+    color: var(--slate-300);
+    display: flex;
+    font-size: 10px;
+    font-weight: 700;
+    gap: 8px;
+    letter-spacing: 0.1em;
+    padding-left: 8px;
+    text-transform: uppercase;
+  }
+  .brochure-toolbar select {
+    background: var(--navy-dark);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: white;
+    font: inherit;
+    max-width: 190px;
+    padding: 9px 10px;
+  }
   .brochure-toolbar a,
   .brochure-toolbar button {
     border: 0;
@@ -104,10 +123,27 @@
 
   /* ── Print styles ── */
   @media print {
-    @page { size: A4 portrait; margin: 0; }
-    .page { page-break-after: always; min-height: auto; height: 297mm; }
+    @page { size: A4 landscape; margin: 0; }
+    html, body { margin: 0; width: 297mm; }
+    body { background: white; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page {
+      break-after: page;
+      height: 210mm;
+      max-height: 210mm;
+      min-height: 210mm;
+      overflow: hidden;
+      page-break-after: always;
+      width: 297mm;
+    }
     .page:last-child { page-break-after: avoid; }
-    body { background: white; }
+    .page-inner { max-width: none !important; padding: 20mm 18mm 12mm !important; }
+    .cover-hero { height: 210mm; min-height: 210mm; }
+    .animate-fade-up, .animate-fade-in { animation: none !important; opacity: 1 !important; transform: none !important; }
+    .credentials-layout { gap: 14mm !important; grid-template-columns: 52mm 1fr !important; }
+    .principal-photo { height: 70mm !important; width: 52mm !important; }
+    .experience-table td { font-size: 9px; padding: 5px 9px; }
+    .experience-table th { font-size: 8px; padding: 7px 9px; }
+    .project-card { break-inside: avoid; }
     .no-print { display: none !important; }
   }
 
@@ -275,6 +311,80 @@
     color: var(--slate-300);
     margin-top: 6px;
   }
+  .project-card.no-image {
+    background:
+      linear-gradient(135deg, rgba(217,119,6,0.16), transparent 55%),
+      linear-gradient(145deg, var(--navy), var(--navy-dark));
+  }
+  .project-card.no-image .project-overlay {
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    top: 0;
+  }
+
+  .experience-table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+  }
+  .experience-table th {
+    background: var(--navy);
+    color: white;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    padding: 10px 12px;
+    text-align: left;
+    text-transform: uppercase;
+  }
+  .experience-table td {
+    border-bottom: 1px solid var(--slate-200);
+    color: var(--slate-600);
+    font-size: 11px;
+    line-height: 1.35;
+    padding: 8px 12px;
+    vertical-align: top;
+  }
+  .experience-table td:first-child {
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .capability-grid {
+    display: grid;
+    gap: 22px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .capability-card {
+    border: 1px solid var(--slate-200);
+    padding: 24px;
+  }
+  .capability-card h3 {
+    color: var(--navy);
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .capability-card p,
+  .capability-card li {
+    color: var(--slate-500);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+  .capability-card ul { list-style: none; }
+  .capability-card li {
+    margin-top: 7px;
+    padding-left: 14px;
+    position: relative;
+  }
+  .capability-card li::before {
+    background: var(--gold);
+    content: '';
+    height: 5px;
+    left: 0;
+    position: absolute;
+    top: 7px;
+    width: 5px;
+  }
 
   /* ── Credential badges ── */
   .credential-item {
@@ -318,8 +428,9 @@
   }
 
   /* ── Responsive ── */
-  @media (max-width: 768px) {
-    .brochure-toolbar { top: 8px; width: calc(100% - 16px); justify-content:center; }
+  @media screen and (max-width: 768px) {
+    .brochure-toolbar { flex-wrap: wrap; top: 8px; width: calc(100% - 16px); justify-content:center; }
+    .brochure-toolbar label { order: 2; padding: 0; width: 100%; justify-content: center; }
     .brochure-toolbar a, .brochure-toolbar button { font-size:10px; padding:9px 8px; }
     .cover-hero { padding: 40px 24px; }
     .page-inner { padding: 40px 24px !important; }
@@ -328,6 +439,7 @@
     .projects-mosaic { grid-template-columns: 1fr !important; grid-template-rows: auto !important; }
     .projects-mosaic > * { grid-column: auto !important; grid-row: auto !important; height: 280px !important; }
     .credentials-layout { grid-template-columns: 1fr !important; }
+    .capability-grid { grid-template-columns: 1fr !important; }
     .back-cover-content { grid-template-columns: 1fr !important; }
   }
 </style>
@@ -337,7 +449,13 @@
 <nav class="brochure-toolbar no-print" aria-label="Brochure actions">
   <a href="/">Website</a>
   <a href="/projects">Full Portfolio</a>
-  <button class="primary-action" type="button" onclick="window.print()">Print / Save PDF</button>
+  <label for="sector-select">
+    Project focus
+    <select id="sector-select" aria-label="Project sector focus">
+      <option value="all">All sectors</option>
+    </select>
+  </label>
+  <button class="primary-action" id="print-button" type="button" disabled>Preparing brochure...</button>
 </nav>
 
 <!-- ════════════════════════════════════════════════════
@@ -369,8 +487,8 @@
     </div>
   </div>
 
-  <div class="animate-fade-in delay-5" style="position:absolute;bottom:40px;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;opacity:0.4;">
-    Corporate Profile 2026
+  <div class="animate-fade-in delay-5" id="cover-profile-focus" style="position:absolute;bottom:40px;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;opacity:0.55;">
+    Corporate Capability Profile 2026
   </div>
 </section>
 
@@ -413,8 +531,8 @@
         </div>
         <div>
           <div class="stat-number">35+</div>
-          <div class="stat-label">Years Experience</div>
-          <div class="stat-desc">More than three decades of commitment to structural integrity and innovation.</div>
+          <div class="stat-label">Professional Experience</div>
+          <div class="stat-desc">Hemant Vadalkar has worked in structural design since 1989.</div>
         </div>
         <div>
           <div class="stat-number">6</div>
@@ -523,10 +641,11 @@
       <div style="height:2px;width:40px;background:var(--gold);"></div>
       <span style="font-size:12px;text-transform:uppercase;letter-spacing:0.2em;color:var(--gold);font-weight:600;">Portfolio</span>
     </div>
-    <h2 class="font-display" style="font-size:clamp(32px,4vw,48px);color:var(--navy);margin-bottom:40px;">Featured Projects</h2>
+    <h2 class="font-display" id="portfolio-heading" style="font-size:clamp(32px,4vw,48px);color:var(--navy);margin-bottom:12px;">Featured Projects</h2>
+    <p id="portfolio-summary" style="font-size:14px;color:var(--slate-500);margin-bottom:28px;">A cross-sector selection from the firm&apos;s documented portfolio.</p>
 
     <!-- Mosaic grid -->
-    <div class="projects-mosaic" style="display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:320px 280px;gap:16px;">
+    <div class="projects-mosaic" id="projects-mosaic" style="display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:300px 250px;gap:16px;">
 
       <!-- Large: Agasan 16-Storey Towers -->
       <div class="project-card" style="grid-column:1/3;grid-row:1/2;">
@@ -570,7 +689,7 @@
     </div>
 
     <!-- Project highlights strip -->
-    <div style="margin-top:32px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+    <div id="project-highlights" style="margin-top:24px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
       <div style="padding:20px;border:1px solid var(--slate-200);">
         <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);font-weight:600;margin-bottom:4px;">Landmark</div>
         <div style="font-size:14px;font-weight:600;color:var(--navy);">Reliance Jamnagar Complex</div>
@@ -603,12 +722,53 @@
 
 
 <!-- ════════════════════════════════════════════════════
-     PAGE 5 — CREDENTIALS & CLIENTS
+     PAGE 5 — SELECTED EXPERIENCE
      ════════════════════════════════════════════════════ -->
 <section class="page blueprint-grid" style="background:white;">
   <div style="position:absolute;top:0;left:0;right:0;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;">
     <div style="font-weight:700;font-size:13px;letter-spacing:0.1em;color:var(--navy);">VADALKAR <span style="color:var(--gold);">&amp;</span> ASSOCIATES</div>
-    <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate-400);">Credentials &middot; 05</div>
+    <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate-400);">Selected Experience &middot; 05</div>
+  </div>
+
+  <div class="page-inner" style="padding:92px 48px 44px;max-width:1250px;margin:0 auto;width:100%;">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;">
+      <div style="height:2px;width:40px;background:var(--gold);"></div>
+      <span style="font-size:12px;text-transform:uppercase;letter-spacing:0.2em;color:var(--gold);font-weight:600;">Project Schedule</span>
+    </div>
+    <div style="display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:24px;">
+      <div>
+        <h2 class="font-display" id="experience-heading" style="font-size:clamp(30px,4vw,46px);color:var(--navy);">Selected Project Experience</h2>
+        <p id="experience-summary" style="font-size:13px;color:var(--slate-500);margin-top:8px;">Representative assignments selected from the firm&apos;s documented project database.</p>
+      </div>
+      <a class="no-print" href="/projects" style="color:var(--gold);font-size:11px;font-weight:700;letter-spacing:0.12em;text-decoration:none;text-transform:uppercase;white-space:nowrap;">Search full portfolio &rarr;</a>
+    </div>
+
+    <table class="experience-table">
+      <thead>
+        <tr>
+          <th style="width:39%;">Project</th>
+          <th style="width:22%;">Client</th>
+          <th style="width:22%;">Architect / Consultant</th>
+          <th style="width:9%;">Year</th>
+          <th style="width:8%;">Value*</th>
+        </tr>
+      </thead>
+      <tbody id="experience-table-body">
+        <tr><td>Loading selected project experience...</td><td></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+    <p style="color:var(--slate-400);font-size:9px;margin-top:10px;">* Project values are shown in Rs. lakhs where recorded in the source project schedule.</p>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 6 — CREDENTIALS & CLIENTS
+     ════════════════════════════════════════════════════ -->
+<section class="page blueprint-grid" style="background:white;">
+  <div style="position:absolute;top:0;left:0;right:0;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-weight:700;font-size:13px;letter-spacing:0.1em;color:var(--navy);">VADALKAR <span style="color:var(--gold);">&amp;</span> ASSOCIATES</div>
+    <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate-400);">Leadership &middot; 06</div>
   </div>
 
   <div class="page-inner" style="padding:100px 48px 60px 48px;max-width:1200px;margin:0 auto;width:100%;">
@@ -621,7 +781,7 @@
     <div class="credentials-layout" style="display:grid;grid-template-columns:280px 1fr;gap:60px;align-items:start;">
       <!-- Photo -->
       <div>
-        <div style="width:100%;aspect-ratio:3/4;overflow:hidden;position:relative;">
+        <div class="principal-photo" style="width:100%;aspect-ratio:3/4;overflow:hidden;position:relative;">
           <img src="/team/hemant-vadalkar-new.jpg" alt="Hemant S. Vadalkar" style="width:100%;height:100%;object-fit:cover;"/>
           <div style="position:absolute;bottom:0;left:0;right:0;padding:16px;background:linear-gradient(transparent,rgba(30,58,95,0.9));">
             <div style="color:white;font-weight:700;font-size:16px;">Hemant S. Vadalkar</div>
@@ -695,7 +855,68 @@
 
 
 <!-- ════════════════════════════════════════════════════
-     PAGE 6 — BACK COVER / CONTACT
+     PAGE 7 — PRACTICE PROFILE
+     ════════════════════════════════════════════════════ -->
+<section class="page blueprint-grid" style="background:var(--slate-50);">
+  <div style="position:absolute;top:0;left:0;right:0;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-weight:700;font-size:13px;letter-spacing:0.1em;color:var(--navy);">VADALKAR <span style="color:var(--gold);">&amp;</span> ASSOCIATES</div>
+    <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate-400);">Practice Profile &middot; 07</div>
+  </div>
+
+  <div class="page-inner" style="padding:96px 48px 50px;max-width:1220px;margin:0 auto;width:100%;">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;">
+      <div style="height:2px;width:40px;background:var(--gold);"></div>
+      <span style="font-size:12px;text-transform:uppercase;letter-spacing:0.2em;color:var(--gold);font-weight:600;">Capability Statement</span>
+    </div>
+    <h2 class="font-display" style="font-size:clamp(32px,4vw,48px);color:var(--navy);margin-bottom:14px;">How We Support a Project</h2>
+    <p style="font-size:14px;color:var(--slate-500);line-height:1.7;max-width:880px;margin-bottom:34px;">
+      The practice was founded in 1994 and has operated as Vadalkar &amp; Associates since 2006. It is led by Hemant S. Vadalkar, who has worked in structural design since 1989. Assignments span new design, independent review, audits, repairs, specialist analysis, and construction-stage engineering support.
+    </p>
+
+    <div class="capability-grid">
+      <div class="capability-card">
+        <h3>Concept &amp; Structural Design</h3>
+        <ul>
+          <li>Preliminary design and structural arrangement</li>
+          <li>Analysis, member design, detailing, and drawings</li>
+          <li>Approximate structural quantities</li>
+        </ul>
+      </div>
+      <div class="capability-card">
+        <h3>Independent Technical Review</h3>
+        <ul>
+          <li>Proof checking and design review</li>
+          <li>Structural audit and stability assessment</li>
+          <li>Repair and retrofit recommendations</li>
+        </ul>
+      </div>
+      <div class="capability-card">
+        <h3>Procurement &amp; Site Support</h3>
+        <ul>
+          <li>Tender preparation and scrutiny</li>
+          <li>Contractor-selection recommendations</li>
+          <li>Periodic construction and repair visits</li>
+        </ul>
+      </div>
+      <div class="capability-card">
+        <h3>Analysis &amp; Software</h3>
+        <p>Advanced STAADPro and computer-aided structural analysis for buildings, industrial systems, towers, marine works, temporary works, and specialist structures.</p>
+      </div>
+      <div class="capability-card">
+        <h3>Training &amp; Knowledge</h3>
+        <p>STAADPro seminars and technical training since 1996, supported by published papers, professional lectures, and continuing engagement with engineering institutions.</p>
+      </div>
+      <div class="capability-card">
+        <h3>Documented Experience</h3>
+        <p>The online portfolio contains 386 project records across 17 sectors. This focused brochure presents selected evidence; the complete searchable schedule remains available online.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════
+     PAGE 8 — BACK COVER / CONTACT
      ════════════════════════════════════════════════════ -->
 <section class="page" style="display:flex;flex-direction:column;">
   <!-- Navy top half -->
@@ -753,6 +974,151 @@
     </span>
   </div>
 </section>
+
+<script>
+  (() => {
+    const sectorSelect = document.getElementById('sector-select');
+    const printButton = document.getElementById('print-button');
+    const params = new URLSearchParams(window.location.search);
+    const requestedSector = params.get('sector') || 'all';
+
+    const makeElement = (tag, className, text) => {
+      const element = document.createElement(tag);
+      if (className) element.className = className;
+      if (text) element.textContent = text;
+      return element;
+    };
+
+    const projectMeta = (project) => {
+      const parts = [];
+      if (project.client) parts.push(project.client);
+      if (project.year) parts.push(project.year);
+      return parts.join(' · ');
+    };
+
+    const renderProjectVisuals = (projects) => {
+      const mosaic = document.getElementById('projects-mosaic');
+      const highlights = document.getElementById('project-highlights');
+      const placements = [
+        'grid-column:1/3;grid-row:1/2;',
+        'grid-column:3/4;grid-row:1/3;',
+        'grid-column:1/2;grid-row:2/3;',
+        'grid-column:2/3;grid-row:2/3;',
+      ];
+
+      mosaic.replaceChildren();
+      projects.slice(0, 4).forEach((project, index) => {
+        const card = makeElement('div', `project-card${project.image ? '' : ' no-image'}`);
+        card.setAttribute('style', placements[index]);
+        if (project.image) {
+          const image = document.createElement('img');
+          image.src = project.image;
+          image.alt = project.title;
+          image.loading = 'eager';
+          card.appendChild(image);
+        }
+        const overlay = makeElement('div', 'project-overlay');
+        overlay.appendChild(makeElement('div', 'project-category', project.category));
+        overlay.appendChild(makeElement('div', 'project-title', project.title));
+        overlay.appendChild(makeElement('div', 'project-meta', projectMeta(project)));
+        card.appendChild(overlay);
+        mosaic.appendChild(card);
+      });
+
+      highlights.replaceChildren();
+      projects.slice(4, 8).forEach((project) => {
+        const item = document.createElement('div');
+        item.setAttribute('style', 'padding:18px;border:1px solid var(--slate-200);');
+        const category = makeElement('div', '', project.category);
+        category.setAttribute('style', 'font-size:10px;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);font-weight:600;margin-bottom:4px;');
+        const title = makeElement('div', '', project.title);
+        title.setAttribute('style', 'font-size:13px;font-weight:600;color:var(--navy);');
+        const meta = makeElement('div', '', projectMeta(project));
+        meta.setAttribute('style', 'font-size:11px;color:var(--slate-400);margin-top:4px;');
+        item.append(category, title, meta);
+        highlights.appendChild(item);
+      });
+    };
+
+    const renderExperienceTable = (projects) => {
+      const body = document.getElementById('experience-table-body');
+      body.replaceChildren();
+      projects.slice(0, 15).forEach((project) => {
+        const row = document.createElement('tr');
+        [
+          project.title,
+          project.client || '—',
+          project.architect || '—',
+          project.year || '—',
+          project.cost ? `${project.cost} L` : '—',
+        ].forEach((value) => row.appendChild(makeElement('td', '', value)));
+        body.appendChild(row);
+      });
+    };
+
+    const populateSectorSelect = (sectors) => {
+      sectors.forEach((sector) => {
+        const option = document.createElement('option');
+        option.value = sector.slug;
+        option.textContent = `${sector.name} (${sector.count})`;
+        sectorSelect.appendChild(option);
+      });
+      sectorSelect.value = requestedSector;
+    };
+
+    const finishPreparation = () => {
+      printButton.disabled = false;
+      printButton.textContent = 'Print / Save PDF';
+      document.documentElement.dataset.brochureReady = 'true';
+    };
+
+    sectorSelect.addEventListener('change', () => {
+      const nextUrl = new URL(window.location.href);
+      if (sectorSelect.value === 'all') nextUrl.searchParams.delete('sector');
+      else nextUrl.searchParams.set('sector', sectorSelect.value);
+      window.location.assign(nextUrl.toString());
+    });
+    printButton.addEventListener('click', () => window.print());
+
+    fetch(`/api/brochure-projects?sector=${encodeURIComponent(requestedSector)}`)
+      .then((response) => {
+        if (!response.ok) throw new Error('Unable to load brochure project data');
+        return response.json();
+      })
+      .then((data) => {
+        populateSectorSelect(data.availableSectors);
+        renderProjectVisuals(data.projects);
+        renderExperienceTable(data.projects);
+
+        const isFocused = data.sectorSlug !== 'all';
+        document.getElementById('cover-profile-focus').textContent = isFocused
+          ? `${data.sector} Capability Profile · 2026`
+          : 'Corporate Capability Profile · 2026';
+        document.getElementById('portfolio-heading').textContent = isFocused
+          ? `${data.sector} Highlights`
+          : 'Featured Projects';
+        document.getElementById('portfolio-summary').textContent = isFocused
+          ? `Representative visual and technical experience selected for ${data.sector.toLowerCase()} discussions.`
+          : 'A cross-sector selection from the firm’s documented portfolio.';
+        document.getElementById('experience-heading').textContent = isFocused
+          ? `Selected ${data.sector} Experience`
+          : 'Selected Project Experience';
+        const selectedCount = Math.min(15, data.projects.length);
+        document.getElementById('experience-summary').textContent = isFocused
+          ? `${selectedCount} representative assignments selected from ${data.total} documented ${data.sector.toLowerCase()} records.`
+          : `${selectedCount} representative assignments selected from ${data.total} documented projects across 17 sectors.`;
+        document.title = isFocused
+          ? `Vadalkar And Associates — ${data.sector} Capability Profile`
+          : 'Vadalkar And Associates — Corporate Capability Profile 2026';
+        finishPreparation();
+      })
+      .catch(() => {
+        const loadingCell = document.querySelector('#experience-table-body td');
+        if (loadingCell) loadingCell.textContent = 'Project schedule unavailable. Visit the online portfolio for current records.';
+        finishPreparation();
+      });
+  })();
+</script>
 
 </body>
 </html>

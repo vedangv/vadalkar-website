@@ -6,7 +6,7 @@ import { SITE_EMAIL } from "@/lib/site";
 const quickLinks = [
   { name: "About Us", href: "/about" },
   { name: "Our Projects", href: "/projects" },
-  { name: "Our Team", href: "/team" },
+  { name: "Leadership", href: "/team" },
   { name: "Contact Us", href: "/contact" },
   { name: "Careers", href: "/careers" },
 ];
