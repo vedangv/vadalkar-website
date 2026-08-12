@@ -14,6 +14,7 @@ const validSubmission = {
   service: "Structural Audit",
   message: "Please review an existing residential structure in Mumbai.",
   website: "",
+  source: "Contact page",
 };
 
 test("accepts and normalizes a valid contact submission", () => {
@@ -24,6 +25,13 @@ test("accepts and normalizes a valid contact submission", () => {
 
   assert.equal(result.success, true);
   if (result.success) assert.equal(result.data.email, "asha@example.com");
+});
+
+test("labels careers submissions separately", () => {
+  const result = validateContactSubmission({ ...validSubmission, source: "Careers page" });
+
+  assert.equal(result.success, true);
+  if (result.success) assert.equal(result.data.source, "Careers page");
 });
 
 test("rejects invalid fields and unknown services", () => {

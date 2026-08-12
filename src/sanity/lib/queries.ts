@@ -56,6 +56,7 @@ export type ContactPageData = {
     address: string;
     phone?: string;
     cell?: string;
+    active?: boolean;
   }>;
 };
 

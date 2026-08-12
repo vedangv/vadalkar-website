@@ -15,6 +15,7 @@ export type ContactSubmission = {
   service: string;
   message: string;
   website: string;
+  source: "Contact page" | "Careers page";
 };
 
 type ContactValidationResult =
@@ -47,6 +48,7 @@ export function validateContactSubmission(value: unknown): ContactValidationResu
     service: readString(body.service),
     message: readString(body.message),
     website: readString(body.website),
+    source: body.source === "Careers page" ? "Careers page" : "Contact page",
   };
 
   if (data.name.length < 2 || data.name.length > 100) {
@@ -91,6 +93,7 @@ export function contactEmailHtml(data: ContactSubmission): string {
     phone: escapeHtml(data.phone || "Not provided"),
     service: escapeHtml(data.service || "Not specified"),
     message: escapeHtml(data.message).replace(/\r?\n/g, "<br />"),
+    source: escapeHtml(data.source),
   };
 
   return `
@@ -99,6 +102,7 @@ export function contactEmailHtml(data: ContactSubmission): string {
     <p><strong>Email:</strong> ${safe.email}</p>
     <p><strong>Phone:</strong> ${safe.phone}</p>
     <p><strong>Service:</strong> ${safe.service}</p>
+    <p><strong>Source:</strong> ${safe.source}</p>
     <hr />
     <p><strong>Message:</strong></p>
     <p>${safe.message}</p>

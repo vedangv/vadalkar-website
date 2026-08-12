@@ -58,11 +58,15 @@ export async function POST(req: NextRequest) {
     const from = process.env.CONTACT_FROM_EMAIL || "Vadalkar Website <onboarding@resend.dev>";
     const to = process.env.CONTACT_TO_EMAIL || SITE_EMAIL;
 
+    const subject = submission.source === "Careers page"
+      ? `Career Enquiry — ${submission.name}`
+      : `New Enquiry: ${submission.service || "General"} — ${submission.name}`;
+
     const { error } = await resend.emails.send({
       from,
       to,
       replyTo: submission.email,
-      subject: `New Enquiry: ${submission.service || "General"} — ${submission.name}`,
+      subject,
       html: contactEmailHtml(submission),
     });
 
@@ -85,6 +89,7 @@ export async function POST(req: NextRequest) {
           phone: submission.phone,
           service: submission.service,
           message: submission.message,
+          source: submission.source,
           timestamp: new Date().toISOString(),
         }),
       });

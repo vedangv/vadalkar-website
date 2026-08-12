@@ -221,26 +221,26 @@ export default function TeamPage() {
         </div>
       </section>
 
-      {/* Careers CTA */}
+      {/* Career enquiries CTA */}
       <section className="py-24 bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight">
-                Want to join
+                Career
                 <br />
-                our team?
+                enquiries
               </h2>
               <div>
                 <p className="text-lg text-slate-400 leading-relaxed mb-8">
-                  We&apos;re always looking for talented structural engineers, design
-                  engineers, and draughtsmen to join our growing team.
+                  We are not advertising any vacancies at present. General career
+                  introductions can still be sent through our careers page.
                 </p>
                 <Link
-                  href="/contact"
+                  href="/careers"
                   className="group bg-accent-400 text-slate-900 px-8 py-4 font-semibold hover:bg-accent-300 transition-all inline-flex items-center gap-2"
                 >
-                  Get in Touch
+                  Careers Contact
                   <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>

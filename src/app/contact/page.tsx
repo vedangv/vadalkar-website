@@ -5,7 +5,7 @@ import ContactForm from "@/components/ContactForm";
 export const metadata: Metadata = {
   title: "Contact Us | Vadalkar And Associates",
   description:
-    "Get in touch with Vadalkar And Associates for structural and civil engineering consultations. Offices in Dadar and Vashi, Mumbai.",
+    "Get in touch with Vadalkar And Associates for structural and civil engineering consultations in Mumbai.",
   alternates: { canonical: "/contact" },
   openGraph: { url: "/contact" },
 };
@@ -21,7 +21,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
     : "";
   const contactData = await getContactPage();
 
-  const offices = contactData?.offices || [];
+  const offices = contactData?.offices?.filter((office) => office.active !== false) || [];
   const heroTitleLines = (contactData?.heroTitle || "Let's Build\nSomething Together").split('\n');
   return (
     <>
@@ -130,19 +130,22 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
             <h2 className="text-3xl font-bold text-white mb-10">
               Find Us
             </h2>
+            <p className="text-slate-400 mb-8">
+              Map pin: STADD Engineers Mumbai, 2RCV+JC Mumbai, Maharashtra, India
+            </p>
           </FadeIn>
         </div>
         <div className="max-w-7xl mx-auto">
           <FadeIn delay={0.1}>
             <iframe
-              src="https://maps.google.com/maps?q=New+Samadhan+CHS+Senapati+Bapat+Road+Dadar+Mumbai&output=embed"
+              src="https://maps.google.com/maps?q=STADD+Engineers+Mumbai+2RCV%2BJC+Mumbai+Maharashtra+India&output=embed"
               width="100%"
               className="h-[300px] sm:h-[400px] border-0"
               style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Vadalkar And Associates Head Office — Dadar, Mumbai"
+              title="STADD Engineers Mumbai — 2RCV+JC Mumbai, Maharashtra, India"
             />
           </FadeIn>
         </div>
