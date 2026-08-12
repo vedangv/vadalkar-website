@@ -27,7 +27,7 @@ Running list of materials and information needed from Hemant Vadalkar to improve
 - [ ] Any case studies or examples he wants highlighted per service?
 
 ### Content & Branding
-- [ ] Preferred email for website contact: info@vadalkar.com or vadalkar@gmail.com?
+- [x] Preferred public website email: info@vadalkar.com.
 - [ ] Logo — does he have a vector/SVG version of the banner?
 - [ ] Does he want to keep the company brochure PDF as-is or wants a redesigned version?
 

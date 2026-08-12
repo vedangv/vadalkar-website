@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import FadeIn from "@/components/FadeIn";
+import { SITE_EMAIL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Careers | Vadalkar And Associates",
   description:
     "Join our team of structural engineers. Current openings for structural engineers, design engineers, and site engineers in Mumbai.",
+  alternates: { canonical: "/careers" },
+  openGraph: { url: "/careers" },
 };
 
 const cultureCards = [
@@ -245,10 +248,10 @@ export default function CareersPage() {
                   Send your resume and cover letter to:
                 </p>
                 <a
-                  href="mailto:vadalkar@gmail.com"
+                  href={`mailto:${SITE_EMAIL}`}
                   className="text-accent-400 font-semibold text-2xl hover:text-accent-300 transition-colors"
                 >
-                  vadalkar@gmail.com
+                  {SITE_EMAIL}
                 </a>
                 <p className="text-slate-500 text-sm mt-4 mb-8">
                   Contact: Hemant Vadalkar / Kirty Vadalkar

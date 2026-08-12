@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import FadeIn from "@/components/FadeIn";
 import { categories, categorySlug, getCategoryDescription } from "@/data/projects";
 import { getProjects, type SanityProject } from "@/sanity/lib/queries";
+import { absoluteUrl, serializeJsonLd } from "@/lib/site";
 
 const categoryList = categories.filter((c) => c !== "All");
 
@@ -19,6 +20,8 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
   return {
     title: `${category} Projects | Vadalkar And Associates`,
     description: getCategoryDescription(category),
+    alternates: { canonical: `/projects/${slug}` },
+    openGraph: { url: `/projects/${slug}` },
   };
 }
 
@@ -51,7 +54,7 @@ function ProjectCard({ project }: { project: SanityProject }) {
       </div>
       <div className="p-5">
         <h2 className="text-base font-semibold text-white uppercase tracking-tight mb-2 leading-snug">{project.title}</h2>
-        <p className="text-sm text-slate-400 mb-1">Client: {project.client}</p>
+        {project.client && <p className="text-sm text-slate-400 mb-1">Client: {project.client}</p>}
         {project.architect && <p className="text-sm text-slate-400">Architect: {project.architect}</p>}
         {project.cost && (
           <div className="pt-3 mt-3 border-t border-slate-800 flex justify-between items-center">
@@ -81,13 +84,13 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: serializeJsonLd({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Home", item: "https://vadalkar-website.vercel.app" },
-              { "@type": "ListItem", position: 2, name: "Projects", item: "https://vadalkar-website.vercel.app/projects" },
-              { "@type": "ListItem", position: 3, name: category },
+              { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+              { "@type": "ListItem", position: 2, name: "Projects", item: absoluteUrl("/projects") },
+              { "@type": "ListItem", position: 3, name: category, item: absoluteUrl(`/projects/${slug}`) },
             ],
           }),
         }}
@@ -121,7 +124,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {categoryProjects.map((project, i) => (
-              <FadeIn key={i} delay={Math.min(i * 0.05, 0.3)}>
+              <FadeIn key={`${project.title}-${project.year}`} delay={Math.min(i * 0.05, 0.3)}>
                 {project.slug && project.featured ? (
                   <Link href={`/projects/${slug}/${project.slug}`} className="block group">
                     <ProjectCard project={project} />

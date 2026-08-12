@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { CONTACT_SERVICES } from "@/lib/contact";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-export default function ContactForm() {
+export default function ContactForm({ initialService = "" }: { initialService?: string }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -58,42 +59,42 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+        <label htmlFor="website">Website</label>
+        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">Full Name *</label>
-          <input type="text" id="name" name="name" required className="w-full px-0 py-3 border-0 border-b-2 border-slate-700 focus:border-accent-400 text-white placeholder:text-slate-500 outline-none transition-colors text-base bg-transparent" placeholder="Your name" />
+          <input type="text" id="name" name="name" required minLength={2} maxLength={100} autoComplete="name" className="w-full px-0 py-3 border-0 border-b-2 border-slate-700 focus:border-accent-400 text-white placeholder:text-slate-500 outline-none transition-colors text-base bg-transparent" placeholder="Your name" />
         </div>
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">Email Address *</label>
-          <input type="email" id="email" name="email" required className="w-full px-0 py-3 border-0 border-b-2 border-slate-700 focus:border-accent-400 text-white placeholder:text-slate-500 outline-none transition-colors text-base bg-transparent" placeholder="you@example.com" />
+          <input type="email" id="email" name="email" required maxLength={254} autoComplete="email" className="w-full px-0 py-3 border-0 border-b-2 border-slate-700 focus:border-accent-400 text-white placeholder:text-slate-500 outline-none transition-colors text-base bg-transparent" placeholder="you@example.com" />
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label htmlFor="phone" className="block text-sm font-medium text-slate-300 mb-2">Phone Number</label>
-          <input type="tel" id="phone" name="phone" className="w-full px-0 py-3 border-0 border-b-2 border-slate-700 focus:border-accent-400 text-white placeholder:text-slate-500 outline-none transition-colors text-base bg-transparent" placeholder="+91 XXXXX XXXXX" />
+          <input type="tel" id="phone" name="phone" maxLength={40} autoComplete="tel" className="w-full px-0 py-3 border-0 border-b-2 border-slate-700 focus:border-accent-400 text-white placeholder:text-slate-500 outline-none transition-colors text-base bg-transparent" placeholder="+91 XXXXX XXXXX" />
         </div>
         <div>
           <label htmlFor="service" className="block text-sm font-medium text-slate-300 mb-2">Service Required</label>
-          <select id="service" name="service" className="w-full px-0 py-3 border-0 border-b-2 border-slate-700 focus:border-accent-400 text-white placeholder:text-slate-500 outline-none transition-colors text-base bg-transparent">
+          <select id="service" name="service" defaultValue={initialService} className="w-full px-0 py-3 border-0 border-b-2 border-slate-700 focus:border-accent-400 text-white placeholder:text-slate-500 outline-none transition-colors text-base bg-transparent">
             <option value="" className="bg-slate-900">Select a service</option>
-            <option value="Structural Design" className="bg-slate-900">Structural Design</option>
-            <option value="Structural Analysis" className="bg-slate-900">Structural Analysis</option>
-            <option value="Structural Audit" className="bg-slate-900">Structural Audit</option>
-            <option value="Repair Consulting" className="bg-slate-900">Repair Consulting</option>
-            <option value="Proof Checking" className="bg-slate-900">Proof Checking</option>
-            <option value="STAADPro Consulting" className="bg-slate-900">STAADPro Consulting</option>
-            <option value="Other" className="bg-slate-900">Other</option>
+            {CONTACT_SERVICES.map((service) => (
+              <option key={service} value={service} className="bg-slate-900">{service}</option>
+            ))}
           </select>
         </div>
       </div>
       <div>
         <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">Project Details *</label>
-        <textarea id="message" name="message" required rows={5} className="w-full px-0 py-3 border-0 border-b-2 border-slate-700 focus:border-accent-400 text-white placeholder:text-slate-500 outline-none transition-colors text-base bg-transparent resize-none" placeholder="Tell us about your project or enquiry..." />
+        <textarea id="message" name="message" required minLength={20} maxLength={5000} rows={5} className="w-full px-0 py-3 border-0 border-b-2 border-slate-700 focus:border-accent-400 text-white placeholder:text-slate-500 outline-none transition-colors text-base bg-transparent resize-none" placeholder="Tell us about your project or enquiry..." />
       </div>
 
       {status === "error" && (
-        <div className="bg-red-900/20 border border-red-800 text-red-400 px-4 py-3 text-sm">
+        <div role="alert" aria-live="polite" className="bg-red-900/20 border border-red-800 text-red-400 px-4 py-3 text-sm">
           {errorMsg}
         </div>
       )}

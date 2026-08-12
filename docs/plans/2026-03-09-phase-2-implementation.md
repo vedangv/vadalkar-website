@@ -738,7 +738,7 @@ Create `src/app/careers/page.tsx` with:
 - Why work with us section (2-3 bullet points about the firm culture)
 - Current openings: Structural Engineer, Design Engineer / Draughtsman, Site Engineer
 - Each opening: title, brief description, requirements
-- CTA: "Apply by emailing your resume to vadalkar@gmail.com"
+- CTA: "Apply by emailing your resume to info@vadalkar.com"
 - Use `hero-animate` for above-the-fold, `FadeIn` for below-the-fold
 
 **Step 2: Add to footer navigation**

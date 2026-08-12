@@ -72,7 +72,7 @@ export default function HomeStats({ projects, yearsActive = 36 }: { projects: Sa
       }))
       .sort((a, b) => b.count - a.count)
       .slice(0, 8);
-  }, [activeCats]);
+  }, [activeCats, projects]);
 
   const maxCount = categoryData.length > 0 ? categoryData[0].count : 1;
 
@@ -92,7 +92,6 @@ export default function HomeStats({ projects, yearsActive = 36 }: { projects: Sa
         <div>
           <p className="text-5xl sm:text-6xl font-bold text-primary-500 tabular-nums">
             {totalAnim}
-            <span className="text-3xl sm:text-4xl">+</span>
           </p>
           <p className="text-slate-500 mt-2 text-sm uppercase tracking-widest font-medium">
             Projects Delivered
@@ -112,7 +111,7 @@ export default function HomeStats({ projects, yearsActive = 36 }: { projects: Sa
             <span className="text-3xl sm:text-4xl">+</span>
           </p>
           <p className="text-slate-500 mt-2 text-sm uppercase tracking-widest font-medium">
-            Years Active
+            Years of Experience
           </p>
         </div>
         <div>
@@ -135,7 +134,7 @@ export default function HomeStats({ projects, yearsActive = 36 }: { projects: Sa
                 <span className="text-sm text-slate-600 font-medium">
                   {cat.name}
                 </span>
-                <span className="text-sm text-slate-400 tabular-nums font-medium">
+                <span className="text-sm text-slate-600 tabular-nums font-medium">
                   {cat.count}
                 </span>
               </div>

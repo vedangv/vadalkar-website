@@ -3,6 +3,7 @@ import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
 import HomeStats from "@/components/HomeStats";
 import { getProjects, getHomePage, getSiteSettings } from "@/sanity/lib/queries";
+import { DEFAULT_SERVICES } from "@/data/services";
 
 const featuredProjects: {
   title: string;
@@ -14,6 +15,7 @@ const featuredProjects: {
   span: string;
   height: string;
   image?: string;
+  href: string;
 }[] = [
   {
     title: "Videocon Towers",
@@ -25,6 +27,7 @@ const featuredProjects: {
     span: "lg:col-span-2 lg:row-span-2",
     height: "h-80 lg:h-full",
     image: "/projects/residential/resi-videocon-tower.gif",
+    href: "/projects/residential/videocon-towers",
   },
   {
     title: "DESE & CESE Building, IIT Bombay",
@@ -36,6 +39,7 @@ const featuredProjects: {
     span: "",
     height: "h-64",
     image: undefined,
+    href: "/projects/educational",
   },
   {
     title: "Haji Ali — Worli Sea Face Beautification",
@@ -47,22 +51,28 @@ const featuredProjects: {
     span: "",
     height: "h-64",
     image: undefined,
+    href: "/projects/infrastructure",
   },
 ];
 
 
 export default async function Home() {
-  const projects = await getProjects();
-  const homeData = await getHomePage();
-  const settings = await getSiteSettings();
+  const [projects, homeData, settings] = await Promise.all([
+    getProjects(),
+    getHomePage(),
+    getSiteSettings(),
+  ]);
 
-  const services: { title: string; description: string }[] = homeData?.services || [];
+  const services: { title: string; description: string }[] = homeData?.services?.length
+    ? homeData.services
+    : [...DEFAULT_SERVICES];
   const clients: string[] = homeData?.clients || [];
+  const sectorCount = new Set(projects.map((project) => project.category).filter(Boolean)).size;
   
   const stats = [
     { value: settings?.experienceYears ? `${settings.experienceYears}+` : "35+", label: "Years of Experience" },
-    { value: settings?.projectsDelivered ? `${settings.projectsDelivered}+` : "370+", label: "Projects Delivered" },
-    { value: settings?.sectorsServed?.toString() || "14", label: "Sectors Served" },
+    { value: projects.length.toString(), label: "Projects Delivered" },
+    { value: sectorCount.toString(), label: "Sectors Served" },
     { value: settings?.officeLocations?.toString() || "2", label: "Office Locations" },
   ];
 
@@ -218,7 +228,7 @@ export default async function Home() {
                 href="/projects"
                 className="group text-primary-500 font-semibold text-sm flex items-center gap-2 hover:gap-3 transition-all"
               >
-                View all {settings?.projectsDelivered || '370'}+ projects
+                View all {projects.length} projects
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
@@ -229,8 +239,10 @@ export default async function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {featuredProjects.map((project, i) => (
               <FadeIn key={project.title} delay={i * 0.15} className={project.span}>
-                <div
+                <Link
+                  href={project.href}
                   className={`group relative ${project.height} bg-gradient-to-br from-primary-500 to-slate-700 overflow-hidden cursor-pointer`}
+                  aria-label={`View ${project.title}`}
                 >
                   {project.image && (
                     <Image
@@ -279,7 +291,7 @@ export default async function Home() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               </FadeIn>
             ))}
           </div>
@@ -302,7 +314,7 @@ export default async function Home() {
               Numbers
             </h2>
           </FadeIn>
-          <HomeStats projects={projects} yearsActive={settings?.experienceYears || 36} />
+          <HomeStats projects={projects} yearsActive={settings?.experienceYears || 35} />
         </div>
       </section>
 

@@ -7,14 +7,13 @@ export default function WhatsAppButton() {
   const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
-    // Check if already dismissed this session
-    if (sessionStorage.getItem("whatsapp-dismissed") === "true") {
-      setDismissed(true);
-      return;
-    }
-
-    // Show after 2 second delay
-    const timer = setTimeout(() => setVisible(true), 2000);
+    const timer = setTimeout(() => {
+      if (sessionStorage.getItem("whatsapp-dismissed") === "true") {
+        setDismissed(true);
+      } else {
+        setVisible(true);
+      }
+    }, 2000);
     return () => clearTimeout(timer);
   }, []);
 

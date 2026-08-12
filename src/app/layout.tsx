@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { serializeJsonLd, SITE_EMAIL, SITE_IS_INDEXABLE, SITE_URL } from "@/lib/site";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -13,12 +14,17 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://vadalkar-website.vercel.app"),
+  metadataBase: new URL(SITE_URL),
   title: "Vadalkar And Associates | Structural & Civil Engineering Consultants",
   description:
     "Leading structural and civil engineering consultancy in Mumbai since 1994. Specializing in residential, commercial, industrial projects, structural audits, and STAADPro consulting.",
   keywords:
     "structural engineering, civil engineering, Mumbai, consultant, structural audit, STAADPro, Vadalkar",
+  alternates: { canonical: "/" },
+  robots: {
+    index: SITE_IS_INDEXABLE,
+    follow: SITE_IS_INDEXABLE,
+  },
   icons: {
     icon: "/favicon.ico",
     apple: "/apple-touch-icon.png",
@@ -29,36 +35,55 @@ export const metadata: Metadata = {
       "Structural & Civil Engineering Consultants in Mumbai since 1994",
     type: "website",
     locale: "en_IN",
+    url: "/",
+    siteName: "Vadalkar And Associates",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Vadalkar And Associates",
+    description: "Structural & Civil Engineering Consultants in Mumbai since 1994",
   },
 };
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  name: "Vadalkar And Associates",
-  description:
-    "Structural & Civil Engineering Consultants in Mumbai since 1994",
-  url: "https://vadalkar-website.vercel.app",
-  telephone: "+912224308872",
-  email: "vadalkar@gmail.com",
-  foundingDate: "1994",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress:
-      "B-703, New Samadhan CHS Ltd, Senapati Bapat Road, Opp. Dadar Stn. (W)",
-    addressLocality: "Mumbai",
-    addressRegion: "Maharashtra",
-    postalCode: "400028",
-    addressCountry: "IN",
-  },
-  areaServed: "Mumbai, Maharashtra, India",
-  serviceType: [
-    "Structural Design",
-    "Structural Analysis",
-    "Structural Audit",
-    "Repair Consulting",
-    "Proof Checking",
-    "STAADPro Consulting",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: "Vadalkar And Associates",
+      inLanguage: "en-IN",
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": `${SITE_URL}/#organization`,
+      name: "Vadalkar And Associates",
+      description:
+        "Structural & Civil Engineering Consultants in Mumbai since 1994",
+      url: SITE_URL,
+      telephone: "+912224308872",
+      email: SITE_EMAIL,
+      foundingDate: "1994",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress:
+          "B-703, New Samadhan CHS Ltd, Senapati Bapat Road, Opp. Dadar Stn. (W)",
+        addressLocality: "Mumbai",
+        addressRegion: "Maharashtra",
+        postalCode: "400028",
+        addressCountry: "IN",
+      },
+      areaServed: "Mumbai, Maharashtra, India",
+      serviceType: [
+        "Structural Design",
+        "Structural Analysis",
+        "Structural Audit",
+        "Repair Consulting",
+        "Proof Checking",
+        "STAADPro Consulting",
+      ],
+    },
   ],
 };
 
@@ -72,7 +97,7 @@ export default function RootLayout({
       <body className={`${inter.variable} antialiased`}>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
         />
         <a href="#main-content" className="skip-nav">Skip to main content</a>
         <Header />

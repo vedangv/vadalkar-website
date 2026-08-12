@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 const navigation = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
+  { name: "Services", href: "/services" },
   { name: "Projects", href: "/projects" },
   { name: "Team", href: "/team" },
   { name: "Contact", href: "/contact" },
@@ -35,9 +36,9 @@ export default function Header() {
             <Image
               src="/banner.gif"
               alt="Vadalkar And Associates - Structural & Civil Engineering Consultant"
-              width={420}
-              height={65}
-              className="h-14 w-auto sm:h-[4.5rem]"
+              width={555}
+              height={86}
+              className="h-auto w-auto max-h-14 max-w-[240px] sm:max-h-[4.5rem] sm:max-w-[360px]"
               unoptimized
               priority
             />
@@ -67,6 +68,8 @@ export default function Header() {
             className="md:hidden p-2 text-slate-600"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-navigation"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {mobileOpen ? (
@@ -81,7 +84,7 @@ export default function Header() {
 
       {/* Mobile Nav */}
       {mobileOpen && (
-        <div className="md:hidden bg-white border-t border-slate-200 shadow-lg">
+        <div id="mobile-navigation" className="md:hidden bg-white border-t border-slate-200 shadow-lg">
           <nav className="px-4 py-4 space-y-3">
             {navigation.map((item) => (
               <Link
