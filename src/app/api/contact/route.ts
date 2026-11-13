@@ -9,6 +9,29 @@ import { SITE_EMAIL } from "@/lib/site";
 
 const MAX_REQUEST_BYTES = 20_000;
 
+async function readRequestBody(req: NextRequest): Promise<string | null> {
+  const reader = req.body?.getReader();
+  if (!reader) return "";
+
+  const decoder = new TextDecoder();
+  let bytes = 0;
+  let text = "";
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) return text + decoder.decode();
+      bytes += value.byteLength;
+      if (bytes > MAX_REQUEST_BYTES) {
+        await reader.cancel();
+        return null;
+      }
+      text += decoder.decode(value, { stream: true });
+    }
+  } finally {
+    reader.releaseLock();
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     if (req.headers.get("content-type")?.split(";", 1)[0] !== "application/json") {
@@ -25,8 +48,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid request origin" }, { status: 403 });
     }
 
-    const requestBody = await req.text();
-    if (new TextEncoder().encode(requestBody).byteLength > MAX_REQUEST_BYTES) {
+    const requestBody = await readRequestBody(req);
+    if (requestBody === null) {
       return NextResponse.json({ error: "Request is too large" }, { status: 413 });
     }
 
@@ -71,7 +94,7 @@ export async function POST(req: NextRequest) {
     });
 
     if (error) {
-      console.error("Resend error:", error);
+      console.error("Contact email delivery failed");
       return NextResponse.json(
         { error: "Failed to send message" },
         { status: 500 }
@@ -80,21 +103,28 @@ export async function POST(req: NextRequest) {
 
     // Post to Google Sheets (optional)
     if (process.env.GOOGLE_SHEETS_WEBHOOK_URL) {
-      const sheetsResponse = await fetch(process.env.GOOGLE_SHEETS_WEBHOOK_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: submission.name,
-          email: submission.email,
-          phone: submission.phone,
-          service: submission.service,
-          message: submission.message,
-          source: submission.source,
-          timestamp: new Date().toISOString(),
-        }),
-      });
-      if (!sheetsResponse.ok) {
-        console.error("Google Sheets webhook error:", sheetsResponse.status);
+      // Email has already been delivered. An optional log failure must not ask
+      // the visitor to resend the enquiry, and a slow log must not hold it open.
+      try {
+        const sheetsResponse = await fetch(process.env.GOOGLE_SHEETS_WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          signal: AbortSignal.timeout(3_000),
+          body: JSON.stringify({
+            name: submission.name,
+            email: submission.email,
+            phone: submission.phone,
+            service: submission.service,
+            message: submission.message,
+            source: submission.source,
+            timestamp: new Date().toISOString(),
+          }),
+        });
+        if (!sheetsResponse.ok) {
+          console.error("Google Sheets webhook error:", sheetsResponse.status);
+        }
+      } catch {
+        console.error("Google Sheets webhook unavailable");
       }
     }
 
