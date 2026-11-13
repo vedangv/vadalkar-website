@@ -35,5 +35,10 @@
     "tailwindcss": "^4.3.3",
     "tsx": "^4.23.12",
     "typescript": "^5"
+  },
+  "overrides": {
+    "@sanity/preview-url-secret": {
+      "@sanity/uuid": "3.0.3"
+    }
   }
 }
