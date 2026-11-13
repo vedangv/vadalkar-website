@@ -7,34 +7,55 @@ import {
   useCallback,
   useDeferredValue,
   useMemo,
+  useSyncExternalStore,
 } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { categories, categorySlug } from "@/data/projects";
 import type { SanityProject } from "@/sanity/lib/queries";
 
 const PAGE_SIZE = 36;
 const decades = ["All", "1990s", "2000s", "2010s", "2020s"];
+const FILTER_CHANGE_EVENT = "vadalkar:project-filter-change";
+
+function subscribeToSearch(onChange: () => void) {
+  window.addEventListener("popstate", onChange);
+  window.addEventListener(FILTER_CHANGE_EVENT, onChange);
+  return () => {
+    window.removeEventListener("popstate", onChange);
+    window.removeEventListener(FILTER_CHANGE_EVENT, onChange);
+  };
+}
+
+function currentSearch() {
+  return (new URLSearchParams(window.location.search).get("q") || "").slice(0, 100);
+}
 
 type ProjectsGridProps = {
   projects: SanityProject[];
-  initialCategory?: string;
-  initialDecade?: string;
-  initialSearch?: string;
 };
 
-export default function ProjectsGrid({
-  projects,
-  initialCategory = "All",
-  initialDecade = "All",
-  initialSearch = "",
-}: ProjectsGridProps) {
-  const [active, setActive] = useState(initialCategory);
-  const [decade, setDecade] = useState(initialDecade);
-  const [search, setSearch] = useState(initialSearch);
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+export default function ProjectsGrid({ projects }: ProjectsGridProps) {
+  const searchParams = useSearchParams();
+  const requestedCategory = searchParams.get("category") || "All";
+  const requestedDecade = searchParams.get("decade") || "All";
+  const active = categories.includes(requestedCategory) ? requestedCategory : "All";
+  const decade = decades.includes(requestedDecade) ? requestedDecade : "All";
+  // History updates reach Next's searchParams through a transition. The input
+  // needs a synchronous snapshot so quick keystrokes cannot restore stale text.
+  const search = useSyncExternalStore(
+    subscribeToSearch,
+    currentSearch,
+    () => (searchParams.get("q") || "").slice(0, 100),
+  );
   const deferredSearch = useDeferredValue(search);
+  const filterKey = JSON.stringify([active, decade, deferredSearch]);
+  const [pagination, setPagination] = useState({ key: filterKey, count: PAGE_SIZE });
+  const visibleCount = pagination.key === filterKey ? pagination.count : PAGE_SIZE;
   const scrollRef = useRef<HTMLDivElement>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
+  const pendingFocusRef = useRef<{ key: string; index: number } | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
 
@@ -57,10 +78,36 @@ export default function ProjectsGrid({
     };
   }, [checkScroll]);
 
+  useEffect(() => {
+    const el = scrollRef.current;
+    const selected = el?.querySelector<HTMLElement>('[aria-pressed="true"]');
+    if (!el || !selected) return;
+    // Reveal a restored/shared filter without scrolling the page past its hero.
+    if (selected.offsetLeft < el.scrollLeft) el.scrollLeft = selected.offsetLeft;
+    else if (selected.offsetLeft + selected.offsetWidth > el.scrollLeft + el.clientWidth) {
+      el.scrollLeft = selected.offsetLeft + selected.offsetWidth - el.clientWidth;
+    }
+  }, [active]);
+
+  useEffect(() => {
+    const pending = pendingFocusRef.current;
+    pendingFocusRef.current = null;
+    if (!pending || pending.key !== filterKey) return;
+
+    // Resume at the new results, including when the final batch removes the button.
+    const card = resultsRef.current?.children[pending.index] as HTMLElement | undefined;
+    const target = card?.matches("a") ? card : card?.querySelector<HTMLElement>("h2");
+    target?.focus({ preventScroll: true });
+    card?.scrollIntoView({ block: "start", behavior: "instant" });
+  }, [filterKey, visibleCount]);
+
   const scroll = (dir: "left" | "right") => {
     const el = scrollRef.current;
     if (!el) return;
-    el.scrollBy({ left: dir === "left" ? -200 : 200, behavior: "smooth" });
+    el.scrollBy({
+      left: dir === "left" ? -200 : 200,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+    });
   };
 
   const categoryCounts = useMemo(() => {
@@ -91,21 +138,18 @@ export default function ProjectsGrid({
 
   const visibleProjects = filtered.slice(0, visibleCount);
 
-  const updateUrl = (updates: Record<string, string>) => {
-    const params = new URLSearchParams(window.location.search);
+  const updateUrl = (updates: Record<string, string>, replace = false) => {
+    const url = new URL(window.location.href);
     for (const [key, value] of Object.entries(updates)) {
-      if (!value || value === "All") params.delete(key);
-      else params.set(key, value);
+      if (!value || (key !== "q" && value === "All")) url.searchParams.delete(key);
+      else url.searchParams.set(key, value);
     }
-    const query = params.toString();
-    window.history.replaceState(null, "", `${window.location.pathname}${query ? `?${query}` : ""}`);
+    window.history[replace ? "replaceState" : "pushState"](null, "", url);
+    window.dispatchEvent(new Event(FILTER_CHANGE_EVENT));
   };
 
-  const selectCategory = (category: string) => {
-    setActive(category);
-    setVisibleCount(PAGE_SIZE);
-    updateUrl({ category });
-  };
+  const hasFilters = active !== "All" || decade !== "All" || Boolean(search);
+  const clearFilters = () => updateUrl({ category: "", decade: "", q: "" });
 
   return (
     <>
@@ -128,18 +172,18 @@ export default function ProjectsGrid({
           <div
             ref={scrollRef}
             className="flex gap-2 overflow-x-auto py-4 scrollbar-hide px-1"
-            role="tablist"
+            role="group"
             aria-label="Filter projects by category"
           >
             {categories.map((cat) => (
               <button
                 key={cat}
-                role="tab"
-                aria-selected={cat === active}
-                onClick={() => selectCategory(cat)}
+                type="button"
+                aria-pressed={cat === active}
+                onClick={() => updateUrl({ category: cat })}
                 className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
                   cat === active
-                    ? "bg-primary-500 text-white"
+                    ? "bg-accent-400 text-slate-900 border border-accent-400"
                     : "bg-transparent text-slate-300 border border-slate-700 hover:border-accent-400 hover:text-accent-400"
                 }`}
               >
@@ -178,10 +222,7 @@ export default function ProjectsGrid({
               value={search}
               maxLength={100}
               onChange={(event) => {
-                const value = event.target.value;
-                setSearch(value);
-                setVisibleCount(PAGE_SIZE);
-                updateUrl({ q: value });
+                updateUrl({ q: event.target.value }, true);
               }}
               placeholder="Search by project, client, architect, or year"
               className="w-full border border-slate-700 bg-slate-900 px-4 py-3 text-white outline-none placeholder:text-slate-500 focus:border-accent-400"
@@ -193,8 +234,6 @@ export default function ProjectsGrid({
               id="project-decade"
               value={decade}
               onChange={(event) => {
-                setDecade(event.target.value);
-                setVisibleCount(PAGE_SIZE);
                 updateUrl({ decade: event.target.value });
               }}
               className="w-full border border-slate-700 bg-slate-900 px-4 py-3 text-white outline-none focus:border-accent-400"
@@ -211,26 +250,32 @@ export default function ProjectsGrid({
 
       {/* Results count */}
       <section className="bg-slate-950 pt-6 pb-2">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-sm text-slate-400">
-            Showing <span className="font-semibold text-white">{filtered.length}</span>{" "}
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+          <p role="status" aria-atomic="true" className="text-sm text-slate-400">
+            Showing <span className="font-semibold text-white">{visibleProjects.length}</span> of{" "}
+            <span className="font-semibold text-white">{filtered.length}</span>{" "}
             project{filtered.length !== 1 ? "s" : ""}
-            {(active !== "All" || decade !== "All" || search) && (
+            {hasFilters && (
               <>
                 {" "}matching the selected filters
               </>
             )}
           </p>
+          {hasFilters && filtered.length > 0 && (
+            <button type="button" onClick={clearFilters} className="px-2 py-2 text-sm font-medium text-accent-400 underline underline-offset-4 hover:text-accent-300">
+              Clear filters
+            </button>
+          )}
         </div>
       </section>
 
       {/* Projects grid */}
       <section className="py-8 pb-20 bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div ref={resultsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {visibleProjects.map((project, i) => {
               const card = (
-                <div className="group h-full overflow-hidden border border-slate-800 bg-slate-900 transition-all duration-300 hover:border-accent-400/50 [content-visibility:auto] [contain-intrinsic-size:460px]">
+                <div className="group h-full overflow-hidden border border-slate-800 bg-slate-900 transition-all duration-300 hover:border-accent-400/50">
                   <div className="aspect-[4/3] relative bg-gradient-to-br from-primary-500/90 to-slate-700 flex items-center justify-center overflow-hidden">
                     {project.image ? (
                       <Image
@@ -268,7 +313,7 @@ export default function ProjectsGrid({
                     </div>
                   </div>
                   <div className="p-5">
-                    <h2 className="text-base font-semibold text-white uppercase tracking-tight mb-2 leading-snug">
+                    <h2 tabIndex={-1} className="scroll-mt-44 text-base font-semibold text-white uppercase tracking-tight mb-2 leading-snug">
                       {project.title}
                     </h2>
                     {project.client && (
@@ -284,9 +329,9 @@ export default function ProjectsGrid({
                     {project.cost && (
                       <div className="pt-3 mt-3 border-t border-slate-800 flex justify-between items-center">
                         <span className="text-accent-400 font-black text-sm">Rs. {project.cost} Lakhs</span>
-                        <svg className="w-4 h-4 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        {project.featured && project.slug && <svg className="w-4 h-4 text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
+                        </svg>}
                       </div>
                     )}
                   </div>
@@ -294,24 +339,32 @@ export default function ProjectsGrid({
               );
 
               return project.featured && project.slug ? (
-                <Link key={project.slug} href={`/projects/${categorySlug(project.category)}/${project.slug}`} className="block">
+                <Link key={project.slug} href={`/projects/${categorySlug(project.category)}/${project.slug}`} className="block scroll-mt-44">
                   {card}
                 </Link>
               ) : (
-                <div key={`${project.title}-${project.year}-${i}`}>{card}</div>
+                <div key={`${project.title}-${project.year}-${i}`} className="scroll-mt-44">{card}</div>
               );
             })}
           </div>
           {visibleProjects.length === 0 && (
             <div className="border border-slate-800 bg-slate-900 px-6 py-16 text-center text-slate-300">
               No projects match those filters. Try a broader search or another category.
+              <div className="mt-5">
+                <button type="button" onClick={clearFilters} className="border border-accent-400 px-6 py-3 font-semibold text-accent-400 hover:bg-accent-400 hover:text-slate-900">
+                  Clear filters
+                </button>
+              </div>
             </div>
           )}
           {visibleProjects.length < filtered.length && (
             <div className="mt-10 text-center">
               <button
                 type="button"
-                onClick={() => setVisibleCount((count) => count + PAGE_SIZE)}
+                onClick={() => {
+                  pendingFocusRef.current = { key: filterKey, index: visibleProjects.length };
+                  setPagination({ key: filterKey, count: visibleCount + PAGE_SIZE });
+                }}
                 className="border border-accent-400 px-8 py-3 font-semibold text-accent-400 hover:bg-accent-400 hover:text-slate-900"
               >
                 Show {Math.min(PAGE_SIZE, filtered.length - visibleProjects.length)} more projects

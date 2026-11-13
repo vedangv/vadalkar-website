@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import FadeIn from "@/components/FadeIn";
 import ContactForm from "@/components/ContactForm";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contact Us | Vadalkar And Associates",
   description:
     "Get in touch with Vadalkar And Associates for structural and civil engineering consultations in Mumbai.",
-  alternates: { canonical: "/contact" },
-  openGraph: { url: "/contact" },
-};
+  path: "/contact",
+});
 
 import { getContactPage } from "@/sanity/lib/queries";
 import { CONTACT_SERVICES } from "@/lib/contact";
@@ -108,7 +108,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
                     <a href={`mailto:${SITE_EMAIL}`} className="text-accent-400 font-semibold hover:text-accent-300 transition-colors text-lg">
                       {SITE_EMAIL}
                     </a>
-                    <p className="text-slate-500 text-sm mt-4">
+                    <p className="text-slate-400 text-sm mt-4">
                       Contact: Hemant Vadalkar / Kirty Vadalkar
                     </p>
                   </div>

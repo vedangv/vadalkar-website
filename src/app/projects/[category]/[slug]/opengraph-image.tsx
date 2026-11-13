@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { notFound } from "next/navigation";
 import { categorySlug } from "@/data/projects";
 import { getProjects, getProjectBySlug } from "@/sanity/lib/queries";
 
@@ -23,10 +24,11 @@ export async function generateStaticParams() {
 export default async function Image({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ category: string; slug: string }>;
 }) {
-  const { slug } = await params;
+  const { category, slug } = await params;
   const project = await getProjectBySlug(slug);
+  if (project && categorySlug(project.category) !== category) notFound();
 
   if (!project) {
     return new ImageResponse(

@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Image from "next/image";
 import Link from "next/link";
 import FadeIn from "@/components/FadeIn";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Leadership | Vadalkar And Associates",
   description:
     "Meet Hemant Vadalkar, Principal Consultant and Founder of Vadalkar And Associates, M.E. (Structures) Gold Medalist.",
-  alternates: { canonical: "/team" },
-  openGraph: { url: "/team" },
-};
+  path: "/team",
+});
 
 const credentials = [
   "B.E. (Civil) - 1986, College of Engineering, Poona",
@@ -96,7 +96,7 @@ export default function TeamPage() {
                   <h2 className="text-3xl font-bold text-slate-900 mb-1">
                     Hemant S. Vadalkar
                   </h2>
-                  <p className="text-accent-500 font-semibold text-sm mb-8">
+                  <p className="text-accent-600 font-semibold text-sm mb-8">
                     Principal Consultant & Founder
                   </p>
                   <div className="space-y-4">
@@ -127,7 +127,7 @@ export default function TeamPage() {
                 {career.map((item, i) => (
                   <FadeIn key={i} delay={i * 0.1}>
                     <div className="py-8 border-b border-slate-100 group">
-                      <span className="text-sm text-accent-500 font-semibold tracking-wide">{item.period}</span>
+                      <span className="text-sm text-accent-600 font-semibold tracking-wide">{item.period}</span>
                       <h4 className="text-2xl font-bold text-slate-900 mt-2 group-hover:text-primary-500 transition-colors">
                         {item.role}
                       </h4>
@@ -213,7 +213,7 @@ export default function TeamPage() {
               <FadeIn key={i} delay={i * 0.08}>
                 <div className="bg-white p-8 border border-slate-200 -mt-px -ml-px h-full">
                   <h3 className="text-lg font-bold text-slate-900 mb-2">{person.name}</h3>
-                  <p className="text-sm text-slate-400 leading-relaxed">{person.description}</p>
+                  <p className="text-sm text-slate-500 leading-relaxed">{person.description}</p>
                 </div>
               </FadeIn>
             ))}
@@ -279,7 +279,7 @@ export default function TeamPage() {
                 <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 leading-tight mb-2">
                   Shri A. B. Karnik
                 </h2>
-                <p className="text-accent-500 font-semibold text-sm mb-8">
+                <p className="text-accent-600 font-semibold text-sm mb-8">
                   Senior Consulting Structural Engineer, Mumbai
                 </p>
                 <div className="max-w-2xl space-y-6 text-slate-600 leading-relaxed">

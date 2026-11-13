@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import FadeIn from "@/components/FadeIn";
+import { getProjectStatistics } from "@/lib/project-statistics";
 import ProjectStats from "@/components/ProjectStats";
 import { getProjects, getAboutPage, getSiteSettings } from "@/sanity/lib/queries";
 import { PortableText } from "next-sanity";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About Us | Vadalkar And Associates",
   description:
     "Learn about Vadalkar And Associates, structural and civil engineering consultants serving Mumbai and projects across India since 1994.",
-  alternates: { canonical: "/about" },
-  openGraph: { url: "/about" },
-};
+  path: "/about",
+});
 
 export default async function AboutPage() {
   const [projects, aboutData, settings] = await Promise.all([
@@ -106,7 +107,7 @@ export default async function AboutPage() {
             {(aboutData?.activities || []).map((activity: string, i: number) => (
               <FadeIn key={i} delay={i * 0.08}>
                 <div className="bg-white p-8 lg:p-10 flex gap-6 items-start group hover:bg-slate-50 transition-colors border border-slate-200 -mt-px -ml-px h-full">
-                  <span className="text-4xl font-bold text-slate-100 group-hover:text-accent-200 transition-colors shrink-0">
+                  <span className="text-4xl font-bold text-slate-500 group-hover:text-accent-600 transition-colors shrink-0">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <p className="text-slate-600 leading-relaxed pt-2">{activity}</p>
@@ -208,7 +209,7 @@ export default async function AboutPage() {
               Project Statistics
             </h2>
           </FadeIn>
-          <ProjectStats projects={projects} yearsActive={settings?.experienceYears || 36} />
+          <ProjectStats statistics={getProjectStatistics(projects)} yearsActive={settings?.experienceYears || 36} />
         </div>
       </section>
     </>

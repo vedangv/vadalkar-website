@@ -7,7 +7,7 @@ The Next.js launch candidate is currently served at `development.vadalkar.com`. 
 ## Stack
 
 - Next.js 16 App Router, React 19, and TypeScript
-- Tailwind CSS 4 and Framer Motion
+- Tailwind CSS 4 and optional native scroll animations
 - Sanity for projects, home, about, contact, and site settings
 - Resend for contact-form delivery
 - Vercel for builds, hosting, analytics, and deployment
@@ -32,6 +32,25 @@ npm run lint
 npm test
 npm run build
 ```
+
+Browser regression tests build and run a local production server with CMS fixtures from
+`src/data/projects.ts` and the existing `data.ndjson` export. External browser
+requests are blocked, email delivery is disabled, and Google Fonts uses a system
+font substitute. No Sanity credentials or live services are needed:
+
+```bash
+npx playwright install chromium
+npm run test:browser
+npm run build:offline
+```
+
+To use an already installed Chromium browser, set
+`PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` to its executable instead of installing one.
+The fixture server needs port `3100` free and listens on `127.0.0.1:3100`;
+an existing server is never reused, so a development server cannot mask production
+regressions. Run builds and browser tests serially because they share Next.js output.
+Offline builds are for validation only and must not be deployed. Use the normal
+`npm run build` for releases.
 
 ## Environment variables
 

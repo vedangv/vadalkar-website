@@ -1,34 +1,25 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
+import { connection } from "next/server";
 import ProjectsGrid from "./ProjectsGrid";
 import { getProjects } from "@/sanity/lib/queries";
-import { categories } from "@/data/projects";
 
 export async function generateMetadata(): Promise<Metadata> {
   const projects = await getProjects();
   const sectors = new Set(projects.map((project) => project.category).filter(Boolean)).size;
 
-  return {
+  return pageMetadata({
     title: "Our Projects | Vadalkar And Associates",
     description: `Explore ${projects.length} structural engineering projects across ${sectors} sectors, including residential, commercial, industrial, and infrastructure work.`,
-    alternates: { canonical: "/projects" },
-    openGraph: { url: "/projects" },
-  };
+    path: "/projects",
+  });
 }
 
-export default async function ProjectsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ category?: string; decade?: string; q?: string }>;
-}) {
-  const params = await searchParams;
+export default async function ProjectsPage() {
+  // Render the URL-backed client filters with the incoming request's query.
+  await connection();
   const projects = await getProjects();
   const sectors = new Set(projects.map((project) => project.category).filter(Boolean)).size;
-  const initialCategory = categories.includes(params.category || "")
-    ? params.category || "All"
-    : "All";
-  const initialDecade = /^(1990|2000|2010|2020)s$/.test(params.decade || "")
-    ? params.decade || "All"
-    : "All";
   return (
     <>
       {/* Hero */}
@@ -53,12 +44,7 @@ export default async function ProjectsPage({
         </div>
       </section>
 
-      <ProjectsGrid
-        projects={projects}
-        initialCategory={initialCategory}
-        initialDecade={initialDecade}
-        initialSearch={(params.q || "").slice(0, 100)}
-      />
+      <ProjectsGrid projects={projects} />
     </>
   );
 }

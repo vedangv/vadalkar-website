@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
+import { getProjectStatistics } from "@/lib/project-statistics";
 import HomeStats from "@/components/HomeStats";
 import { getProjects, getHomePage, getSiteSettings } from "@/sanity/lib/queries";
 import { DEFAULT_SERVICES } from "@/data/services";
@@ -24,7 +25,7 @@ const featuredProjects: {
     category: "Residential",
     year: "1996",
     cost: "Rs. 3,000 Lakhs",
-    span: "lg:col-span-2 lg:row-span-2",
+    span: "lg:row-span-2",
     height: "h-80 lg:h-full",
     image: "/projects/residential/resi-videocon-tower.gif",
     href: "/projects/residential/videocon-towers",
@@ -37,7 +38,7 @@ const featuredProjects: {
     year: "2013",
     cost: "Rs. 4,000 Lakhs",
     span: "",
-    height: "h-64",
+    height: "h-72",
     image: undefined,
     href: "/projects/educational",
   },
@@ -49,7 +50,7 @@ const featuredProjects: {
     year: "2009",
     cost: "Rs. 2,500 Lakhs",
     span: "",
-    height: "h-64",
+    height: "h-72",
     image: undefined,
     href: "/projects/infrastructure",
   },
@@ -188,7 +189,7 @@ export default async function Home() {
                 {services.map((service, i) => (
                   <FadeIn key={service.title} delay={i * 0.1}>
                     <div className="bg-white p-8 lg:p-10 group border border-slate-200 hover:border-accent-400/30 transition-all duration-300 -mt-px -ml-px h-full">
-                      <span className="text-4xl font-black italic text-slate-200 group-hover:text-accent-400 transition-colors mb-4 block">
+                      <span className="text-4xl font-black italic text-slate-500 group-hover:text-accent-600 transition-colors mb-4 block">
                         0{i + 1}
                       </span>
                       <h3 className="text-xl font-semibold text-slate-900 mb-3 group-hover:text-primary-500 transition-colors">
@@ -241,7 +242,7 @@ export default async function Home() {
               <FadeIn key={project.title} delay={i * 0.15} className={project.span}>
                 <Link
                   href={project.href}
-                  className={`group relative ${project.height} bg-gradient-to-br from-primary-500 to-slate-700 overflow-hidden cursor-pointer`}
+                  className={`group relative block ${project.height} bg-gradient-to-br from-primary-500 to-slate-700 overflow-hidden cursor-pointer`}
                   aria-label={`View ${project.title}`}
                 >
                   {project.image && (
@@ -314,32 +315,22 @@ export default async function Home() {
               Numbers
             </h2>
           </FadeIn>
-          <HomeStats projects={projects} yearsActive={settings?.experienceYears || 35} />
+          <HomeStats statistics={getProjectStatistics(projects)} yearsActive={settings?.experienceYears || 35} />
         </div>
       </section>
 
-      {/* Trusted By — Dark marquee */}
+      {/* Trusted By */}
       <section className="py-16 bg-slate-900 overflow-hidden" aria-label="Trusted by leading organizations">
         <FadeIn>
-          <div className="relative">
-            <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-slate-900 to-transparent z-10" />
-            <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-slate-900 to-transparent z-10" />
-            <style>{`
-              @keyframes marquee {
-                0% { transform: translateX(0); }
-                100% { transform: translateX(-50%); }
-              }
-            `}</style>
-            <div className="flex whitespace-nowrap" style={{ animation: 'marquee 35s linear infinite' }}>
-              {[...clients, ...clients].map((client, i) => (
-                <span
-                  key={i}
-                  className="text-white/15 font-black text-3xl lg:text-4xl uppercase tracking-tight mx-10 hover:text-accent-400 transition-colors cursor-default"
-                >
-                  {client}
-                </span>
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <h2 className="mb-8 text-center text-sm font-medium uppercase tracking-[0.2em] text-accent-400">
+              Trusted by leading organizations
+            </h2>
+            <ul className="flex flex-wrap justify-center gap-x-10 gap-y-6 text-center">
+              {clients.map((client) => (
+                <li key={client} className="text-lg font-semibold text-slate-300 sm:text-xl">{client}</li>
               ))}
-            </div>
+            </ul>
           </div>
         </FadeIn>
       </section>

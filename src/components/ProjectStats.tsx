@@ -1,50 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState, useMemo } from "react";
-import { categories } from "@/data/projects";
-import type { SanityProject } from "@/sanity/lib/queries";
+import { useEffect, useRef, useState } from "react";
+import type { ProjectStatistics } from "@/lib/project-statistics";
 
-function useCountUp(target: number, isVisible: boolean, duration = 1500) {
-  const [count, setCount] = useState(0);
+import { useCountUp } from "@/lib/useCountUp";
 
-  useEffect(() => {
-    if (!isVisible) return;
-
-    let start = 0;
-    const startTime = performance.now();
-
-    function animate(now: number) {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      // Ease-out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = Math.round(eased * target);
-
-      if (current !== start) {
-        start = current;
-        setCount(current);
-      }
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        setCount(target);
-      }
-    }
-
-    requestAnimationFrame(animate);
-  }, [isVisible, target, duration]);
-
-  return count;
-}
-
-export default function ProjectStats({ projects, yearsActive = 36 }: { projects: SanityProject[], yearsActive?: number }) {
+export default function ProjectStats({ statistics, yearsActive = 36 }: { statistics: ProjectStatistics, yearsActive?: number }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const el = sectionRef.current;
-    if (!el) return;
+    // Counting is optional; keep the server-rendered totals if observation is unavailable.
+    if (!el || !("IntersectionObserver" in window)) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -60,42 +28,10 @@ export default function ProjectStats({ projects, yearsActive = 36 }: { projects:
     return () => observer.disconnect();
   }, []);
 
-  const activeCats = useMemo(
-    () => categories.filter((c) => c !== "All"),
-    []
-  );
-
-  const categoryData = useMemo(() => {
-    const data = activeCats
-      .map((cat) => ({
-        name: cat,
-        count: projects.filter((p) => p.category === cat).length,
-      }))
-      .sort((a, b) => b.count - a.count);
-    return data;
-  }, [activeCats, projects]);
-
-  const maxCount = categoryData.length > 0 ? categoryData[0].count : 1;
-
-  const decades = useMemo(() => {
-    const ranges = [
-      { label: "1990s", min: 1990, max: 1999 },
-      { label: "2000s", min: 2000, max: 2009 },
-      { label: "2010s", min: 2010, max: 2019 },
-      { label: "2020s", min: 2020, max: 2029 },
-    ];
-
-    return ranges.map((r) => ({
-      label: r.label,
-      count: projects.filter((p) => {
-        const y = parseInt(p.year, 10);
-        return !isNaN(y) && y >= r.min && y <= r.max;
-      }).length,
-    }));
-  }, [projects]);
-
-  const totalProjects = projects.length;
-  const sectorsServed = activeCats.length;
+  const { totalProjects, sectorsServed, featuredProjects } = statistics;
+  const categoryData = statistics.categories;
+  const maxCount = Math.max(categoryData[0]?.count || 0, 1);
+  const decades = statistics.decades;
 
   const totalCount = useCountUp(totalProjects, isVisible);
   const sectorsCount = useCountUp(sectorsServed, isVisible);
@@ -105,7 +41,7 @@ export default function ProjectStats({ projects, yearsActive = 36 }: { projects:
       {/* Summary counters */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-20">
         <div>
-          <p className="text-5xl sm:text-6xl font-bold text-accent-400 tabular-nums">
+          <p className="text-5xl sm:text-6xl font-bold text-primary-500 tabular-nums">
             {totalCount}
           </p>
           <p className="text-slate-500 mt-2 text-sm uppercase tracking-widest font-medium">
@@ -113,7 +49,7 @@ export default function ProjectStats({ projects, yearsActive = 36 }: { projects:
           </p>
         </div>
         <div>
-          <p className="text-5xl sm:text-6xl font-bold text-accent-400 tabular-nums">
+          <p className="text-5xl sm:text-6xl font-bold text-primary-500 tabular-nums">
             {sectorsCount}
           </p>
           <p className="text-slate-500 mt-2 text-sm uppercase tracking-widest font-medium">
@@ -121,7 +57,7 @@ export default function ProjectStats({ projects, yearsActive = 36 }: { projects:
           </p>
         </div>
         <div>
-          <p className="text-5xl sm:text-6xl font-bold text-accent-400 tabular-nums">
+          <p className="text-5xl sm:text-6xl font-bold text-primary-500 tabular-nums">
             {useCountUp(yearsActive, isVisible)}
             <span className="text-3xl sm:text-4xl">+</span>
           </p>
@@ -130,9 +66,9 @@ export default function ProjectStats({ projects, yearsActive = 36 }: { projects:
           </p>
         </div>
         <div>
-          <p className="text-5xl sm:text-6xl font-bold text-accent-400 tabular-nums">
+          <p className="text-5xl sm:text-6xl font-bold text-primary-500 tabular-nums">
             {useCountUp(
-              projects.filter((p) => p.featured).length,
+              featuredProjects,
               isVisible
             )}
           </p>
@@ -164,7 +100,7 @@ export default function ProjectStats({ projects, yearsActive = 36 }: { projects:
                   <div
                     className="h-full bg-primary-500 rounded-full transition-all duration-1000 ease-out"
                     style={{
-                      width: isVisible ? `${widthPercent}%` : "0%",
+                      width: `${widthPercent}%`,
                     }}
                   />
                 </div>
@@ -186,7 +122,7 @@ export default function ProjectStats({ projects, yearsActive = 36 }: { projects:
               className="border border-slate-200 rounded-xl p-6 text-center hover:border-accent-200 transition-colors"
             >
               <p className="text-3xl sm:text-4xl font-bold text-slate-900 tabular-nums">
-                {isVisible ? d.count : 0}
+                {d.count}
               </p>
               <p className="text-slate-600 mt-1 text-sm font-medium uppercase tracking-wider">
                 {d.label}

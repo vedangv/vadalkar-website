@@ -82,8 +82,9 @@ body {
 
 /* Better focus styles */
 *:focus-visible {
-  outline: 2px solid var(--color-primary-500);
-  outline-offset: 2px;
+  outline: 2px solid var(--color-accent-400);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px var(--color-primary-900);
 }
 
 /* Hide scrollbar for category filters */

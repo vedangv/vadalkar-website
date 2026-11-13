@@ -1,49 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState, useMemo } from "react";
-import { categories } from "@/data/projects";
-import type { SanityProject } from "@/sanity/lib/queries";
+import { useEffect, useRef, useState } from "react";
+import type { ProjectStatistics } from "@/lib/project-statistics";
 
-function useCountUp(target: number, isVisible: boolean, duration = 1500) {
-  const [count, setCount] = useState(0);
+import { useCountUp } from "@/lib/useCountUp";
 
-  useEffect(() => {
-    if (!isVisible) return;
-
-    let start = 0;
-    const startTime = performance.now();
-
-    function animate(now: number) {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = Math.round(eased * target);
-
-      if (current !== start) {
-        start = current;
-        setCount(current);
-      }
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        setCount(target);
-      }
-    }
-
-    requestAnimationFrame(animate);
-  }, [isVisible, target, duration]);
-
-  return count;
-}
-
-export default function HomeStats({ projects, yearsActive = 36 }: { projects: SanityProject[], yearsActive?: number }) {
+export default function HomeStats({ statistics, yearsActive = 36 }: { statistics: ProjectStatistics, yearsActive?: number }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const el = sectionRef.current;
-    if (!el) return;
+    // Counting is optional; keep the server-rendered totals if observation is unavailable.
+    if (!el || !("IntersectionObserver" in window)) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -59,31 +28,14 @@ export default function HomeStats({ projects, yearsActive = 36 }: { projects: Sa
     return () => observer.disconnect();
   }, []);
 
-  const activeCats = useMemo(
-    () => categories.filter((c) => c !== "All"),
-    []
-  );
-
-  const categoryData = useMemo(() => {
-    return activeCats
-      .map((cat) => ({
-        name: cat,
-        count: projects.filter((p) => p.category === cat).length,
-      }))
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 8);
-  }, [activeCats, projects]);
-
-  const maxCount = categoryData.length > 0 ? categoryData[0].count : 1;
-
-  const totalProjects = projects.length;
-  const sectorsServed = activeCats.length;
-  const featuredCount = projects.filter((p) => p.featured).length;
+  const { totalProjects, sectorsServed, featuredProjects } = statistics;
+  const categoryData = statistics.categories.slice(0, 8);
+  const maxCount = Math.max(categoryData[0]?.count || 0, 1);
 
   const totalAnim = useCountUp(totalProjects, isVisible);
   const sectorsAnim = useCountUp(sectorsServed, isVisible);
   const yearsAnim = useCountUp(yearsActive, isVisible);
-  const featuredAnim = useCountUp(featuredCount, isVisible);
+  const featuredAnim = useCountUp(featuredProjects, isVisible);
 
   return (
     <div ref={sectionRef}>
@@ -142,7 +94,7 @@ export default function HomeStats({ projects, yearsActive = 36 }: { projects: Sa
                 <div
                   className="h-full bg-accent-400 rounded-full transition-all duration-1000 ease-out"
                   style={{
-                    width: isVisible ? `${widthPercent}%` : "0%",
+                    width: `${widthPercent}%`,
                   }}
                 />
               </div>

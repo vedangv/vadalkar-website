@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -7,6 +8,12 @@ import { categorySlug } from "@/data/projects";
 import { featuredDescriptions } from "@/data/featured-projects";
 import { getProjects, getProjectBySlug } from "@/sanity/lib/queries";
 import { absoluteUrl, serializeJsonLd, SITE_URL } from "@/lib/site";
+
+async function getProjectForRoute(category: string, slug: string) {
+  const project = await getProjectBySlug(slug);
+  if (!project || categorySlug(project.category) !== category) notFound();
+  return project;
+}
 
 export async function generateStaticParams() {
   const allProjects = await getProjects();
@@ -19,20 +26,18 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ category: string; slug: string }> }): Promise<Metadata> {
   const { category, slug } = await params;
-  const project = await getProjectBySlug(slug);
-  if (!project) return {};
-  return {
+  const project = await getProjectForRoute(category, slug);
+  return pageMetadata({
     title: `${project.title} | Vadalkar And Associates`,
     description: featuredDescriptions[slug]?.description || `${project.title} — structural engineering by Vadalkar And Associates.`,
-    alternates: { canonical: `/projects/${category}/${slug}` },
-    openGraph: { url: `/projects/${category}/${slug}` },
-  };
+    path: `/projects/${category}/${slug}`,
+    image: `/projects/${category}/${slug}/opengraph-image`,
+  });
 }
 
 export default async function ProjectDetailPage({ params }: { params: Promise<{ category: string; slug: string }> }) {
   const { category: catSlug, slug } = await params;
-  const project = await getProjectBySlug(slug);
-  if (!project) notFound();
+  const project = await getProjectForRoute(catSlug, slug);
 
   const details = featuredDescriptions[slug];
   const allProjects = await getProjects();
@@ -167,27 +172,27 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
                   <h3 className="text-lg font-bold text-white mb-6">Project Details</h3>
                   {project.client && (
                     <div>
-                      <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Client</p>
+                      <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Client</p>
                       <p className="text-white font-medium">{project.client}</p>
                     </div>
                   )}
                   {project.architect && (
                     <div>
-                      <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Architect</p>
+                      <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Architect</p>
                       <p className="text-white font-medium">{project.architect}</p>
                     </div>
                   )}
                   <div>
-                    <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Year</p>
+                    <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Year</p>
                     <p className="text-white font-medium">{project.year}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Category</p>
+                    <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Category</p>
                     <p className="text-white font-medium">{project.category}</p>
                   </div>
                   {project.cost && (
                     <div>
-                      <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Project Cost</p>
+                      <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Project Cost</p>
                       <p className="text-accent-400 font-bold text-lg">Rs. {project.cost} Lakhs</p>
                     </div>
                   )}
@@ -215,7 +220,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
                   <div className="bg-slate-900 border border-slate-800 p-5">
                     <span className="text-accent-400 text-xs font-bold">{rp.year}</span>
                     <h3 className="text-white font-semibold mt-2 leading-snug">{rp.title}</h3>
-                    {rp.client && <p className="text-slate-500 text-sm mt-2">{rp.client}</p>}
+                    {rp.client && <p className="text-slate-400 text-sm mt-2">{rp.client}</p>}
                   </div>
                 </FadeIn>
               ))}
