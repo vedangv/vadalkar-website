@@ -1,9 +1,8 @@
 import { spawn } from "node:child_process";
-import { fileURLToPath } from "node:url";
 
 const command = process.argv[2] || "dev";
 if (!["dev", "build", "start"].includes(command)) throw new Error("Expected dev, build, or start");
-const preload = fileURLToPath(new URL("../tests/fixtures/offline.mjs", import.meta.url));
+const preload = new URL("../tests/fixtures/offline.mjs", import.meta.url).href;
 const child = spawn(process.execPath, [
   "node_modules/next/dist/bin/next", command,
   ...(command === "build" ? [] : ["--hostname", "127.0.0.1", "--port", "3100"]),
