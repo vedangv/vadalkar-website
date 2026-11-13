@@ -14,9 +14,10 @@ export default defineConfig({
     trace: "retain-on-failure",
   },
   webServer: {
-    command: "node scripts/test-site.mjs dev",
+    // Production layout can differ from dev, especially for skipped off-screen content.
+    command: "node scripts/test-site.mjs build && node scripts/test-site.mjs start",
     url: "http://127.0.0.1:3100",
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
     timeout: 120_000,
   },
 });
