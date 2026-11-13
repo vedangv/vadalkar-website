@@ -14,7 +14,7 @@ This is the **main corporate website only**. The `blog/` subdirectory is a separ
 ## Tech Stack
 - Next.js 16 (App Router) + TypeScript + React 19
 - Tailwind CSS 4 (inline @theme in globals.css)
-- Framer Motion 12 (animations via FadeIn component)
+- Native Web Animations API (progressive enhancement via FadeIn component)
 - Font: Inter (Google Fonts)
 
 ## Architecture
@@ -48,7 +48,7 @@ src/app/careers/page.tsx                — Careers page with open positions
 src/app/globals.css                     — Tailwind @theme with color palette
 src/components/Header.tsx               — Fixed nav, always white, mobile menu
 src/components/Footer.tsx               — 4-column footer
-src/components/FadeIn.tsx               — Framer Motion scroll-triggered animations
+src/components/FadeIn.tsx               — Optional scroll animations; content visible without JavaScript
 src/components/HomeStats.tsx            — Animated stats for home page (counters + bar chart)
 src/components/ProjectStats.tsx         — Full project stats for about page
 src/components/WhatsAppButton.tsx       — Floating WhatsApp CTA

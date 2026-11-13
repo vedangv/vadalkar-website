@@ -4,38 +4,7 @@ import { useEffect, useRef, useState, useMemo } from "react";
 import { categories } from "@/data/projects";
 import type { SanityProject } from "@/sanity/lib/queries";
 
-function useCountUp(target: number, isVisible: boolean, duration = 1500) {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!isVisible) return;
-
-    let start = 0;
-    const startTime = performance.now();
-
-    function animate(now: number) {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = Math.round(eased * target);
-
-      if (current !== start) {
-        start = current;
-        setCount(current);
-      }
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        setCount(target);
-      }
-    }
-
-    requestAnimationFrame(animate);
-  }, [isVisible, target, duration]);
-
-  return count;
-}
+import { useCountUp } from "@/lib/useCountUp";
 
 export default function HomeStats({ projects, yearsActive = 36 }: { projects: SanityProject[], yearsActive?: number }) {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -142,7 +111,7 @@ export default function HomeStats({ projects, yearsActive = 36 }: { projects: Sa
                 <div
                   className="h-full bg-accent-400 rounded-full transition-all duration-1000 ease-out"
                   style={{
-                    width: isVisible ? `${widthPercent}%` : "0%",
+                    width: `${widthPercent}%`,
                   }}
                 />
               </div>

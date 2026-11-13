@@ -4,39 +4,7 @@ import { useEffect, useRef, useState, useMemo } from "react";
 import { categories } from "@/data/projects";
 import type { SanityProject } from "@/sanity/lib/queries";
 
-function useCountUp(target: number, isVisible: boolean, duration = 1500) {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!isVisible) return;
-
-    let start = 0;
-    const startTime = performance.now();
-
-    function animate(now: number) {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      // Ease-out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = Math.round(eased * target);
-
-      if (current !== start) {
-        start = current;
-        setCount(current);
-      }
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        setCount(target);
-      }
-    }
-
-    requestAnimationFrame(animate);
-  }, [isVisible, target, duration]);
-
-  return count;
-}
+import { useCountUp } from "@/lib/useCountUp";
 
 export default function ProjectStats({ projects, yearsActive = 36 }: { projects: SanityProject[], yearsActive?: number }) {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -105,7 +73,7 @@ export default function ProjectStats({ projects, yearsActive = 36 }: { projects:
       {/* Summary counters */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-20">
         <div>
-          <p className="text-5xl sm:text-6xl font-bold text-accent-400 tabular-nums">
+          <p className="text-5xl sm:text-6xl font-bold text-primary-500 tabular-nums">
             {totalCount}
           </p>
           <p className="text-slate-500 mt-2 text-sm uppercase tracking-widest font-medium">
@@ -113,7 +81,7 @@ export default function ProjectStats({ projects, yearsActive = 36 }: { projects:
           </p>
         </div>
         <div>
-          <p className="text-5xl sm:text-6xl font-bold text-accent-400 tabular-nums">
+          <p className="text-5xl sm:text-6xl font-bold text-primary-500 tabular-nums">
             {sectorsCount}
           </p>
           <p className="text-slate-500 mt-2 text-sm uppercase tracking-widest font-medium">
@@ -121,7 +89,7 @@ export default function ProjectStats({ projects, yearsActive = 36 }: { projects:
           </p>
         </div>
         <div>
-          <p className="text-5xl sm:text-6xl font-bold text-accent-400 tabular-nums">
+          <p className="text-5xl sm:text-6xl font-bold text-primary-500 tabular-nums">
             {useCountUp(yearsActive, isVisible)}
             <span className="text-3xl sm:text-4xl">+</span>
           </p>
@@ -130,7 +98,7 @@ export default function ProjectStats({ projects, yearsActive = 36 }: { projects:
           </p>
         </div>
         <div>
-          <p className="text-5xl sm:text-6xl font-bold text-accent-400 tabular-nums">
+          <p className="text-5xl sm:text-6xl font-bold text-primary-500 tabular-nums">
             {useCountUp(
               projects.filter((p) => p.featured).length,
               isVisible
@@ -164,7 +132,7 @@ export default function ProjectStats({ projects, yearsActive = 36 }: { projects:
                   <div
                     className="h-full bg-primary-500 rounded-full transition-all duration-1000 ease-out"
                     style={{
-                      width: isVisible ? `${widthPercent}%` : "0%",
+                      width: `${widthPercent}%`,
                     }}
                   />
                 </div>
@@ -186,7 +154,7 @@ export default function ProjectStats({ projects, yearsActive = 36 }: { projects:
               className="border border-slate-200 rounded-xl p-6 text-center hover:border-accent-200 transition-colors"
             >
               <p className="text-3xl sm:text-4xl font-bold text-slate-900 tabular-nums">
-                {isVisible ? d.count : 0}
+                {d.count}
               </p>
               <p className="text-slate-600 mt-1 text-sm font-medium uppercase tracking-wider">
                 {d.label}

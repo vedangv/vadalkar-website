@@ -7,7 +7,7 @@ The Next.js launch candidate is currently served at `development.vadalkar.com`. 
 ## Stack
 
 - Next.js 16 App Router, React 19, and TypeScript
-- Tailwind CSS 4 and Framer Motion
+- Tailwind CSS 4 and optional native scroll animations
 - Sanity for projects, home, about, contact, and site settings
 - Resend for contact-form delivery
 - Vercel for builds, hosting, analytics, and deployment

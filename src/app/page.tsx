@@ -318,28 +318,18 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Trusted By — Dark marquee */}
+      {/* Trusted By */}
       <section className="py-16 bg-slate-900 overflow-hidden" aria-label="Trusted by leading organizations">
         <FadeIn>
-          <div className="relative">
-            <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-slate-900 to-transparent z-10" />
-            <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-slate-900 to-transparent z-10" />
-            <style>{`
-              @keyframes marquee {
-                0% { transform: translateX(0); }
-                100% { transform: translateX(-50%); }
-              }
-            `}</style>
-            <div className="flex whitespace-nowrap" style={{ animation: 'marquee 35s linear infinite' }}>
-              {[...clients, ...clients].map((client, i) => (
-                <span
-                  key={i}
-                  className="text-white/15 font-black text-3xl lg:text-4xl uppercase tracking-tight mx-10 hover:text-accent-400 transition-colors cursor-default"
-                >
-                  {client}
-                </span>
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <h2 className="mb-8 text-center text-sm font-medium uppercase tracking-[0.2em] text-accent-400">
+              Trusted by leading organizations
+            </h2>
+            <ul className="flex flex-wrap justify-center gap-x-10 gap-y-6 text-center">
+              {clients.map((client) => (
+                <li key={client} className="text-lg font-semibold text-slate-300 sm:text-xl">{client}</li>
               ))}
-            </div>
+            </ul>
           </div>
         </FadeIn>
       </section>
