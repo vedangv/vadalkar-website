@@ -11,7 +11,8 @@ export default function ProjectStats({ statistics, yearsActive = 36 }: { statist
 
   useEffect(() => {
     const el = sectionRef.current;
-    if (!el) return;
+    // Counting is optional; keep the server-rendered totals if observation is unavailable.
+    if (!el || !("IntersectionObserver" in window)) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
