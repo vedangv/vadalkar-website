@@ -18,13 +18,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <div className="mb-4">
+            <div className="mb-4 inline-block bg-white p-3">
               <Image
                 src="/banner.gif"
                 alt="Vadalkar And Associates"
                 width={220}
                 height={34}
-                className="h-9 w-auto invert mix-blend-screen"
+                className="h-auto w-[220px] max-w-full"
                 unoptimized
               />
             </div>
@@ -157,7 +157,7 @@ export default function Footer() {
             <p className="text-xs text-slate-400">
               Structural & Civil Engineering Consultants since 1994
             </p>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs text-slate-400">
               Website designed &amp; built by Vedang Vadalkar
             </p>
           </div>

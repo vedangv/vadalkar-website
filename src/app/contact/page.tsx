@@ -108,7 +108,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
                     <a href={`mailto:${SITE_EMAIL}`} className="text-accent-400 font-semibold hover:text-accent-300 transition-colors text-lg">
                       {SITE_EMAIL}
                     </a>
-                    <p className="text-slate-500 text-sm mt-4">
+                    <p className="text-slate-400 text-sm mt-4">
                       Contact: Hemant Vadalkar / Kirty Vadalkar
                     </p>
                   </div>

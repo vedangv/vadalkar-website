@@ -107,7 +107,7 @@ export default async function AboutPage() {
             {(aboutData?.activities || []).map((activity: string, i: number) => (
               <FadeIn key={i} delay={i * 0.08}>
                 <div className="bg-white p-8 lg:p-10 flex gap-6 items-start group hover:bg-slate-50 transition-colors border border-slate-200 -mt-px -ml-px h-full">
-                  <span className="text-4xl font-bold text-slate-100 group-hover:text-accent-200 transition-colors shrink-0">
+                  <span className="text-4xl font-bold text-slate-500 group-hover:text-accent-600 transition-colors shrink-0">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <p className="text-slate-600 leading-relaxed pt-2">{activity}</p>

@@ -43,7 +43,7 @@ export default async function ServicesPage() {
             {services.map((service, index) => (
               <FadeIn key={service.title} delay={Math.min(index * 0.08, 0.32)}>
                 <article id={serviceSlug(service.title)} className="h-full scroll-mt-28 bg-white p-8 lg:p-12">
-                  <span className="text-sm font-bold text-accent-500">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="text-sm font-bold text-accent-600">{String(index + 1).padStart(2, "0")}</span>
                   <h2 className="mt-4 text-2xl font-bold text-slate-900">{service.title}</h2>
                   <p className="mt-4 leading-relaxed text-slate-600">{service.description}</p>
                   <Link

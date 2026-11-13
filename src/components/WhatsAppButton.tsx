@@ -42,7 +42,7 @@ export default function WhatsAppButton() {
         rel="noopener noreferrer"
         aria-label="Chat with us on WhatsApp"
         tabIndex={visible ? 0 : -1}
-        className="group flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-3 text-white shadow-lg transition-shadow duration-200 hover:shadow-xl"
+        className="group flex items-center gap-2 rounded-full bg-green-700 px-4 py-3 text-white shadow-lg transition-shadow duration-200 hover:bg-green-800 hover:shadow-xl"
       >
         <svg
           className="h-6 w-6 flex-shrink-0"

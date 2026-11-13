@@ -171,27 +171,27 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
                   <h3 className="text-lg font-bold text-white mb-6">Project Details</h3>
                   {project.client && (
                     <div>
-                      <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Client</p>
+                      <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Client</p>
                       <p className="text-white font-medium">{project.client}</p>
                     </div>
                   )}
                   {project.architect && (
                     <div>
-                      <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Architect</p>
+                      <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Architect</p>
                       <p className="text-white font-medium">{project.architect}</p>
                     </div>
                   )}
                   <div>
-                    <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Year</p>
+                    <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Year</p>
                     <p className="text-white font-medium">{project.year}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Category</p>
+                    <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Category</p>
                     <p className="text-white font-medium">{project.category}</p>
                   </div>
                   {project.cost && (
                     <div>
-                      <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Project Cost</p>
+                      <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Project Cost</p>
                       <p className="text-accent-400 font-bold text-lg">Rs. {project.cost} Lakhs</p>
                     </div>
                   )}
@@ -219,7 +219,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
                   <div className="bg-slate-900 border border-slate-800 p-5">
                     <span className="text-accent-400 text-xs font-bold">{rp.year}</span>
                     <h3 className="text-white font-semibold mt-2 leading-snug">{rp.title}</h3>
-                    {rp.client && <p className="text-slate-500 text-sm mt-2">{rp.client}</p>}
+                    {rp.client && <p className="text-slate-400 text-sm mt-2">{rp.client}</p>}
                   </div>
                 </FadeIn>
               ))}
