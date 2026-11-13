@@ -8,6 +8,12 @@ import { featuredDescriptions } from "@/data/featured-projects";
 import { getProjects, getProjectBySlug } from "@/sanity/lib/queries";
 import { absoluteUrl, serializeJsonLd, SITE_URL } from "@/lib/site";
 
+async function getProjectForRoute(category: string, slug: string) {
+  const project = await getProjectBySlug(slug);
+  if (!project || categorySlug(project.category) !== category) notFound();
+  return project;
+}
+
 export async function generateStaticParams() {
   const allProjects = await getProjects();
   const featuredProjects = allProjects.filter((p) => p.featured && p.slug);
@@ -19,8 +25,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ category: string; slug: string }> }): Promise<Metadata> {
   const { category, slug } = await params;
-  const project = await getProjectBySlug(slug);
-  if (!project) return {};
+  const project = await getProjectForRoute(category, slug);
   return {
     title: `${project.title} | Vadalkar And Associates`,
     description: featuredDescriptions[slug]?.description || `${project.title} — structural engineering by Vadalkar And Associates.`,
@@ -31,8 +36,7 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
 
 export default async function ProjectDetailPage({ params }: { params: Promise<{ category: string; slug: string }> }) {
   const { category: catSlug, slug } = await params;
-  const project = await getProjectBySlug(slug);
-  if (!project) notFound();
+  const project = await getProjectForRoute(catSlug, slug);
 
   const details = featuredDescriptions[slug];
   const allProjects = await getProjects();
