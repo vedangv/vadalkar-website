@@ -1,10 +1,10 @@
 # Vadalkar & Associates Pre-Launch Hardening Checklist
 
-Last reviewed: 2026-08-12
+Last reviewed: 2026-11-13 for local code and offline fixtures. Deployment and CMS observations below are retained from the 2026-08-12 checklist and have not been repeated in this local review.
 
 Target production domain: `https://vadalkar.com`
 
-Current launch candidate: GitHub `main` / Vercel production, currently aliased to `https://development.vadalkar.com`
+Recorded launch candidate (2026-08-12): GitHub `main` / Vercel production, aliased to `https://development.vadalkar.com`
 
 ## Gate 1 — Release Blockers
 
@@ -12,7 +12,8 @@ Current launch candidate: GitHub `main` / Vercel production, currently aliased t
 - [x] Resolve factual count mismatches by deriving `386` projects and `17` categories from Sanity; label the separate `35+` figure as professional experience.
 - [x] Remove empty client labels throughout project grids and details.
 - [ ] **BLOCKED — Dad/photos:** replace low-resolution or missing images for IIT Bombay Hostel 18, Taloja MIDC Shed, and other approved flagship projects.
-- [x] Harden the contact API: validation, length limits, HTML escaping, same-origin enforcement, a honeypot, request-size limits, and awaited downstream delivery.
+- [x] Harden the contact API: validation, length limits, HTML escaping, same-origin enforcement, a honeypot, bounded streamed request bodies, and delivery status unaffected by optional lead-log failures.
+- [ ] Configure shared or edge rate limiting for `/api/contact`; origin checks and the honeypot do not limit repeated direct requests.
 - [ ] Replace the Resend sandbox sender with a verified `vadalkar.com` sender and run an approved end-to-end delivery test.
 - [x] Make Cloudflare Email Routing the sole inbound-mail provider; remove the conflicting Hostinger MX records and Hostinger SPF include.
 - [x] Activate and verify `info@vadalkar.com`, `support@vadalkar.com`, and `contact@vadalkar.com` as named forwarding aliases; keep catch-all delivery disabled.
@@ -51,22 +52,23 @@ Current launch candidate: GitHub `main` / Vercel production, currently aliased t
 - [x] Fix all root-project lint errors and warnings.
 - [x] Add focused tests for SEO URL generation and contact validation/escaping; verify revalidation rejection behavior at the route boundary.
 - [x] Add content-type, referrer, frame, and browser-permission security headers compatible with the public site and Studio.
-- [x] Update safe patch/minor dependencies, including Next.js 16.3 and Resend 6.19, then re-run the dependency audit.
-- [x] Reduce the audit from 34 findings including 1 critical to 9 Sanity-chain findings; keep the remaining major upgrade as a separate migration.
+- [x] Update compatible dependencies, including Next.js 16.4.6, React 19.2.8, and Resend 6.19, then re-run the dependency audit.
+- [x] Re-run `npm audit`: on 2026-11-13 it reports 25 findings (6 high, 19 moderate, no critical).
+- [ ] Test the major Sanity/next-sanity and affected tooling upgrades needed for the remaining advisories; do not force dependency overrides without compatibility checks.
 - [x] Remove unused `styled-components` from the direct dependencies.
 - [x] Add CI for typecheck, lint, tests, and production build on pull requests and `main`.
 
 ## Gate 5 — UX and Accessibility Polish
 
 - [x] Make homepage featured-project cards real links.
-- [x] Add search, decade filtering, content-visibility optimization, and 36-item progressive disclosure to the 386-project portfolio.
+- [x] Add search, decade filtering, and 36-item progressive disclosure to the 386-project portfolio.
 - [x] Preserve category, decade, and search filters in the URL so filtered views are shareable and navigable.
 - [x] Present the single-profile page as “Leadership” while retaining the stable `/team` route.
 - [x] Add `aria-expanded` and `aria-controls` to the mobile navigation trigger.
 - [x] Fix low-contrast project-stat values and the header logo aspect ratio.
-- [ ] Make scroll-triggered content resilient when JavaScript or IntersectionObserver fails.
+- [x] Make scroll-triggered content resilient when JavaScript or IntersectionObserver is unavailable; preserve final statistics for reduced motion.
 - [ ] Add visible empty/error states for missing CMS content and images.
-- [ ] Verify keyboard navigation, reduced-motion behavior, mobile menu behavior, and form error announcements.
+- [x] Verify keyboard navigation, reduced-motion behavior, mobile menu behavior, form error announcements, and focus on newly revealed portfolio results using local browser fixtures.
 
 ## Gate 6 — Photo and Dad-Provided Content (Blocked)
 
@@ -88,7 +90,9 @@ Current launch candidate: GitHub `main` / Vercel production, currently aliased t
 - [ ] Submit the production sitemap to search engines and monitor Vercel/Cloudflare logs.
 - [ ] Keep the legacy export recoverable until the production site has completed a stable observation window.
 
-## Current Verified Baseline
+## Recorded Deployment Baseline (2026-08-12)
+
+These deployment and content observations are historical. Current local verification uses blocked external requests, CMS fixtures, mocked delivery, and a system-font substitute; it does not verify live CMS data, mail delivery, authentication, or real-world performance.
 
 - [x] GitHub `main` is the Vercel production branch.
 - [x] `development.vadalkar.com` and the Vercel production alias resolve to the same deployment.
