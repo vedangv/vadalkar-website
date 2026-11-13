@@ -55,3 +55,32 @@ test("Sanity CLI ZIP reader can read and extract an archiver ZIP", async (t) => 
   zip.extractAllTo(root);
   assert.equal(readFileSync(join(root, "nested/fixture.txt"), "utf8"), "local fixture only");
 });
+
+test("Sanity CLI TypeIDs preserve UUID v7 buffer generation and round trips", () => {
+  const { typeid, TypeID } = require("typeid-js");
+  const { validate, version } = require("uuid");
+  const ids = new Set<string>();
+  for (let i = 0; i < 100; i++) {
+    const id = typeid("fixture");
+    const uuid = id.toUUID();
+    assert.ok(validate(uuid));
+    assert.equal(version(uuid), 7);
+    assert.equal(TypeID.fromUUID("fixture", uuid).toString(), id.toString());
+    ids.add(id.toString());
+  }
+  assert.equal(ids.size, 100);
+});
+
+test("URI import FTP dependency parses Unix and MLSD listings without connecting", () => {
+  const { parseList } = fromPackage("get-uri")("basic-ftp");
+  for (const listing of [
+    "-rw-r--r-- 1 owner group 12 Nov 13 2026 fixture.txt",
+    "type=file;size=12;modify=20261113000000; fixture.txt",
+  ]) {
+    const [entry] = parseList(listing);
+    assert.equal(entry.name, "fixture.txt");
+    assert.equal(entry.size, 12);
+    assert.equal(entry.isFile, true);
+  }
+  assert.doesNotThrow(() => parseList("type=file;__proto__=ignored;size=12; fixture.txt"));
+});

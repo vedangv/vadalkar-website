@@ -21,7 +21,7 @@
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "resend": "^6.19.0",
-    "sanity": "^4.22.0"
+    "sanity": "5.8.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",
@@ -44,6 +44,12 @@
       "adm-zip": "0.6.1"
     },
     "minimatch@>=7 <11.0.1": "11.0.1",
-    "glob@>=9 <=14.0.1": "14.0.2"
+    "glob@>=9 <=14.0.1": "14.0.2",
+    "typeid-js@1.2.0": {
+      "uuid": "11.1.1"
+    },
+    "get-uri@6.0.5": {
+      "basic-ftp": "6.2.4"
+    }
   }
 }
