@@ -41,6 +41,34 @@ test("project selection follows browser history and offers an empty-state reset"
   await expect(page.getByRole("status")).toContainText("Showing 72 of");
 });
 
+for (const width of [390, 768, 1440]) {
+  test(`loading more projects resumes keyboard browsing at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/projects?category=Industrial");
+
+    for (const [previousCount, nextCount] of [[36, 72], [72, 84]]) {
+      const more = page.getByRole("button", { name: /^Show \d+ more projects$/ });
+      await more.focus();
+      await more.press("Enter");
+      const headings = page.locator("main h2");
+      await expect(headings).toHaveCount(nextCount);
+      const firstNewHeading = headings.nth(previousCount);
+      await expect.poll(() => firstNewHeading.evaluate((heading) => (
+        document.activeElement === (heading.closest("a") || heading)
+      ))).toBe(true);
+      // The fixed header and sticky filters must not cover the resumed result.
+      const filters = await page.getByRole("group", { name: "Filter projects by category" }).boundingBox();
+      const heading = await firstNewHeading.boundingBox();
+      expect(heading!.y).toBeGreaterThanOrEqual(filters!.y + filters!.height);
+      expect(heading!.y + heading!.height).toBeLessThan(900);
+      await expect(page.getByRole("status")).toContainText(`Showing ${nextCount} of 84 projects`);
+    }
+
+    await expect(page.getByRole("button", { name: /^Show \d+ more projects$/ })).toHaveCount(0);
+  });
+}
+
 test("a project cannot be served under another category's canonical URL", async ({ page }) => {
   await page.goto("/projects/industrial/videocon-towers");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("We couldn’t find that page");

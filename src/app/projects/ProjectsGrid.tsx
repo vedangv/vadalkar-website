@@ -54,6 +54,8 @@ export default function ProjectsGrid({ projects }: ProjectsGridProps) {
   const [pagination, setPagination] = useState({ key: filterKey, count: PAGE_SIZE });
   const visibleCount = pagination.key === filterKey ? pagination.count : PAGE_SIZE;
   const scrollRef = useRef<HTMLDivElement>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
+  const pendingFocusRef = useRef<{ key: string; index: number } | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
 
@@ -86,6 +88,18 @@ export default function ProjectsGrid({ projects }: ProjectsGridProps) {
       el.scrollLeft = selected.offsetLeft + selected.offsetWidth - el.clientWidth;
     }
   }, [active]);
+
+  useEffect(() => {
+    const pending = pendingFocusRef.current;
+    pendingFocusRef.current = null;
+    if (!pending || pending.key !== filterKey) return;
+
+    // Resume at the new results, including when the final batch removes the button.
+    const card = resultsRef.current?.children[pending.index] as HTMLElement | undefined;
+    const target = card?.matches("a") ? card : card?.querySelector<HTMLElement>("h2");
+    target?.focus({ preventScroll: true });
+    target?.scrollIntoView({ block: "start", behavior: "instant" });
+  }, [filterKey, visibleCount]);
 
   const scroll = (dir: "left" | "right") => {
     const el = scrollRef.current;
@@ -258,7 +272,7 @@ export default function ProjectsGrid({ projects }: ProjectsGridProps) {
       {/* Projects grid */}
       <section className="py-8 pb-20 bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div ref={resultsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {visibleProjects.map((project, i) => {
               const card = (
                 <div className="group h-full overflow-hidden border border-slate-800 bg-slate-900 transition-all duration-300 hover:border-accent-400/50 [content-visibility:auto] [contain-intrinsic-size:460px]">
@@ -299,7 +313,7 @@ export default function ProjectsGrid({ projects }: ProjectsGridProps) {
                     </div>
                   </div>
                   <div className="p-5">
-                    <h2 className="text-base font-semibold text-white uppercase tracking-tight mb-2 leading-snug">
+                    <h2 tabIndex={-1} className="scroll-mt-44 text-base font-semibold text-white uppercase tracking-tight mb-2 leading-snug">
                       {project.title}
                     </h2>
                     {project.client && (
@@ -325,7 +339,7 @@ export default function ProjectsGrid({ projects }: ProjectsGridProps) {
               );
 
               return project.featured && project.slug ? (
-                <Link key={project.slug} href={`/projects/${categorySlug(project.category)}/${project.slug}`} className="block">
+                <Link key={project.slug} href={`/projects/${categorySlug(project.category)}/${project.slug}`} className="block scroll-mt-44">
                   {card}
                 </Link>
               ) : (
@@ -347,7 +361,10 @@ export default function ProjectsGrid({ projects }: ProjectsGridProps) {
             <div className="mt-10 text-center">
               <button
                 type="button"
-                onClick={() => setPagination({ key: filterKey, count: visibleCount + PAGE_SIZE })}
+                onClick={() => {
+                  pendingFocusRef.current = { key: filterKey, index: visibleProjects.length };
+                  setPagination({ key: filterKey, count: visibleCount + PAGE_SIZE });
+                }}
                 className="border border-accent-400 px-8 py-3 font-semibold text-accent-400 hover:bg-accent-400 hover:text-slate-900"
               >
                 Show {Math.min(PAGE_SIZE, filtered.length - visibleProjects.length)} more projects
