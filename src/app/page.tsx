@@ -24,7 +24,7 @@ const featuredProjects: {
     category: "Residential",
     year: "1996",
     cost: "Rs. 3,000 Lakhs",
-    span: "lg:col-span-2 lg:row-span-2",
+    span: "lg:row-span-2",
     height: "h-80 lg:h-full",
     image: "/projects/residential/resi-videocon-tower.gif",
     href: "/projects/residential/videocon-towers",
@@ -37,7 +37,7 @@ const featuredProjects: {
     year: "2013",
     cost: "Rs. 4,000 Lakhs",
     span: "",
-    height: "h-64",
+    height: "h-72",
     image: undefined,
     href: "/projects/educational",
   },
@@ -49,7 +49,7 @@ const featuredProjects: {
     year: "2009",
     cost: "Rs. 2,500 Lakhs",
     span: "",
-    height: "h-64",
+    height: "h-72",
     image: undefined,
     href: "/projects/infrastructure",
   },
@@ -241,7 +241,7 @@ export default async function Home() {
               <FadeIn key={project.title} delay={i * 0.15} className={project.span}>
                 <Link
                   href={project.href}
-                  className={`group relative ${project.height} bg-gradient-to-br from-primary-500 to-slate-700 overflow-hidden cursor-pointer`}
+                  className={`group relative block ${project.height} bg-gradient-to-br from-primary-500 to-slate-700 overflow-hidden cursor-pointer`}
                   aria-label={`View ${project.title}`}
                 >
                   {project.image && (

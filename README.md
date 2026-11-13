@@ -33,6 +33,22 @@ npm test
 npm run build
 ```
 
+Browser regression tests run against a local server with CMS fixtures from
+`src/data/projects.ts` and the existing `data.ndjson` export. External browser
+requests are blocked, email delivery is disabled, and Google Fonts uses a system
+font substitute. No Sanity credentials or live services are needed:
+
+```bash
+npx playwright install chromium
+npm run test:browser
+npm run build:offline
+```
+
+To use an already installed Chromium browser, set
+`PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` to its executable instead of installing one.
+The fixture server listens on `127.0.0.1:3100`; offline builds are for validation
+only and must not be deployed. Use the normal `npm run build` for releases.
+
 ## Environment variables
 
 | Variable | Required | Purpose |
