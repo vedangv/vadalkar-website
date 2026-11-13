@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import ContactForm from "@/components/ContactForm";
 import FadeIn from "@/components/FadeIn";
 import { SITE_EMAIL } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Careers | Vadalkar And Associates",
   description:
     "Career enquiries for Vadalkar And Associates in Mumbai. There are no advertised vacancies at present; general introductions are welcome by form or email.",
-  alternates: { canonical: "/careers" },
-  openGraph: { url: "/careers" },
-};
+  path: "/careers",
+});
 
 export default function CareersPage() {
   return (

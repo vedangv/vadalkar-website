@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -17,12 +18,12 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
   const { category: slug } = await params;
   const category = categoryList.find((c) => categorySlug(c) === slug);
   if (!category) return {};
-  return {
+  return pageMetadata({
     title: `${category} Projects | Vadalkar And Associates`,
     description: getCategoryDescription(category),
-    alternates: { canonical: `/projects/${slug}` },
-    openGraph: { url: `/projects/${slug}` },
-  };
+    path: `/projects/${slug}`,
+    image: `/projects/${slug}/opengraph-image`,
+  });
 }
 
 function ProjectCard({ project }: { project: SanityProject }) {

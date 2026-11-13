@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import { connection } from "next/server";
 import ProjectsGrid from "./ProjectsGrid";
 import { getProjects } from "@/sanity/lib/queries";
@@ -7,12 +8,11 @@ export async function generateMetadata(): Promise<Metadata> {
   const projects = await getProjects();
   const sectors = new Set(projects.map((project) => project.category).filter(Boolean)).size;
 
-  return {
+  return pageMetadata({
     title: "Our Projects | Vadalkar And Associates",
     description: `Explore ${projects.length} structural engineering projects across ${sectors} sectors, including residential, commercial, industrial, and infrastructure work.`,
-    alternates: { canonical: "/projects" },
-    openGraph: { url: "/projects" },
-  };
+    path: "/projects",
+  });
 }
 
 export default async function ProjectsPage() {

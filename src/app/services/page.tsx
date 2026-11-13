@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import FadeIn from "@/components/FadeIn";
 import { DEFAULT_SERVICES, serviceSlug } from "@/data/services";
 import { getHomePage } from "@/sanity/lib/queries";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Structural Engineering Services | Vadalkar And Associates",
   description:
     "Structural design, analysis, audits, repair consulting, proof checking, and STAADPro consulting for projects in Mumbai and across India.",
-  alternates: { canonical: "/services" },
-  openGraph: { url: "/services" },
-};
+  path: "/services",
+});
 
 export default async function ServicesPage() {
   const homeData = await getHomePage();

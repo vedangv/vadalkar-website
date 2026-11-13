@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import FadeIn from "@/components/FadeIn";
 import { getProjectStatistics } from "@/lib/project-statistics";
 import ProjectStats from "@/components/ProjectStats";
 import { getProjects, getAboutPage, getSiteSettings } from "@/sanity/lib/queries";
 import { PortableText } from "next-sanity";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About Us | Vadalkar And Associates",
   description:
     "Learn about Vadalkar And Associates, structural and civil engineering consultants serving Mumbai and projects across India since 1994.",
-  alternates: { canonical: "/about" },
-  openGraph: { url: "/about" },
-};
+  path: "/about",
+});
 
 export default async function AboutPage() {
   const [projects, aboutData, settings] = await Promise.all([

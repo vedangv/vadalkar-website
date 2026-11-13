@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import FadeIn from "@/components/FadeIn";
 import ContactForm from "@/components/ContactForm";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contact Us | Vadalkar And Associates",
   description:
     "Get in touch with Vadalkar And Associates for structural and civil engineering consultations in Mumbai.",
-  alternates: { canonical: "/contact" },
-  openGraph: { url: "/contact" },
-};
+  path: "/contact",
+});
 
 import { getContactPage } from "@/sanity/lib/queries";
 import { CONTACT_SERVICES } from "@/lib/contact";

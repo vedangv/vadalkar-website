@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -26,12 +27,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ category: string; slug: string }> }): Promise<Metadata> {
   const { category, slug } = await params;
   const project = await getProjectForRoute(category, slug);
-  return {
+  return pageMetadata({
     title: `${project.title} | Vadalkar And Associates`,
     description: featuredDescriptions[slug]?.description || `${project.title} — structural engineering by Vadalkar And Associates.`,
-    alternates: { canonical: `/projects/${category}/${slug}` },
-    openGraph: { url: `/projects/${category}/${slug}` },
-  };
+    path: `/projects/${category}/${slug}`,
+    image: `/projects/${category}/${slug}/opengraph-image`,
+  });
 }
 
 export default async function ProjectDetailPage({ params }: { params: Promise<{ category: string; slug: string }> }) {

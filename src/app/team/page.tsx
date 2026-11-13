@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Image from "next/image";
 import Link from "next/link";
 import FadeIn from "@/components/FadeIn";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Leadership | Vadalkar And Associates",
   description:
     "Meet Hemant Vadalkar, Principal Consultant and Founder of Vadalkar And Associates, M.E. (Structures) Gold Medalist.",
-  alternates: { canonical: "/team" },
-  openGraph: { url: "/team" },
-};
+  path: "/team",
+});
 
 const credentials = [
   "B.E. (Civil) - 1986, College of Engineering, Poona",
