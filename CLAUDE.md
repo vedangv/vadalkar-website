@@ -54,7 +54,7 @@ src/components/ProjectStats.tsx         — Full project stats for about page
 src/components/WhatsAppButton.tsx       — Floating WhatsApp CTA
 src/sanity/lib/queries.ts               — Typed Sanity queries and image URL transformation
 src/data/featured-projects.ts           — Descriptions/highlights for 11 featured projects
-public/brochure.html                    — Standalone 6-page corporate brochure (printable)
+public/brochure.html                    — Standalone 8-page corporate brochure (printable)
 ```
 
 ## Development

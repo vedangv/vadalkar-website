@@ -1,5 +1,6 @@
 import { test as base, expect } from "@playwright/test";
 import { readFile } from "node:fs/promises";
+import { projects } from "../../src/data/projects";
 
 export const test = base.extend({
   context: async ({ context, baseURL }, run) => {
@@ -13,7 +14,7 @@ export const test = base.extend({
       }
       if (url.hostname === "cdn.sanity.io" && url.pathname.startsWith("/images/offline/")) {
         const path = Buffer.from(url.pathname.split("/").pop()!.split("-")[0], "hex").toString();
-        if (!/^\/projects\/[a-z0-9/-]+\.(jpg|gif)$/.test(path)) throw new Error("Unknown test image");
+        if (!projects.some((project) => project.image === path)) throw new Error("Unknown test image");
         return route.fulfill({
           body: await readFile(`public${path}`),
           contentType: path.endsWith(".gif") ? "image/gif" : "image/jpeg",

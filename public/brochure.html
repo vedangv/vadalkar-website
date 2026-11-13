@@ -13,6 +13,8 @@
     --navy-dark: #0f2440;
     --gold: #d97706;
     --gold-light: #f59e0b;
+    --gold-text: #b45309;
+    --muted-text: #64748b;
     --slate-50: #f8fafc;
     --slate-100: #f1f5f9;
     --slate-200: #e2e8f0;
@@ -26,6 +28,15 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  :focus-visible {
+    outline: 2px solid var(--gold-light);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 3px var(--navy-dark);
+  }
+  .cover-hero, .project-card, .principal-caption, .back-cover-brand {
+    --gold-text: var(--gold-light);
+    --muted-text: var(--slate-300);
+  }
 
   body {
     font-family: 'DM Sans', sans-serif;
@@ -89,6 +100,7 @@
   }
   .brochure-toolbar .primary-action {
     background: var(--gold);
+    color: var(--slate-900);
   }
   .brochure-toolbar .primary-action:hover {
     background: var(--gold-light);
@@ -135,7 +147,7 @@
       page-break-after: always;
       width: 297mm;
     }
-    .page:last-child { page-break-after: avoid; }
+    .page:last-child { break-after: auto; page-break-after: auto; }
     .page-inner { max-width: none !important; padding: 20mm 18mm 12mm !important; }
     .cover-hero { height: 210mm; min-height: 210mm; }
     .animate-fade-up, .animate-fade-in { animation: none !important; opacity: 1 !important; transform: none !important; }
@@ -175,6 +187,11 @@
   .delay-5 { animation-delay: 0.75s; }
   .delay-6 { animation-delay: 0.9s; }
 
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .animate-fade-up, .animate-fade-in { opacity: 1; transform: none; }
+  }
+
   /* ── Cover hero ── */
   .cover-hero {
     background:
@@ -205,7 +222,7 @@
     font-family: 'Playfair Display', serif;
     font-size: clamp(48px, 7vw, 80px);
     font-weight: 900;
-    color: var(--gold);
+    color: var(--gold-text);
     line-height: 1;
   }
   .stat-label {
@@ -218,7 +235,7 @@
   }
   .stat-desc {
     font-size: 12px;
-    color: var(--slate-400);
+    color: var(--muted-text);
     margin-top: 6px;
     max-width: 160px;
     line-height: 1.5;
@@ -251,7 +268,7 @@
   .service-number {
     font-family: 'Playfair Display', serif;
     font-size: 14px;
-    color: var(--gold);
+    color: var(--gold-text);
     margin-bottom: 16px;
   }
   .service-title {
@@ -296,7 +313,7 @@
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    color: var(--gold);
+    color: var(--gold-text);
     font-weight: 600;
   }
   .project-title {
@@ -427,13 +444,45 @@
     background: rgba(217,119,6,0.05);
   }
 
+  .table-scroll-hint { display: none; }
+
+  /* Fit the complete content on eight A4 pages, including the lower callouts. */
+  @media print {
+    .services-grid { gap: 4mm !important; }
+    .service-card { padding: 6mm; }
+    .service-number { margin-bottom: 8px; }
+    .service-title { font-size: 16px; margin-bottom: 8px; }
+    .service-desc { font-size: 13px; line-height: 1.5; }
+    .additional-capabilities { margin-top: 6mm !important; padding: 5mm !important; gap: 4mm !important; }
+    .additional-capabilities span { font-size: 11px !important; }
+    .projects-mosaic { grid-template-rows: 48mm 48mm !important; gap: 3mm !important; }
+    .project-overlay { padding: 4mm; }
+    .project-title { font-size: 16px; }
+    .project-meta { font-size: 11px; }
+    #project-highlights { margin-top: 4mm !important; gap: 3mm !important; }
+    #project-highlights > div { padding: 3mm !important; }
+    #project-highlights > div > div { font-size: 11px !important; }
+    .experience-table td { font-size: 10.5px; padding: 5px 8px; }
+    .principal-caption { padding: 10px !important; }
+    .principal-caption > div:first-child { font-size: 13px !important; }
+    .principal-caption > div:last-child { font-size: 10px !important; }
+  }
+
   /* ── Responsive ── */
   @media screen and (max-width: 768px) {
     .brochure-toolbar { flex-wrap: wrap; top: 8px; width: calc(100% - 16px); justify-content:center; }
     .brochure-toolbar label { order: 2; padding: 0; width: 100%; justify-content: center; }
     .brochure-toolbar a, .brochure-toolbar button { font-size:10px; padding:9px 8px; }
     .cover-hero { padding: 40px 24px; }
-    .page-inner { padding: 40px 24px !important; }
+    .page-header { padding: 24px !important; flex-wrap: wrap; gap: 8px 16px; }
+    .page-inner { padding: 112px 24px 48px !important; }
+    .overview-layout { grid-template-columns: 1fr !important; gap: 40px !important; }
+    #project-highlights { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    .experience-heading { flex-direction: column; align-items: flex-start !important; gap: 16px !important; }
+    .experience-table-scroll { max-width: 100%; overflow-x: auto; }
+    .experience-table { min-width: 680px; }
+    .table-scroll-hint { display: block; margin-bottom: 12px; color: var(--slate-500); font-size: 12px; }
+    .principal-photo { max-width: 360px; }
     .stats-grid { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
     .services-grid { grid-template-columns: 1fr !important; }
     .projects-mosaic { grid-template-columns: 1fr !important; grid-template-rows: auto !important; }
@@ -441,6 +490,11 @@
     .credentials-layout { grid-template-columns: 1fr !important; }
     .capability-grid { grid-template-columns: 1fr !important; }
     .back-cover-content { grid-template-columns: 1fr !important; }
+  }
+  @media screen and (max-width: 480px) {
+    .credential-grid, #project-highlights { grid-template-columns: 1fr !important; }
+    .stats-grid { gap: 32px 24px !important; }
+    .stat-label { letter-spacing: 0.08em; }
   }
 </style>
 </head>
@@ -457,6 +511,8 @@
   </label>
   <button class="primary-action" id="print-button" type="button" disabled>Preparing brochure...</button>
 </nav>
+
+<main id="main-content">
 
 <!-- ════════════════════════════════════════════════════
      PAGE 1 — COVER
@@ -480,7 +536,7 @@
       Structural &amp; Civil Engineering Consultants
     </p>
 
-    <div class="animate-fade-up delay-3" style="display:flex;align-items:center;gap:16px;color:var(--gold);font-size:14px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;">
+    <div class="animate-fade-up delay-3" style="display:flex;align-items:center;gap:16px;color:var(--gold-text);font-size:14px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;">
       <span>Est. 1994</span>
       <span style="width:6px;height:6px;background:var(--gold);border-radius:50%;"></span>
       <span>Mumbai, India</span>
@@ -498,20 +554,20 @@
      ════════════════════════════════════════════════════ -->
 <section class="page blueprint-grid" style="display:flex;flex-direction:column;justify-content:center;background:white;">
   <!-- Header bar -->
-  <div style="position:absolute;top:0;left:0;right:0;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;">
-    <div style="font-weight:700;font-size:13px;letter-spacing:0.1em;color:var(--navy);">VADALKAR <span style="color:var(--gold);">&amp;</span> ASSOCIATES</div>
-    <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate-400);">At a Glance &middot; 02</div>
+  <div class="page-header" style="position:absolute;top:0;left:0;right:0;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-weight:700;font-size:13px;letter-spacing:0.1em;color:var(--navy);">VADALKAR <span style="color:var(--gold-text);">&amp;</span> ASSOCIATES</div>
+    <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted-text);">At a Glance &middot; 02</div>
   </div>
 
   <div class="page-inner" style="padding:100px 48px 60px 48px;max-width:1200px;margin:0 auto;width:100%;">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+    <div class="overview-layout" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
 
       <!-- Left: Tagline -->
       <div>
         <div style="width:8px;height:8px;background:var(--gold);border-radius:50%;margin-bottom:32px;"></div>
         <h2 class="font-display" style="font-size:clamp(36px,5vw,64px);color:var(--navy);line-height:1.15;">
           Engineering<br/>
-          <em style="color:var(--gold);">Excellence</em><br/>
+          <em style="color:var(--gold-text);">Excellence</em><br/>
           Since 1994
         </h2>
         <div style="width:80px;height:4px;background:var(--gold);margin-top:32px;border-radius:2px;"></div>
@@ -559,15 +615,15 @@
      PAGE 3 — OUR SERVICES
      ════════════════════════════════════════════════════ -->
 <section class="page blueprint-grid" style="background:var(--slate-50);">
-  <div style="position:absolute;top:0;left:0;right:0;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;">
-    <div style="font-weight:700;font-size:13px;letter-spacing:0.1em;color:var(--navy);">VADALKAR <span style="color:var(--gold);">&amp;</span> ASSOCIATES</div>
-    <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate-400);">Services &middot; 03</div>
+  <div class="page-header" style="position:absolute;top:0;left:0;right:0;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-weight:700;font-size:13px;letter-spacing:0.1em;color:var(--navy);">VADALKAR <span style="color:var(--gold-text);">&amp;</span> ASSOCIATES</div>
+    <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted-text);">Services &middot; 03</div>
   </div>
 
   <div class="page-inner" style="padding:120px 48px 60px 48px;max-width:1200px;margin:0 auto;width:100%;">
     <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
       <div style="height:2px;width:40px;background:var(--gold);"></div>
-      <span style="font-size:12px;text-transform:uppercase;letter-spacing:0.2em;color:var(--gold);font-weight:600;">What We Do</span>
+      <span style="font-size:12px;text-transform:uppercase;letter-spacing:0.2em;color:var(--gold-text);font-weight:600;">What We Do</span>
     </div>
     <h2 class="font-display" style="font-size:clamp(32px,4vw,48px);color:var(--navy);margin-bottom:48px;">Our Services</h2>
 
@@ -605,7 +661,7 @@
     </div>
 
     <!-- Additional capabilities -->
-    <div style="margin-top:48px;padding:32px;background:var(--navy);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;">
+    <div class="additional-capabilities" style="margin-top:48px;padding:32px;background:var(--navy);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;">
       <div style="display:flex;align-items:center;gap:12px;">
         <div style="width:10px;height:10px;background:var(--gold);border-radius:50%;"></div>
         <span style="color:white;font-size:13px;font-weight:500;">Residential &amp; Commercial Buildings</span>
@@ -631,15 +687,15 @@
      PAGE 4 — FEATURED PROJECTS
      ════════════════════════════════════════════════════ -->
 <section class="page" style="background:white;">
-  <div style="position:absolute;top:0;left:0;right:0;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;z-index:2;">
-    <div style="font-weight:700;font-size:13px;letter-spacing:0.1em;color:var(--navy);">VADALKAR <span style="color:var(--gold);">&amp;</span> ASSOCIATES</div>
-    <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate-400);">Portfolio &middot; 04</div>
+  <div class="page-header" style="position:absolute;top:0;left:0;right:0;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;z-index:2;">
+    <div style="font-weight:700;font-size:13px;letter-spacing:0.1em;color:var(--navy);">VADALKAR <span style="color:var(--gold-text);">&amp;</span> ASSOCIATES</div>
+    <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted-text);">Portfolio &middot; 04</div>
   </div>
 
   <div class="page-inner" style="padding:100px 48px 48px 48px;max-width:1300px;margin:0 auto;width:100%;">
     <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
       <div style="height:2px;width:40px;background:var(--gold);"></div>
-      <span style="font-size:12px;text-transform:uppercase;letter-spacing:0.2em;color:var(--gold);font-weight:600;">Portfolio</span>
+      <span style="font-size:12px;text-transform:uppercase;letter-spacing:0.2em;color:var(--gold-text);font-weight:600;">Portfolio</span>
     </div>
     <h2 class="font-display" id="portfolio-heading" style="font-size:clamp(32px,4vw,48px);color:var(--navy);margin-bottom:12px;">Featured Projects</h2>
     <p id="portfolio-summary" style="font-size:14px;color:var(--slate-500);margin-bottom:28px;">A cross-sector selection from the firm&apos;s documented portfolio.</p>
@@ -691,24 +747,24 @@
     <!-- Project highlights strip -->
     <div id="project-highlights" style="margin-top:24px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
       <div style="padding:20px;border:1px solid var(--slate-200);">
-        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);font-weight:600;margin-bottom:4px;">Landmark</div>
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold-text);font-weight:600;margin-bottom:4px;">Landmark</div>
         <div style="font-size:14px;font-weight:600;color:var(--navy);">Reliance Jamnagar Complex</div>
-        <div style="font-size:12px;color:var(--slate-400);margin-top:4px;">Rs. 4,000 Lakhs &middot; 2022</div>
+        <div style="font-size:12px;color:var(--muted-text);margin-top:4px;">Rs. 4,000 Lakhs &middot; 2022</div>
       </div>
       <div style="padding:20px;border:1px solid var(--slate-200);">
-        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);font-weight:600;margin-bottom:4px;">International</div>
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold-text);font-weight:600;margin-bottom:4px;">International</div>
         <div style="font-size:14px;font-weight:600;color:var(--navy);">Five Star Hotel, Mauritius</div>
-        <div style="font-size:12px;color:var(--slate-400);margin-top:4px;">Sagar Hotels &middot; Rs. 1,500 Lakhs</div>
+        <div style="font-size:12px;color:var(--muted-text);margin-top:4px;">Sagar Hotels &middot; Rs. 1,500 Lakhs</div>
       </div>
       <div style="padding:20px;border:1px solid var(--slate-200);">
-        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);font-weight:600;margin-bottom:4px;">Infrastructure</div>
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold-text);font-weight:600;margin-bottom:4px;">Infrastructure</div>
         <div style="font-size:14px;font-weight:600;color:var(--navy);">Nagpur Transmission Tower</div>
-        <div style="font-size:12px;color:var(--slate-400);margin-top:4px;">KEC International &middot; 100m Tall</div>
+        <div style="font-size:12px;color:var(--muted-text);margin-top:4px;">KEC International &middot; 100m Tall</div>
       </div>
       <div style="padding:20px;border:1px solid var(--slate-200);">
-        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);font-weight:600;margin-bottom:4px;">Mass Housing</div>
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold-text);font-weight:600;margin-bottom:4px;">Mass Housing</div>
         <div style="font-size:14px;font-weight:600;color:var(--navy);">CIDCO Ghansoli &mdash; 2400 Units</div>
-        <div style="font-size:12px;color:var(--slate-400);margin-top:4px;">Simplex Infrastructure &middot; Rs. 4,200 Lakhs</div>
+        <div style="font-size:12px;color:var(--muted-text);margin-top:4px;">Simplex Infrastructure &middot; Rs. 4,200 Lakhs</div>
       </div>
     </div>
 
@@ -725,24 +781,26 @@
      PAGE 5 — SELECTED EXPERIENCE
      ════════════════════════════════════════════════════ -->
 <section class="page blueprint-grid" style="background:white;">
-  <div style="position:absolute;top:0;left:0;right:0;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;">
-    <div style="font-weight:700;font-size:13px;letter-spacing:0.1em;color:var(--navy);">VADALKAR <span style="color:var(--gold);">&amp;</span> ASSOCIATES</div>
-    <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate-400);">Selected Experience &middot; 05</div>
+  <div class="page-header" style="position:absolute;top:0;left:0;right:0;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-weight:700;font-size:13px;letter-spacing:0.1em;color:var(--navy);">VADALKAR <span style="color:var(--gold-text);">&amp;</span> ASSOCIATES</div>
+    <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted-text);">Selected Experience &middot; 05</div>
   </div>
 
   <div class="page-inner" style="padding:92px 48px 44px;max-width:1250px;margin:0 auto;width:100%;">
     <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;">
       <div style="height:2px;width:40px;background:var(--gold);"></div>
-      <span style="font-size:12px;text-transform:uppercase;letter-spacing:0.2em;color:var(--gold);font-weight:600;">Project Schedule</span>
+      <span style="font-size:12px;text-transform:uppercase;letter-spacing:0.2em;color:var(--gold-text);font-weight:600;">Project Schedule</span>
     </div>
-    <div style="display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:24px;">
+    <div class="experience-heading" style="display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:24px;">
       <div>
         <h2 class="font-display" id="experience-heading" style="font-size:clamp(30px,4vw,46px);color:var(--navy);">Selected Project Experience</h2>
         <p id="experience-summary" style="font-size:13px;color:var(--slate-500);margin-top:8px;">Representative assignments selected from the firm&apos;s documented project database.</p>
       </div>
-      <a class="no-print" href="/projects" style="color:var(--gold);font-size:11px;font-weight:700;letter-spacing:0.12em;text-decoration:none;text-transform:uppercase;white-space:nowrap;">Search full portfolio &rarr;</a>
+      <a class="no-print" href="/projects" style="color:var(--gold-text);font-size:11px;font-weight:700;letter-spacing:0.12em;text-decoration:none;text-transform:uppercase;white-space:nowrap;">Search full portfolio &rarr;</a>
     </div>
 
+    <p class="table-scroll-hint no-print">Scroll across to view all project details.</p>
+    <div class="experience-table-scroll" role="region" aria-label="Selected project experience" tabindex="0">
     <table class="experience-table">
       <thead>
         <tr>
@@ -757,7 +815,8 @@
         <tr><td>Loading selected project experience...</td><td></td><td></td><td></td><td></td></tr>
       </tbody>
     </table>
-    <p style="color:var(--slate-400);font-size:9px;margin-top:10px;">* Project values are shown in Rs. lakhs where recorded in the source project schedule.</p>
+    </div>
+    <p style="color:var(--muted-text);font-size:9px;margin-top:10px;">* Project values are shown in Rs. lakhs where recorded in the source project schedule.</p>
   </div>
 </section>
 
@@ -766,15 +825,15 @@
      PAGE 6 — CREDENTIALS & CLIENTS
      ════════════════════════════════════════════════════ -->
 <section class="page blueprint-grid" style="background:white;">
-  <div style="position:absolute;top:0;left:0;right:0;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;">
-    <div style="font-weight:700;font-size:13px;letter-spacing:0.1em;color:var(--navy);">VADALKAR <span style="color:var(--gold);">&amp;</span> ASSOCIATES</div>
-    <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate-400);">Leadership &middot; 06</div>
+  <div class="page-header" style="position:absolute;top:0;left:0;right:0;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-weight:700;font-size:13px;letter-spacing:0.1em;color:var(--navy);">VADALKAR <span style="color:var(--gold-text);">&amp;</span> ASSOCIATES</div>
+    <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted-text);">Leadership &middot; 06</div>
   </div>
 
   <div class="page-inner" style="padding:100px 48px 60px 48px;max-width:1200px;margin:0 auto;width:100%;">
     <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
       <div style="height:2px;width:40px;background:var(--gold);"></div>
-      <span style="font-size:12px;text-transform:uppercase;letter-spacing:0.2em;color:var(--gold);font-weight:600;">Leadership</span>
+      <span style="font-size:12px;text-transform:uppercase;letter-spacing:0.2em;color:var(--gold-text);font-weight:600;">Leadership</span>
     </div>
     <h2 class="font-display" style="font-size:clamp(32px,4vw,48px);color:var(--navy);margin-bottom:48px;">Principal Engineer</h2>
 
@@ -783,16 +842,16 @@
       <div>
         <div class="principal-photo" style="width:100%;aspect-ratio:3/4;overflow:hidden;position:relative;">
           <img src="/team/hemant-vadalkar-new.jpg" alt="Hemant S. Vadalkar" style="width:100%;height:100%;object-fit:cover;"/>
-          <div style="position:absolute;bottom:0;left:0;right:0;padding:16px;background:linear-gradient(transparent,rgba(30,58,95,0.9));">
+          <div class="principal-caption" style="position:absolute;bottom:0;left:0;right:0;padding:16px;background:linear-gradient(transparent,rgba(30,58,95,0.9));">
             <div style="color:white;font-weight:700;font-size:16px;">Hemant S. Vadalkar</div>
-            <div style="color:var(--gold);font-size:12px;letter-spacing:0.1em;margin-top:2px;">B.E. (Civil), M.E. (Structures)</div>
+            <div style="color:var(--gold-text);font-size:12px;letter-spacing:0.1em;margin-top:2px;">B.E. (Civil), M.E. (Structures)</div>
           </div>
         </div>
       </div>
 
       <!-- Credentials -->
       <div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 40px;">
+        <div class="credential-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:0 40px;">
           <div class="credential-item">
             <div class="credential-icon"></div>
             <div class="credential-text"><strong>Gold Medalist</strong> &mdash; M.E. (Structures), University of Bombay, 1989</div>
@@ -829,7 +888,7 @@
 
         <!-- Trusted By -->
         <div style="margin-top:40px;">
-          <h3 style="font-size:12px;text-transform:uppercase;letter-spacing:0.2em;color:var(--gold);font-weight:600;margin-bottom:20px;">Trusted By</h3>
+          <h3 style="font-size:12px;text-transform:uppercase;letter-spacing:0.2em;color:var(--gold-text);font-weight:600;margin-bottom:20px;">Trusted By</h3>
           <div style="display:flex;flex-wrap:wrap;gap:10px;">
             <span class="client-tag">IIT Bombay</span>
             <span class="client-tag">CIDCO</span>
@@ -858,15 +917,15 @@
      PAGE 7 — PRACTICE PROFILE
      ════════════════════════════════════════════════════ -->
 <section class="page blueprint-grid" style="background:var(--slate-50);">
-  <div style="position:absolute;top:0;left:0;right:0;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;">
-    <div style="font-weight:700;font-size:13px;letter-spacing:0.1em;color:var(--navy);">VADALKAR <span style="color:var(--gold);">&amp;</span> ASSOCIATES</div>
-    <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate-400);">Practice Profile &middot; 07</div>
+  <div class="page-header" style="position:absolute;top:0;left:0;right:0;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-weight:700;font-size:13px;letter-spacing:0.1em;color:var(--navy);">VADALKAR <span style="color:var(--gold-text);">&amp;</span> ASSOCIATES</div>
+    <div style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted-text);">Practice Profile &middot; 07</div>
   </div>
 
   <div class="page-inner" style="padding:96px 48px 50px;max-width:1220px;margin:0 auto;width:100%;">
     <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px;">
       <div style="height:2px;width:40px;background:var(--gold);"></div>
-      <span style="font-size:12px;text-transform:uppercase;letter-spacing:0.2em;color:var(--gold);font-weight:600;">Capability Statement</span>
+      <span style="font-size:12px;text-transform:uppercase;letter-spacing:0.2em;color:var(--gold-text);font-weight:600;">Capability Statement</span>
     </div>
     <h2 class="font-display" style="font-size:clamp(32px,4vw,48px);color:var(--navy);margin-bottom:14px;">How We Support a Project</h2>
     <p style="font-size:14px;color:var(--slate-500);line-height:1.7;max-width:880px;margin-bottom:34px;">
@@ -920,7 +979,7 @@
      ════════════════════════════════════════════════════ -->
 <section class="page" style="display:flex;flex-direction:column;">
   <!-- Navy top half -->
-  <div style="flex:3;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 40px;position:relative;">
+  <div class="back-cover-brand" style="flex:3;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 40px;position:relative;">
     <div class="corner-tl"></div>
     <div class="corner-tr"></div>
 
@@ -929,9 +988,9 @@
 
     <h2 class="font-display" style="font-size:clamp(28px,4vw,42px);color:white;letter-spacing:0.12em;text-transform:uppercase;font-weight:400;">
       Vadalkar<br/>
-      <span style="color:var(--gold);">&amp;</span> Associates
+      <span style="color:var(--gold-text);">&amp;</span> Associates
     </h2>
-    <p style="margin-top:12px;font-size:14px;letter-spacing:0.2em;text-transform:uppercase;color:var(--slate-400);">
+    <p style="margin-top:12px;font-size:14px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted-text);">
       Structural &amp; Civil Engineering Consultants
     </p>
 
@@ -942,7 +1001,7 @@
   <!-- White bottom half with contact info -->
   <div style="flex:2;background:white;padding:48px;display:flex;flex-direction:column;justify-content:center;">
     <div style="max-width:800px;margin:0 auto;width:100%;">
-      <div style="font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:24px;">Contact Information</div>
+      <div style="font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold-text);font-weight:600;margin-bottom:24px;">Contact Information</div>
 
       <div class="back-cover-content" style="display:grid;grid-template-columns:1fr 1fr;gap:40px;">
         <div>
@@ -958,9 +1017,9 @@
         <div>
           <div style="font-size:13px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;">Get in Touch</div>
           <div style="font-size:14px;color:var(--slate-500);line-height:2.2;">
-            <span style="color:var(--gold);margin-right:8px;">&#9742;</span> +91 22 2430 8872<br/>
-            <span style="color:var(--gold);margin-right:8px;">&#9993;</span> info@vadalkar.com<br/>
-            <span style="color:var(--gold);margin-right:8px;">&#9672;</span> www.vadalkar.com
+            <span style="color:var(--gold-text);margin-right:8px;">&#9742;</span> <a href="tel:+912224308872" style="color:inherit;">+91 22 2430 8872</a><br/>
+            <span style="color:var(--gold-text);margin-right:8px;">&#9993;</span> <a href="mailto:info@vadalkar.com" style="color:inherit;">info@vadalkar.com</a><br/>
+            <span style="color:var(--gold-text);margin-right:8px;">&#9672;</span> <a href="/" style="color:inherit;">www.vadalkar.com</a>
           </div>
         </div>
       </div>
@@ -968,12 +1027,14 @@
   </div>
 
   <!-- Gold bar footer -->
-  <div style="background:var(--gold);padding:16px 48px;text-align:center;">
+  <div style="background:var(--gold-text);padding:16px 48px;text-align:center;">
     <span style="font-size:13px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;color:white;">
       Engineering Excellence Since 1994
     </span>
   </div>
 </section>
+
+</main>
 
 <script>
   (() => {
@@ -1030,11 +1091,11 @@
         const item = document.createElement('div');
         item.setAttribute('style', 'padding:18px;border:1px solid var(--slate-200);');
         const category = makeElement('div', '', project.category);
-        category.setAttribute('style', 'font-size:10px;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold);font-weight:600;margin-bottom:4px;');
+        category.setAttribute('style', 'font-size:10px;text-transform:uppercase;letter-spacing:0.15em;color:var(--gold-text);font-weight:600;margin-bottom:4px;');
         const title = makeElement('div', '', project.title);
         title.setAttribute('style', 'font-size:13px;font-weight:600;color:var(--navy);');
         const meta = makeElement('div', '', projectMeta(project));
-        meta.setAttribute('style', 'font-size:11px;color:var(--slate-400);margin-top:4px;');
+        meta.setAttribute('style', 'font-size:11px;color:var(--muted-text);margin-top:4px;');
         item.append(category, title, meta);
         highlights.appendChild(item);
       });
