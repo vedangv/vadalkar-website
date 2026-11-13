@@ -57,9 +57,15 @@ for (const width of [390, 768, 1440]) {
       await expect.poll(() => firstNewHeading.evaluate((heading) => (
         document.activeElement === (heading.closest("a") || heading)
       ))).toBe(true);
+      // Let content-visibility update skipped rows before checking the final scroll position.
+      await page.evaluate(() => new Promise<void>((resolve) => {
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+      }));
       // The fixed header and sticky filters must not cover the resumed result.
       const filters = await page.getByRole("group", { name: "Filter projects by category" }).boundingBox();
       const heading = await firstNewHeading.boundingBox();
+      const card = await firstNewHeading.locator("..").locator("..").boundingBox();
+      expect(card!.y).toBeGreaterThanOrEqual(filters!.y + filters!.height);
       expect(heading!.y).toBeGreaterThanOrEqual(filters!.y + filters!.height);
       expect(heading!.y + heading!.height).toBeLessThan(900);
       await expect(page.getByRole("status")).toContainText(`Showing ${nextCount} of 84 projects`);

@@ -98,7 +98,7 @@ export default function ProjectsGrid({ projects }: ProjectsGridProps) {
     const card = resultsRef.current?.children[pending.index] as HTMLElement | undefined;
     const target = card?.matches("a") ? card : card?.querySelector<HTMLElement>("h2");
     target?.focus({ preventScroll: true });
-    target?.scrollIntoView({ block: "start", behavior: "instant" });
+    card?.scrollIntoView({ block: "start", behavior: "instant" });
   }, [filterKey, visibleCount]);
 
   const scroll = (dir: "left" | "right") => {
@@ -275,7 +275,7 @@ export default function ProjectsGrid({ projects }: ProjectsGridProps) {
           <div ref={resultsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {visibleProjects.map((project, i) => {
               const card = (
-                <div className="group h-full overflow-hidden border border-slate-800 bg-slate-900 transition-all duration-300 hover:border-accent-400/50 [content-visibility:auto] [contain-intrinsic-size:460px]">
+                <div className="group h-full overflow-hidden border border-slate-800 bg-slate-900 transition-all duration-300 hover:border-accent-400/50">
                   <div className="aspect-[4/3] relative bg-gradient-to-br from-primary-500/90 to-slate-700 flex items-center justify-center overflow-hidden">
                     {project.image ? (
                       <Image
@@ -343,7 +343,7 @@ export default function ProjectsGrid({ projects }: ProjectsGridProps) {
                   {card}
                 </Link>
               ) : (
-                <div key={`${project.title}-${project.year}-${i}`}>{card}</div>
+                <div key={`${project.title}-${project.year}-${i}`} className="scroll-mt-44">{card}</div>
               );
             })}
           </div>
