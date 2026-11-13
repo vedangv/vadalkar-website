@@ -7,6 +7,7 @@ import {
   useCallback,
   useDeferredValue,
   useMemo,
+  useSyncExternalStore,
 } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,6 +17,20 @@ import type { SanityProject } from "@/sanity/lib/queries";
 
 const PAGE_SIZE = 36;
 const decades = ["All", "1990s", "2000s", "2010s", "2020s"];
+const FILTER_CHANGE_EVENT = "vadalkar:project-filter-change";
+
+function subscribeToSearch(onChange: () => void) {
+  window.addEventListener("popstate", onChange);
+  window.addEventListener(FILTER_CHANGE_EVENT, onChange);
+  return () => {
+    window.removeEventListener("popstate", onChange);
+    window.removeEventListener(FILTER_CHANGE_EVENT, onChange);
+  };
+}
+
+function currentSearch() {
+  return (new URLSearchParams(window.location.search).get("q") || "").slice(0, 100);
+}
 
 type ProjectsGridProps = {
   projects: SanityProject[];
@@ -27,7 +42,13 @@ export default function ProjectsGrid({ projects }: ProjectsGridProps) {
   const requestedDecade = searchParams.get("decade") || "All";
   const active = categories.includes(requestedCategory) ? requestedCategory : "All";
   const decade = decades.includes(requestedDecade) ? requestedDecade : "All";
-  const search = (searchParams.get("q") || "").slice(0, 100);
+  // History updates reach Next's searchParams through a transition. The input
+  // needs a synchronous snapshot so quick keystrokes cannot restore stale text.
+  const search = useSyncExternalStore(
+    subscribeToSearch,
+    currentSearch,
+    () => (searchParams.get("q") || "").slice(0, 100),
+  );
   const deferredSearch = useDeferredValue(search);
   const filterKey = JSON.stringify([active, decade, deferredSearch]);
   const [pagination, setPagination] = useState({ key: filterKey, count: PAGE_SIZE });
@@ -110,6 +131,7 @@ export default function ProjectsGrid({ projects }: ProjectsGridProps) {
       else url.searchParams.set(key, value);
     }
     window.history[replace ? "replaceState" : "pushState"](null, "", url);
+    window.dispatchEvent(new Event(FILTER_CHANGE_EVENT));
   };
 
   const hasFilters = active !== "All" || decade !== "All" || Boolean(search);
@@ -216,7 +238,8 @@ export default function ProjectsGrid({ projects }: ProjectsGridProps) {
       <section className="bg-slate-950 pt-6 pb-2">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
           <p role="status" aria-atomic="true" className="text-sm text-slate-400">
-            Showing <span className="font-semibold text-white">{filtered.length}</span>{" "}
+            Showing <span className="font-semibold text-white">{visibleProjects.length}</span> of{" "}
+            <span className="font-semibold text-white">{filtered.length}</span>{" "}
             project{filtered.length !== 1 ? "s" : ""}
             {hasFilters && (
               <>

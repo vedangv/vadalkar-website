@@ -13,6 +13,10 @@ test("literal All search terms survive refresh", async ({ page }) => {
   await expect.poll(() => new URL(page.url()).searchParams.get("q")).toBe("All");
   await page.reload();
   await expect(search).toHaveValue("All");
+  await search.fill("");
+  await search.pressSequentially("IIT Bombay", { delay: 10 });
+  await expect(search).toHaveValue("IIT Bombay");
+  await expect.poll(() => new URL(page.url()).searchParams.get("q")).toBe("IIT Bombay");
 });
 
 test("project selection follows browser history and offers an empty-state reset", async ({ page }) => {
@@ -34,6 +38,7 @@ test("project selection follows browser history and offers an empty-state reset"
   await expect(page.locator("main h2")).toHaveCount(36);
   await page.getByRole("button", { name: "Show 36 more projects" }).click();
   await expect(page.locator("main h2")).toHaveCount(72);
+  await expect(page.getByRole("status")).toContainText("Showing 72 of");
 });
 
 test("a project cannot be served under another category's canonical URL", async ({ page }) => {
