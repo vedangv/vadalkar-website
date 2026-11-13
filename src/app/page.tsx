@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
+import { getProjectStatistics } from "@/lib/project-statistics";
 import HomeStats from "@/components/HomeStats";
 import { getProjects, getHomePage, getSiteSettings } from "@/sanity/lib/queries";
 import { DEFAULT_SERVICES } from "@/data/services";
@@ -314,7 +315,7 @@ export default async function Home() {
               Numbers
             </h2>
           </FadeIn>
-          <HomeStats projects={projects} yearsActive={settings?.experienceYears || 35} />
+          <HomeStats statistics={getProjectStatistics(projects)} yearsActive={settings?.experienceYears || 35} />
         </div>
       </section>
 

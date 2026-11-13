@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState, useMemo } from "react";
-import { categories } from "@/data/projects";
-import type { SanityProject } from "@/sanity/lib/queries";
+import { useEffect, useRef, useState } from "react";
+import type { ProjectStatistics } from "@/lib/project-statistics";
 
 import { useCountUp } from "@/lib/useCountUp";
 
-export default function ProjectStats({ projects, yearsActive = 36 }: { projects: SanityProject[], yearsActive?: number }) {
+export default function ProjectStats({ statistics, yearsActive = 36 }: { statistics: ProjectStatistics, yearsActive?: number }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -28,42 +27,10 @@ export default function ProjectStats({ projects, yearsActive = 36 }: { projects:
     return () => observer.disconnect();
   }, []);
 
-  const activeCats = useMemo(
-    () => categories.filter((c) => c !== "All"),
-    []
-  );
-
-  const categoryData = useMemo(() => {
-    const data = activeCats
-      .map((cat) => ({
-        name: cat,
-        count: projects.filter((p) => p.category === cat).length,
-      }))
-      .sort((a, b) => b.count - a.count);
-    return data;
-  }, [activeCats, projects]);
-
-  const maxCount = categoryData.length > 0 ? categoryData[0].count : 1;
-
-  const decades = useMemo(() => {
-    const ranges = [
-      { label: "1990s", min: 1990, max: 1999 },
-      { label: "2000s", min: 2000, max: 2009 },
-      { label: "2010s", min: 2010, max: 2019 },
-      { label: "2020s", min: 2020, max: 2029 },
-    ];
-
-    return ranges.map((r) => ({
-      label: r.label,
-      count: projects.filter((p) => {
-        const y = parseInt(p.year, 10);
-        return !isNaN(y) && y >= r.min && y <= r.max;
-      }).length,
-    }));
-  }, [projects]);
-
-  const totalProjects = projects.length;
-  const sectorsServed = activeCats.length;
+  const { totalProjects, sectorsServed, featuredProjects } = statistics;
+  const categoryData = statistics.categories;
+  const maxCount = Math.max(categoryData[0]?.count || 0, 1);
+  const decades = statistics.decades;
 
   const totalCount = useCountUp(totalProjects, isVisible);
   const sectorsCount = useCountUp(sectorsServed, isVisible);
@@ -100,7 +67,7 @@ export default function ProjectStats({ projects, yearsActive = 36 }: { projects:
         <div>
           <p className="text-5xl sm:text-6xl font-bold text-primary-500 tabular-nums">
             {useCountUp(
-              projects.filter((p) => p.featured).length,
+              featuredProjects,
               isVisible
             )}
           </p>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import FadeIn from "@/components/FadeIn";
+import { getProjectStatistics } from "@/lib/project-statistics";
 import ProjectStats from "@/components/ProjectStats";
 import { getProjects, getAboutPage, getSiteSettings } from "@/sanity/lib/queries";
 import { PortableText } from "next-sanity";
@@ -208,7 +209,7 @@ export default async function AboutPage() {
               Project Statistics
             </h2>
           </FadeIn>
-          <ProjectStats projects={projects} yearsActive={settings?.experienceYears || 36} />
+          <ProjectStats statistics={getProjectStatistics(projects)} yearsActive={settings?.experienceYears || 36} />
         </div>
       </section>
     </>
