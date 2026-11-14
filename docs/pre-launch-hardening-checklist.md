@@ -1,6 +1,6 @@
 # Vadalkar & Associates Pre-Launch Hardening Checklist
 
-Last reviewed: 2026-11-13 for local code and offline fixtures. Deployment and CMS observations below are retained from the 2026-08-12 checklist and have not been repeated in this local review.
+Last reviewed: 2026-11-13 (after PRs #6 and #7) for local code and offline fixtures. Deployment and CMS observations below are retained from the 2026-08-12 checklist and have not been repeated in this local review.
 
 Target production domain: `https://vadalkar.com`
 
@@ -15,6 +15,7 @@ Recorded launch candidate (2026-08-12): GitHub `main` / Vercel production, alias
 - [x] Harden the contact API: validation, length limits, HTML escaping, same-origin enforcement, a honeypot, bounded streamed request bodies, and delivery status unaffected by optional lead-log failures.
 - [ ] Configure shared or edge rate limiting for `/api/contact`; origin checks and the honeypot do not limit repeated direct requests.
 - [ ] Replace the Resend sandbox sender with a verified `vadalkar.com` sender and run an approved end-to-end delivery test.
+- [ ] **Owner step:** set the contact-form environment variables in Vercel (`RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL`; optionally `GOOGLE_SHEETS_WEBHOOK_URL`), check the Resend account and sender-domain verification, then send a test enquiry. Email delivery is unverified.
 - [x] Make Cloudflare Email Routing the sole inbound-mail provider; remove the conflicting Hostinger MX records and Hostinger SPF include.
 - [x] Activate and verify `info@vadalkar.com`, `support@vadalkar.com`, and `contact@vadalkar.com` as named forwarding aliases; keep catch-all delivery disabled.
 - [x] Verify the authoritative DNS publishes Cloudflare's three routing MX records, SPF include, and Email Routing DKIM key.
@@ -53,8 +54,10 @@ Recorded launch candidate (2026-08-12): GitHub `main` / Vercel production, alias
 - [x] Add focused tests for SEO URL generation and contact validation/escaping; verify revalidation rejection behavior at the route boundary.
 - [x] Add content-type, referrer, frame, and browser-permission security headers compatible with the public site and Studio.
 - [x] Update compatible dependencies, including Next.js 16.4.6, React 19.2.8, and Resend 6.19, then re-run the dependency audit.
-- [x] Re-run `npm audit`: on 2026-11-13 it reports 25 findings (6 high, 19 moderate, no critical).
-- [ ] Test the major Sanity/next-sanity and affected tooling upgrades needed for the remaining advisories; do not force dependency overrides without compatibility checks.
+- [x] Re-run `npm audit`: on 2026-11-13 it initially reported 25 findings (6 high, 19 moderate, no critical); after PR #7 it reports 0. Details in [`dependency-audit-2026-11-13.md`](dependency-audit-2026-11-13.md).
+- [x] Upgrade Sanity 4.22.1 to 5.8.0 and patch the remaining transitive advisories with targeted overrides (PR #7); typecheck, lint, 24 unit tests, offline build and 77 browser tests passed on the agent's run.
+- [ ] **Owner step:** open the upgraded Studio at `/studio`, sign in and test an edit (create or change a draft, publish, confirm it appears on the site). Live Studio sign-in and editing were not verified.
+- [ ] Remove the temporary dependency overrides in `package.json` as upstream packages adopt patched ranges; re-run the checks in the dependency audit note.
 - [x] Remove unused `styled-components` from the direct dependencies.
 - [x] Add CI for typecheck, lint, tests, and production build on pull requests and `main`.
 
