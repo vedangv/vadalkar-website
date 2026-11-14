@@ -8,7 +8,7 @@ The Next.js launch candidate is currently served at `development.vadalkar.com`. 
 
 - Next.js 16 App Router, React 19, and TypeScript
 - Tailwind CSS 4 and optional native scroll animations
-- Sanity for projects, home, about, contact, and site settings
+- Sanity 5 (Studio at `/studio`) for projects, home, about, contact, and site settings
 - Resend for contact-form delivery
 - Vercel for builds, hosting, analytics, and deployment
 - Cloudflare for DNS
@@ -91,3 +91,12 @@ NEXT_PUBLIC_SITE_INDEXABLE=true
 Then rebuild and verify canonical tags, `/robots.txt`, `/sitemap.xml`, redirects, structured data, project images, and contact delivery on the apex domain.
 
 The complete release gates and rollback procedure live in [`docs/pre-launch-hardening-checklist.md`](docs/pre-launch-hardening-checklist.md).
+
+## Dependencies
+
+`npm audit` reports 0 findings as of 2026-11-13, after the Sanity 5.8.0 upgrade and a set of targeted `overrides` in `package.json`. The overrides are temporary; the reasoning and the verification commands are in [`docs/dependency-audit-2026-11-13.md`](docs/dependency-audit-2026-11-13.md).
+
+## Open owner steps
+
+- Set `RESEND_API_KEY`, `CONTACT_FROM_EMAIL` and `CONTACT_TO_EMAIL` (and optionally `GOOGLE_SHEETS_WEBHOOK_URL`) in Vercel, check the Resend account and sender domain, and send a test enquiry. Email delivery has not been verified live.
+- Open `/studio` on the upgraded Sanity 5 Studio, sign in and test an edit. Live Studio sign-in and editing have not been verified.

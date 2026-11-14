@@ -14,6 +14,7 @@ This is the **main corporate website only**. The `blog/` subdirectory is a separ
 ## Tech Stack
 - Next.js 16 (App Router) + TypeScript + React 19
 - Tailwind CSS 4 (inline @theme in globals.css)
+- Sanity 5.8.0 (pinned) with next-sanity 11; temporary `overrides` in `package.json` clear audit findings (see `docs/dependency-audit-2026-11-13.md`)
 - Native Web Animations API (progressive enhancement via FadeIn component)
 - Font: Inter (Google Fonts)
 
@@ -61,7 +62,14 @@ public/brochure.html                    — Standalone 8-page corporate brochure
 - `npm run dev` — Start dev server (localhost:3000)
 - `npm run build` — Production build
 - `npm run typecheck` / `npm run lint` / `npm test` — Required quality gates
+- `npm run test:browser` / `npm run build:offline` — Browser regression tests and offline validation build against CMS fixtures (see README); run builds and browser tests serially
 - Auto-deploys on push to main via Vercel
+- Release gates and status: `docs/pre-launch-hardening-checklist.md`
+
+## Status (2026-11-13)
+- PR #6 (site polish: navigation, projects, brochure, accessibility, contact form hardening) and PR #7 (dependency advisories, Sanity 5.8.0) are merged to main. `npm audit` reports 0.
+- Open owner steps: set `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL` (optional `GOOGLE_SHEETS_WEBHOOK_URL`) in Vercel and check Resend; test an edit in Sanity Studio (`/studio`) after the Sanity 5 upgrade. Neither is verified live.
+- Still open: rate limiting for `/api/contact`, apex-domain cutover, and the Dad-blocked photos and content (see the checklist).
 
 ## Content Sources
 - Original website: http://vadalkar.com (2007 era) — company profile, contact details, services
